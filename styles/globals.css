@@ -26,8 +26,13 @@ a {
   height: 100vh;
   width:calc(100% /3 * 2)
 }
-
-@media (prefers-color-scheme: dark) {
+.bg-signup{
+  background: url(../public/assets/boxed-water-is-better-y-TpYAlcBYM-unsplash.jpg);
+  width: 100%;
+  height: 100vh;
+  background-size: cover;
+}
+/* @media (prefers-color-scheme: dark) {
   html {
     color-scheme: dark;
   }
@@ -35,4 +40,4 @@ a {
     color: white;
     background: black;
   }
-}
+} */
