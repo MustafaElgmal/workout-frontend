@@ -1,6 +1,7 @@
 import { Fragment, useEffect, useState } from "react";
 import { Dialog, Menu, Transition } from "@headlessui/react";
 import { useRouter } from "next/router";
+import Link from "next/link";
 import {
   Bars3BottomLeftIcon,
   BellIcon,
@@ -11,6 +12,8 @@ import {
   XMarkIcon,
 } from "@heroicons/react/24/outline";
 import { MagnifyingGlassIcon } from "@heroicons/react/20/solid";
+import { MenuType } from "../types";
+import { changeNavigationCurrent } from "../utils/functions";
 
 const navigation = [
   { name: "Dashboard", href: "/", icon: HomeIcon, current: true },
@@ -34,16 +37,20 @@ function classNames(...classes: string[]) {
 }
 
 export default function Layout({ children }: any) {
+  const [menu,setMenu]=useState<MenuType[]>(navigation)
   const [sidebarOpen, setSidebarOpen] = useState(false);
   const [Router, setRouter] = useState<string>("");
   const router = useRouter();
   useEffect(() => {
     setRouter(router.asPath);
+    changeNavigationCurrent(router.asPath,menu,setMenu)
   }, []);
 
   return (
     <>
-      {Router === "/signin" || Router === "/signup" ? <div>{children}</div> : (
+      {Router === "/signin" || Router === "/signup" ? (
+        <div>{children}</div>
+      ) : (
         <div>
           <Transition.Root show={sidebarOpen} as={Fragment}>
             <Dialog
@@ -106,28 +113,30 @@ export default function Layout({ children }: any) {
                     </div>
                     <div className="mt-5 h-0 flex-1 overflow-y-auto">
                       <nav className="space-y-1 px-2">
-                        {navigation.map((item) => (
-                          <a
-                            key={item.name}
-                            href={item.href}
-                            className={classNames(
-                              item.current
-                                ? "bg-gray-100 text-gray-900"
-                                : "text-gray-600 hover:bg-gray-50 hover:text-gray-900",
-                              "group flex items-center px-2 py-2 text-base font-medium rounded-md"
-                            )}
-                          >
-                            <item.icon
+                        {menu.map((item) => (
+                          <Link key={item.name} href={item.href}>
+                            <a
                               className={classNames(
                                 item.current
-                                  ? "text-gray-500"
-                                  : "text-gray-400 group-hover:text-gray-500",
-                                "mr-4 flex-shrink-0 h-6 w-6"
+                                  ? "bg-gray-100 text-gray-900"
+                                  : "text-gray-600 hover:bg-gray-50 hover:text-gray-900",
+                                "group flex items-center px-2 py-2 text-base font-medium rounded-md"
                               )}
-                              aria-hidden="true"
-                            />
-                            {item.name}
-                          </a>
+                              onClick={()=>changeNavigationCurrent(item.href,menu,setMenu)}
+                            
+                            >
+                              <item.icon
+                                className={classNames(
+                                  item.current
+                                    ? "text-gray-500"
+                                    : "text-gray-400 group-hover:text-gray-500",
+                                  "mr-4 flex-shrink-0 h-6 w-6"
+                                )}
+                                aria-hidden="true"
+                              />
+                              {item.name}
+                            </a>
+                          </Link>
                         ))}
                       </nav>
                     </div>
@@ -153,28 +162,30 @@ export default function Layout({ children }: any) {
               </div>
               <div className="mt-5 flex flex-grow flex-col">
                 <nav className="flex-1 space-y-1 px-2 pb-4">
-                  {navigation.map((item) => (
-                    <a
-                      key={item.name}
-                      href={item.href}
-                      className={classNames(
-                        item.current
-                          ? "bg-gray-100 text-gray-900"
-                          : "text-gray-600 hover:bg-gray-50 hover:text-gray-900",
-                        "group flex items-center px-2 py-2 text-sm font-medium rounded-md"
-                      )}
-                    >
-                      <item.icon
+                  {menu.map((item) => (
+                    <Link key={item.name} href={item.href}>
+                      <a
                         className={classNames(
                           item.current
-                            ? "text-gray-500"
-                            : "text-gray-400 group-hover:text-gray-500",
-                          "mr-3 flex-shrink-0 h-6 w-6"
+                            ? "bg-gray-100 text-gray-900"
+                            : "text-gray-600 hover:bg-gray-50 hover:text-gray-900",
+                          "group flex items-center px-2 py-2 text-sm font-medium rounded-md"
                         )}
-                        aria-hidden="true"
-                      />
-                      {item.name}
-                    </a>
+                        onClick={()=>changeNavigationCurrent(item.href,menu,setMenu)}
+                        
+                      >
+                        <item.icon
+                          className={classNames(
+                            item.current
+                              ? "text-gray-500"
+                              : "text-gray-400 group-hover:text-gray-500",
+                            "mr-3 flex-shrink-0 h-6 w-6"
+                          )}
+                          aria-hidden="true"
+                        />
+                        {item.name}
+                      </a>
+                    </Link>
                   ))}
                 </nav>
               </div>

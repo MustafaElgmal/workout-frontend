@@ -45,7 +45,7 @@ const Home: NextPage = () => {
             type="button"
             className="inline-flex items-center rounded-md border border-gray-300 bg-black px-4 py-2 text-sm font-medium text-white shadow-sm hover:bg-black focus:outline-none focus:ring-2 focus:ring-black focus:ring-offset-2"
           >
-            Start today's workout
+            Start today&apos;s workout
           </button>
         </div>
       </div>
@@ -80,7 +80,7 @@ const Home: NextPage = () => {
       </div>
       <div>
         <div className="py-6 px-10">
-          Today's workout (Leg Day)
+        today&apos;s workout (Leg Day)
 
         </div>
       </div>
@@ -89,7 +89,7 @@ const Home: NextPage = () => {
          <div className=" flex mt-5 items-center">
 
           <span className="absolute top-5 left-15 ml-4 h-full w-0.5 bg-gray-200 handl" aria-hidden="true"></span>
-        <div className=""> 
+        <div className="z-10"> 
           <img
             className="inline-block h-9 w-9 rounded-full"
             src="https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80"
