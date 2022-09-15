@@ -2,6 +2,20 @@
 # yarn lockfile v1
 
 
+"@angular/common@>=14.0.0":
+  "integrity" "sha512-9h8MwFLvIJ5kB5L03cd3Cyl4ySKVzL/E/YYugfLvcAzYZ8Rief63gJnkcKNjoS1A5DTxHhOBQL7pLZpj+YxDOw=="
+  "resolved" "https://registry.npmjs.org/@angular/common/-/common-14.2.2.tgz"
+  "version" "14.2.2"
+  dependencies:
+    "tslib" "^2.3.0"
+
+"@angular/core@>=14.0.0", "@angular/core@14.2.2":
+  "integrity" "sha512-kG30b4RqjgWvaH9y4g95JRCzoROV+9/xgFH4hSRejFa/IcapMfvCmONJtJzwTjdsEUQAbiFohF/z9bx3QA/Yvw=="
+  "resolved" "https://registry.npmjs.org/@angular/core/-/core-14.2.2.tgz"
+  "version" "14.2.2"
+  dependencies:
+    "tslib" "^2.3.0"
+
 "@babel/runtime-corejs3@^7.10.2":
   "integrity" "sha512-JyXXoCu1N8GLuKc2ii8y5RGma5FMpFeO2nAQIe0Yzrbq+rQnN+sFj47auLblR5ka6aHNGPDgv8G/iI2Grb0ldQ=="
   "resolved" "https://registry.npmjs.org/@babel/runtime-corejs3/-/runtime-corejs3-7.19.0.tgz"
@@ -142,6 +156,13 @@
   "integrity" "sha512-/5OFZgfIPSwy+YuIBP/FgJnQnsxhZhjjrnxudMddeblOouIodEQ75X14Rr4wGSG/bknL+Omy9iWlLo1u/9GzAA=="
   "resolved" "https://registry.npmjs.org/@types/react-dom/-/react-dom-18.0.6.tgz"
   "version" "18.0.6"
+  dependencies:
+    "@types/react" "*"
+
+"@types/react-helmet@^6.1.5":
+  "integrity" "sha512-/ICuy7OHZxR0YCAZLNg9r7I9aijWUWvxaPR6uTuyxe8tAj5RL4Sw1+R6NhXUtOsarkGYPmaHdBDvuXh2DIN/uA=="
+  "resolved" "https://registry.npmjs.org/@types/react-helmet/-/react-helmet-6.1.5.tgz"
+  "version" "6.1.5"
   dependencies:
     "@types/react" "*"
 
@@ -408,6 +429,11 @@
   dependencies:
     "ansi-styles" "^4.1.0"
     "supports-color" "^7.1.0"
+
+"chart.js@^3.4.0", "chart.js@^3.9.1":
+  "integrity" "sha512-Ro2JbLmvg83gXF5F4sniaQ+lTbSv18E+TIf2cOeiH1Iqd2PGFOtem+DUufMZsCJwFE7ywPOpfXFBwRTGq7dh6w=="
+  "resolved" "https://registry.npmjs.org/chart.js/-/chart.js-3.9.1.tgz"
+  "version" "3.9.1"
 
 "chokidar@^3.5.3":
   "integrity" "sha512-Dr3sfKRP6oTcjf2JmUmFJfeVMvXBdegxB0iVQ5eb2V10uFJUCAS8OByZdVAyVb8xXNz3GjjTgj9kLWsZTqE6kw=="
@@ -1266,6 +1292,11 @@
   dependencies:
     "p-locate" "^5.0.0"
 
+"lodash-es@^4.17.15":
+  "integrity" "sha512-mKnC+QJ9pWVzv+C4/U3rRsHapFfHvQFoFB92e52xeyGMcX6/OlIl78je1u8vePzYZSkkogMPJ2yjxxsb89cxyw=="
+  "resolved" "https://registry.npmjs.org/lodash-es/-/lodash-es-4.17.21.tgz"
+  "version" "4.17.21"
+
 "lodash.merge@^4.6.2":
   "integrity" "sha512-0KpjqXRVvrYyCsX1swR/XTK0va6VQkQM6MNo7PqW77ByjAhoARA8EfrP1N4+KlKj8YS0ZUCtRT/YUuhyYDujIQ=="
   "resolved" "https://registry.npmjs.org/lodash.merge/-/lodash.merge-4.6.2.tgz"
@@ -1365,6 +1396,14 @@
     "@next/swc-win32-arm64-msvc" "12.3.0"
     "@next/swc-win32-ia32-msvc" "12.3.0"
     "@next/swc-win32-x64-msvc" "12.3.0"
+
+"ng2-charts@^4.0.0":
+  "integrity" "sha512-1COLMs1UH8XIurk9C3pBQW3zH4RM3ggPtaC5vGjEmRGZ2cK/j8DqpzN4xMqyk0KB4D2vw/ZejgXmxxZ4Ie58Rw=="
+  "resolved" "https://registry.npmjs.org/ng2-charts/-/ng2-charts-4.0.0.tgz"
+  "version" "4.0.0"
+  dependencies:
+    "lodash-es" "^4.17.15"
+    "tslib" "^2.3.0"
 
 "node-releases@^2.0.6":
   "integrity" "sha512-PiVXnNuFm5+iYkLBNeq5211hvO38y63T0i2KKh2KnUs3RpzJ+JtODFjkD8yjLwnDkTYF1eKXheUwdssR+NRZdg=="
@@ -1717,6 +1756,13 @@
   dependencies:
     "queue-microtask" "^1.2.2"
 
+"rxjs@^6.5.3 || ^7.4.0":
+  "integrity" "sha512-dnyv2/YsXhnm461G+R/Pe5bWP41Nm6LBXEYWI6eiFP4fiwx6WRI/CD0zbdVAudd9xwLEF2IDcKXLHit0FYjUzw=="
+  "resolved" "https://registry.npmjs.org/rxjs/-/rxjs-7.5.6.tgz"
+  "version" "7.5.6"
+  dependencies:
+    "tslib" "^2.1.0"
+
 "scheduler@^0.23.0":
   "integrity" "sha512-CtuThmgHNg7zIZWAXi3AsyIzA3n4xx7aNyjwC2VJldO2LMVDhFK+63xGqq6CsJH4rTAt6/M+N4GhZiDYPx9eUw=="
   "resolved" "https://registry.npmjs.org/scheduler/-/scheduler-0.23.0.tgz"
@@ -1888,7 +1934,7 @@
   "resolved" "https://registry.npmjs.org/tslib/-/tslib-1.14.1.tgz"
   "version" "1.14.1"
 
-"tslib@^2.4.0":
+"tslib@^2.1.0", "tslib@^2.3.0", "tslib@^2.4.0":
   "integrity" "sha512-d6xOpEDfsi2CZVlPQzGeux8XMwLT9hssAsaPYExaQMuYskwb+x1x7J371tWlbBdWHroy99KnVB6qIkUbs5X3UQ=="
   "resolved" "https://registry.npmjs.org/tslib/-/tslib-2.4.0.tgz"
   "version" "2.4.0"
@@ -1999,3 +2045,10 @@
   "integrity" "sha512-rVksvsnNCdJ/ohGc6xgPwyN8eheCxsiLM8mxuE/t/mOVqJewPuO1miLpTHQiRgTKCLexL4MeAFVagts7HmNZ2Q=="
   "resolved" "https://registry.npmjs.org/yocto-queue/-/yocto-queue-0.1.0.tgz"
   "version" "0.1.0"
+
+"zone.js@~0.11.4":
+  "integrity" "sha512-82bctBg2hKcEJ21humWIkXRlLBBmrc3nN7DFh5LGGhcyycO2S7FN8NmdvlcKaGFDNVL4/9kFLmwmInTavdJERA=="
+  "resolved" "https://registry.npmjs.org/zone.js/-/zone.js-0.11.8.tgz"
+  "version" "0.11.8"
+  dependencies:
+    "tslib" "^2.3.0"
