@@ -49,7 +49,7 @@ export default function Layout({ children }: any) {
   return (
     <>
       {Router === "/signin" || Router === "/signup" ? (
-        <div>{children}</div>
+        <>{children}</>
       ) : (
         <div>
           <Transition.Root show={sidebarOpen} as={Fragment}>
