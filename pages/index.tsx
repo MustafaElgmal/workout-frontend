@@ -5,18 +5,18 @@ import Sidebar from "../components/layout";
 import Table from "../components/table";
 
 const projects = [
-  { name: 'rounded-md', lbs: 255, bgColor: 'bg-red-600	' },
-  { name: 'Bicep Curl', lbs: 55, bgColor: 'bg-black' },
-  { name: 'Bench Press', lbs: 150, bgColor: 'bg-blue-600' },
-  { name: 'Overhead Press', lbs: 90, bgColor: 'bg-green-600' },
-]
+  { name: "rounded-md", lbs: 255, bgColor: "bg-red-600	" },
+  { name: "Bicep Curl", lbs: 55, bgColor: "bg-black" },
+  { name: "Bench Press", lbs: 150, bgColor: "bg-blue-600" },
+  { name: "Overhead Press", lbs: 90, bgColor: "bg-green-600" },
+];
 
 function classNames(...classes: string[]) {
-  return classes.filter(Boolean).join(' ')
+  return classes.filter(Boolean).join(" ");
 }
 const Home: NextPage = () => {
   return (
-    <div className="container mx-auto sm:px-6 lg:px-8 bg-zinc-100	py-10	" >
+    <div className="container mx-auto sm:px-6 lg:px-8 bg-zinc-100	py-10	">
       <div className="bg-white py-6 px-10 flex justify-between items-center">
         <div className="flex items-center">
           <img
@@ -25,10 +25,11 @@ const Home: NextPage = () => {
             alt=""
           />
           <div className="p-2">
-            <h2 className="text-xl	font-bold
-">
+            <h2
+              className="text-xl	font-bold
+"
+            >
               Good morning, Your Name
-
             </h2>
             <span>🔥10 Day Streak</span>
           </div>
@@ -53,19 +54,25 @@ const Home: NextPage = () => {
           Personal Records 🏆
         </div>
 
-        <ul role="list" className="mt-3 grid grid-cols-1 gap-5 sm:grid-cols-2 sm:gap-6 lg:grid-cols-4">
-
+        <ul
+          role="list"
+          className="mt-3 grid grid-cols-1 gap-5 sm:grid-cols-2 sm:gap-6 lg:grid-cols-4"
+        >
           {projects.map((project) => (
-            <li key={project.name} className={classNames(project.bgColor, "col-span-1 flex rounded-xl shadow-sm ")}>
-
+            <li
+              key={project.name}
+              className={classNames(
+                project.bgColor,
+                "col-span-1 flex rounded-xl shadow-sm "
+              )}
+            >
               <div className="flex flex-1 items-center justify-between truncate rounded-xl border-t border-r border-b py-5">
                 <div className="flex-1 truncate px-6 py-2 text-sm">
-                  <div className="font-medium text-white ">
-                    {project.name}
-                  </div>
-                  <p className="text-white text-lg font-bold">{project.lbs}  lbs</p>
+                  <div className="font-medium text-white ">{project.name}</div>
+                  <p className="text-white text-lg font-bold">
+                    {project.lbs} lbs
+                  </p>
                 </div>
-
               </div>
             </li>
           ))}
