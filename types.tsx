@@ -10,7 +10,6 @@ export interface Person {
   name: string;
   avatar: string;
 }
-
 export interface MenuType {
   name: string;
   href: string;
@@ -28,4 +27,5 @@ export interface workoutType {
 }
 export interface  exercieceType extends workoutType {
   video: string;
+  workoutId:number
 }
