@@ -65,7 +65,7 @@ const ExercieceDetails = () => {
                 <div className="relative">
                   <div className="relative h-72 w-full overflow-hidden rounded-lg">
                     <img
-                      src={`../../${exerciece.imageSrc}`}
+                      src={exerciece.imageSrc}
                       alt={exerciece.imageAlt}
                       className="h-full w-full object-cover object-center"
                     />
