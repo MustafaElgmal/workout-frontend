@@ -6,6 +6,8 @@ function MyApp({ Component, pageProps }: AppProps) {
   return (
     <Layout>
       <Component {...pageProps} />
+      <div className='bg-green-600 bg-blue-600' hidden></div>
+
     </Layout>
   )
 }

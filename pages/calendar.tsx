@@ -9,21 +9,9 @@ import {
 } from "@heroicons/react/20/solid";
 import { Menu, Transition } from "@headlessui/react";
 import Link from "next/link";
-import ExercieceDetails from "../components/exercieceDetails";
+import WorkoutHistory from "../components/workoutHistory";
+import { classNames } from "../constants/index";
 
-const meetings = [
-  {
-    id: 1,
-    date: "January 10th, 2022",
-    time: "5:00 PM",
-    datetime: "2022-01-10T17:00",
-    name: "Leslie Alexander",
-    imageUrl:
-      "https://images.unsplash.com/photo-1494790108377-be9c29b29330?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80",
-    location: "Starbucks",
-  },
-  // More meetings...
-];
 const days = [
   { date: "2022-01-01", isCurrentMonth: true, isSelected: true, isToday: true },
   {
@@ -208,10 +196,6 @@ const days = [
   },
 ];
 
-function classNames(...classes: string[]) {
-  return classes.filter(Boolean).join(" ");
-}
-
 const Calender = () => {
   return (
     <div className="container mx-auto sm:px-6 lg:px-8 bg-zinc-100 py-10 min-h-screen">
@@ -294,8 +278,7 @@ const Calender = () => {
               <span>January 14, 2021</span>
             </div>
           </div>
-          <ExercieceDetails />
-          
+          <WorkoutHistory />
         </ol>
       </div>
     </div>

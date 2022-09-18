@@ -2,22 +2,11 @@ import { Person } from "../types";
 import { Fragment, useState } from "react";
 import { Listbox, Transition } from "@headlessui/react";
 import { CheckIcon, ChevronUpDownIcon } from "@heroicons/react/20/solid";
+import {gender} from '../constants/index'
+import { classNames } from "../constants/index";
 
-const gender = [
-  {
-    id: 1,
-    name: "Male",
-    avatar: "./assets/boy.png",
-  },
-  {
-    id: 2,
-    name: "Female",
-    avatar: "./assets/girl.png",
-  },
-];
-function classNames(...classes: string[]) {
-  return classes.filter(Boolean).join(" ");
-}
+
+
 
 const Signup = () => {
   const [people, setPeople] = useState<Person[]>(gender);
