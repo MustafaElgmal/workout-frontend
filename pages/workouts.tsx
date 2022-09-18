@@ -3,7 +3,7 @@ import Exercises from "../components/exercises";
 
 const Workouts = () =>{
     return(
-        <div className="container mx-auto sm:px-6 lg:px-8 bg-zinc-100	py-10">
+        <div className="container mx-auto sm:px-6 lg:px-8 bg-zinc-100 py-10">
             <div className="text-center font-bold	">
                 <h1 className="text-4xl font-extrabold tracking-tight text-gray-900 ">
                 Browse our carefully curated exercises
