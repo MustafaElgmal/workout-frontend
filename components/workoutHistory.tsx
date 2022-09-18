@@ -25,7 +25,7 @@ const exercises = [
   },
 ];
 
-const ExercieceDetails = () => {
+const WorkoutHistory = () => {
   return (
     <>
       {exercises.map((exercise) => (
@@ -46,4 +46,4 @@ const ExercieceDetails = () => {
   );
 };
 
-export default ExercieceDetails;
+export default WorkoutHistory;
