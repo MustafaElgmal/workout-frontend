@@ -1,0 +1,71 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model User {
+  id           Int           @id @default(autoincrement())
+  firstName    String        @db.VarChar(255)
+  lastName     String        @db.VarChar(255)
+  email        String        @unique
+  password     String
+  imageUrl     String?
+  imageAlt     String?
+  height       Decimal
+  weight       Decimal
+  dateOfBirth  DateTime
+  workoutlines Workoutline[]
+  logs         Log[]
+}
+
+model Workout {
+  id           Int           @id @default(autoincrement())
+  name         String        @db.VarChar(255)
+  description  String
+  href         String
+  imageUrl     String
+  imageAlt     String
+  workoutlines Workoutline[]
+}
+
+model Exercise {
+  id          Int    @id @default(autoincrement())
+  name        String @db.VarChar(255)
+  description String
+  href        String
+  imageUrl    String
+  imageAlt    String
+  videoUrl    String
+}
+
+model Workoutline {
+  id         Int     @id @default(autoincrement())
+  recSets    Int
+  recReps    Int
+  recWeights Int
+  userId     Int
+  workoutId  Int
+  logs       Log[]
+  user       User    @relation(fields: [userId], references: [id])
+  workout    Workout @relation(fields: [workoutId], references: [id])
+}
+
+model Log {
+  id            Int         @id @default(autoincrement())
+  recSets       Int
+  recReps       Int
+  recWeights    Int
+  step          Int
+  createdAt     DateTime    @default(now())
+  userId        Int
+  WorkoutlineId Int
+  user          User        @relation(fields: [userId], references: [id])
+  workoutline   Workoutline @relation(fields: [WorkoutlineId], references: [id])
+}

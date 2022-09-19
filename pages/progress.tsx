@@ -14,54 +14,53 @@ const data = {
     },
     chartData: {
         labels: [
-            "10:00",
-            "",
-            "",
-            "",
-            "12:00",
-            "",
-            "",
-            "",
-            "2:00",
-            "",
-            "",
-            "",
-            "4:00",
+            "January",
+
+
+            "February",
+
+            "March   ",
+
+            "April",
+
+
+            "May",
+
+
+            "July",
         ],
         data: [
-            2.23,
-            2.215,
-            2.22,
-            2.25,
-            2.245,
-            2.27,
-            2.28,
-            2.29,
-            2.3,
-            2.29,
-            2.325,
-            2.325,
-            2.32,
+            100,
+            120,
+            140,
+            160,
+            180,
+            200,
+            220,
+            240,
+            260,
+            280,
+            300,
         ],
     },
 };
 const progress = [
-    {bgColor: "bg-red-600",name:"Squat",lbs:"255"},
-    {bgColor: "bg-black",name:"Bicep Curl",lbs:"55"},
-    {bgColor: "bg-blue-600",name:"Bench Press",lbs:"150"}, 
-    {bgColor: "bg-green-600",name:"Overhead Press",lbs:"150"}
+    { bgColor: "bg-red-600", name: "Squat", lbs: "255" },
+    { bgColor: "bg-black", name: "Bicep Curl", lbs: "55" },
+    { bgColor: "bg-blue-600", name: "Bench Press", lbs: "150" },
+    { bgColor: "bg-green-600", name: "Overhead Press", lbs: "150" }
 ]
 
-export default  function Progress() {
+export default function Progress() {
 
     return (
         <div className="container mx-auto sm:px-6 lg:px-8 bg-zinc-100 py-10">
             <div>
-            <h1 className="text-2xl font-extrabold tracking-tight text-gray-900 sm:text-3xl">My Progress</h1>
-        </div>
-        <div className="min-w-screen min-h-screen flex-wrap	   flex items-center justify-center px-5 py-5 ">
-            {progress.map(inx =><StockChart key={inx.bgColor} info={data} color={inx.bgColor} name={inx.name} lbs={inx.lbs}/>)}
-        </div>
+                <h1 className="text-2xl font-extrabold tracking-tight text-gray-900 sm:text-3xl">My Progress</h1>
+            </div>
+            <div className="min-w-screen min-h-screen flex-wrap	   flex items-center justify-center px-5 py-5 ">
+                {progress.map(inx => <StockChart key={inx.bgColor} info={data} color={inx.bgColor} name={inx.name} lbs={inx.lbs} />)}
+            </div>
         </div>
     );
 }
