@@ -56,15 +56,14 @@ const options = {
     },
 };
 
-const numberToFix = (number:any, fix:any) => (number || 0).toFixed(fix);
 const StockChart = ({ info,color,name,lbs }:any) => {
     const data = buildData(info);
     console.log(color);
     
     return (
         <>
-            <div className="rounded  overflow-hidden md:w-1/2 flex flex-col  " style={{ maxWidth: '900px' }}>
-                <div className={`${color} mt-8  lex  rounded-lg  px-5  pb-4 pt-8  mx-4 text-white items-center` }>
+            <div className="rounded  overflow-hidden md:w-1/2 flex flex-col  " >
+                <div className={`${color} mt-8    rounded-lg  px-5  pb-4 pt-8  mx-4 text-white items-center` }>
                     <Line  data={data} options={options} />
                 </div>
                 <div className='flex justify-between mx-5 mt-2 '>
