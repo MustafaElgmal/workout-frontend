@@ -15,6 +15,24 @@ a {
   text-decoration: none;
 }
 
+.timeBorder{
+  position: relative;
+  border: 10px solid black;
+  width: 200px;
+  height: 200px;
+  border-radius: 50%;
+}
+.timer{
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+.bttn{
+  top:50%;
+  left: 50%;
+}
+
 * {
   box-sizing: border-box;
   
@@ -27,10 +45,15 @@ a {
   width:calc(100% /3 * 2)
 }
 .bg-signup{
-  background: url(../public/assets/boxed-water-is-better-y-TpYAlcBYM-unsplash.jpg);
+  background: url('../public/assets/boxed-water-is-better-y-TpYAlcBYM-unsplash.jpg');
   width: 100%;
   height: 100vh;
   background-size: cover;
+}
+.imgbackexer{
+  height:35vh;
+  width:100%;
+  border-radius: 20px 0 0 20px;
 }
 /* @media (prefers-color-scheme: dark) {
   html {

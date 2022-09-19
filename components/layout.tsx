@@ -49,7 +49,7 @@ export default function Layout({ children }: any) {
   return (
     <>
       {Router === "/signin" || Router === "/signup" ? (
-        <div>{children}</div>
+        <>{children}</>
       ) : (
         <div>
           <Transition.Root show={sidebarOpen} as={Fragment}>
@@ -107,7 +107,7 @@ export default function Layout({ children }: any) {
                     <div className="flex flex-shrink-0 items-center px-4">
                       <img
                         className="h-8 w-auto"
-                        src="../public/assets/logo-4.png"
+                        src="/logo-4.png"
                         alt="logo"
                       />
                     </div>

@@ -2,7 +2,8 @@
 const people = [
     { num: 1, weight: 20, reps: 20, },
     { num: 2, weight: 20, reps: 20, },
-    { num: 2, weight: 20, reps: 20, },
+    { num: 3, weight: 20, reps: 20, },
+    { num: 4, weight: 20, reps: 20, }
     // More people...
 ]
 
