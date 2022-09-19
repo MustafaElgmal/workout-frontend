@@ -1,5 +1,4 @@
 import { SVGProps } from "react";
-
 export interface AppProps {
   programs?:workoutType[] | exercieceType[],
   isWorkout?:Boolean
@@ -23,7 +22,6 @@ export interface workoutType {
   imageSrc: string;
   imageAlt: string;
   href: string;
- 
 }
 export interface  exercieceType extends workoutType {
   video: string;
