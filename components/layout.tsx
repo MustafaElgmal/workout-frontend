@@ -37,13 +37,13 @@ function classNames(...classes: string[]) {
 }
 
 export default function Layout({ children }: any) {
-  const [menu,setMenu]=useState<MenuType[]>(navigation)
+  const [menu, setMenu] = useState<MenuType[]>(navigation);
   const [sidebarOpen, setSidebarOpen] = useState(false);
   const [Router, setRouter] = useState<string>("");
   const router = useRouter();
   useEffect(() => {
     setRouter(router.asPath);
-    changeNavigationCurrent(router.asPath,menu,setMenu)
+    changeNavigationCurrent(router.asPath, menu, setMenu);
   }, []);
 
   return (
@@ -107,7 +107,7 @@ export default function Layout({ children }: any) {
                     <div className="flex flex-shrink-0 items-center px-4">
                       <img
                         className="h-8 w-auto"
-                        src="/logo-4.png"
+                        src="https://review2020.s3.amazonaws.com/logo-4.png"
                         alt="logo"
                       />
                     </div>
@@ -122,8 +122,13 @@ export default function Layout({ children }: any) {
                                   : "text-gray-600 hover:bg-gray-50 hover:text-gray-900",
                                 "group flex items-center px-2 py-2 text-base font-medium rounded-md"
                               )}
-                              onClick={()=>changeNavigationCurrent(item.href,menu,setMenu)}
-                            
+                              onClick={() =>
+                                changeNavigationCurrent(
+                                  item.href,
+                                  menu,
+                                  setMenu
+                                )
+                              }
                             >
                               <item.icon
                                 className={classNames(
@@ -156,8 +161,8 @@ export default function Layout({ children }: any) {
               <div className="flex flex-shrink-0 items-center px-4">
                 <img
                   style={{ width: "150px" }}
-                  src="./assets/logo-4.png"
-                  alt="Your Company"
+                  src="https://review2020.s3.amazonaws.com/logo-4.png"
+                  alt="logo"
                 />
               </div>
               <div className="mt-5 flex flex-grow flex-col">
@@ -171,8 +176,9 @@ export default function Layout({ children }: any) {
                             : "text-gray-600 hover:bg-gray-50 hover:text-gray-900",
                           "group flex items-center px-2 py-2 text-sm font-medium rounded-md"
                         )}
-                        onClick={()=>changeNavigationCurrent(item.href,menu,setMenu)}
-                        
+                        onClick={() =>
+                          changeNavigationCurrent(item.href, menu, setMenu)
+                        }
                       >
                         <item.icon
                           className={classNames(

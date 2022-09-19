@@ -1,13 +1,13 @@
 import Link from "next/link";
 import { useRouter } from "next/router";
 import React, { useEffect, useState } from "react";
-import Table from "../../../components/table";
-import { exercieceType } from "../../../types";
+import Table from "../../../../components/table";
+import { exercieceType } from "../../../../types";
 import {
   findOtherExercieces,
   findExerciece,
   getIdFromPath,
-} from "../../../utils/functions";
+} from "../../../../utils/functions";
 
 const ExercieceDetails = () => {
   const [OtherExercieces, setOtherExercieces] = useState<exercieceType[]>([]);
