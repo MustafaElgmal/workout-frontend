@@ -43,7 +43,7 @@ export default async function handlerUser(
           weight
         }
         });
-      
+        
         
         res.json({user});
       } catch (e) {

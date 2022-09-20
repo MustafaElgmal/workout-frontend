@@ -36,25 +36,31 @@ model Workout {
 }
 
 model Exercise {
-  id          Int    @id @default(autoincrement())
-  name        String @db.VarChar(255)
-  description String
-  href        String
-  imageUrl    String
-  imageAlt    String
-  videoUrl    String
+  id           Int           @id @default(autoincrement())
+  name         String        @db.VarChar(255)
+  description  String
+  href         String
+  imageUrl     String
+  imageAlt     String
+  videoUrl     String
+ workoutlines Workoutline[]
 }
 
 model Workoutline {
-  id         Int     @id @default(autoincrement())
+  id Int @id @default(autoincrement())
   recSets    Int
   recReps    Int
   recWeights Int
   userId     Int
   workoutId  Int
+  exerciseId Int
   logs       Log[]
-  user       User    @relation(fields: [userId], references: [id])
-  workout    Workout @relation(fields: [workoutId], references: [id])
+  exercise   Exercise @relation(fields: [exerciseId], references: [id])
+  user       User     @relation(fields: [userId], references: [id]) 
+  workout    Workout  @relation(fields: [workoutId], references: [id])
+  
+  @@unique([workoutId, exerciseId])
+
 }
 
 model Log {

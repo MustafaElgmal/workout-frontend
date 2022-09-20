@@ -5,7 +5,7 @@ import { Exercise } from "@prisma/client";
 type Data = {
   message?: string;
   error?: string;
-  exercises?: Exercise[];
+  exercises?:any[];
 };
 
 export default async function handlerExercises(
@@ -19,9 +19,7 @@ export default async function handlerExercises(
         if (!workoutId) {
           return res.status(400).json({ message: "workoutId is required!" });
         }
-        const exercises = await prisma.exercise.findMany({
-          where: { workoutId },
-        });
+          const exercises =  await prisma.exercise.findMany({where:{workoutlines:{some:{workoutId:+workoutId}}}})
         res.json({ exercises });
       } catch (error) {
         res.status(500).json({ error: "Server is down" });
