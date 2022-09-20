@@ -3,6 +3,20 @@ export interface AppProps {
   programs?:workoutType[] | exercieceType[],
   isWorkout?:Boolean
 }
+export interface userCreate{
+  firstName:string
+  lastName:string
+  email:string
+  password:string
+  dateOfBirth:Date
+  height:number
+  weight:number 
+}
+export interface userType extends userCreate{
+  id:number 
+  imageUrl:string 
+  imageAlt:string
+}
 
 export interface Person {
   id: number;

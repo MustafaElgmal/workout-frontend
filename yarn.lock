@@ -118,11 +118,6 @@
     "@nodelib/fs.scandir" "2.1.5"
     "fastq" "^1.6.0"
 
-"@prisma/engines@4.3.1":
-  "integrity" "sha512-4JF/uMaEDAPdcdZNOrnzE3BvrbGpjgV0FcPT3EVoi6I86fWkloqqxBt+KcK/+fIRR0Pxj66uGR9wVH8U1Y13JA=="
-  "resolved" "https://registry.npmjs.org/@prisma/engines/-/engines-4.3.1.tgz"
-  "version" "4.3.1"
-
 "@prisma/client@^4.3.1":
   "integrity" "sha512-FA0/d1VMJNWqzU7WVWTNWJ+lGOLR9JUBnF73GdIPAEVo/6dWk4gHx0EmgeU+SMv4MZoxgOeTBJF2azhg7x0hMw=="
   "resolved" "https://registry.npmjs.org/@prisma/client/-/client-4.3.1.tgz"
@@ -201,6 +196,11 @@
   "integrity" "sha512-hppQEBDmlwhFAXKJX2KnWLYu5yMfi91yazPb2l+lbJiwW+wdo1gNeRA+3RgNSO39WYX2euey41KEwnqesU2Jew=="
   "resolved" "https://registry.npmjs.org/@types/scheduler/-/scheduler-0.16.2.tgz"
   "version" "0.16.2"
+
+"@types/validator@^13.7.6":
+  "integrity" "sha512-uBsnWETsUagQ0n6G2wcXNIufpTNJir0zqzG4p62fhnwzs48d/iuOWEEo0d3iUxN7D+9R/8CSvWGKS+KmaD0mWA=="
+  "resolved" "https://registry.npmjs.org/@types/validator/-/validator-13.7.6.tgz"
+  "version" "13.7.6"
 
 "@typescript-eslint/parser@^5.21.0":
   "integrity" "sha512-01VzI/ipYKuaG5PkE5+qyJ6m02fVALmMPY3Qq5BHflDx3y4VobbLdHQkSMg9VPRS4KdNt4oYTMaomFoHonBGAw=="
@@ -1675,34 +1675,11 @@
   "integrity" "sha512-vkcDPrRZo1QZLbn5RLGPpg/WmIQ65qoWWhcGKf/b5eplkkarX0m9z8ppCat4mlOqUsWpyNuYgO3VRyrYHSzX5g=="
   "resolved" "https://registry.npmjs.org/prelude-ls/-/prelude-ls-1.2.1.tgz"
   "version" "1.2.1"
+
 "prisma@*", "prisma@^4.3.1":
   "integrity" "sha512-90xo06wtqil76Xsi3mNpc4Js3SdDRR5g4qb9h+4VWY4Y8iImJY6xc3PX+C9xxTSt1lr0Q89A0MLkJjd8ax6KiQ=="
   "resolved" "https://registry.npmjs.org/prisma/-/prisma-4.3.1.tgz"
   "version" "4.3.1"
-  dependencies:
-    "@prisma/engines" "4.3.1"
-
-"proc-log@^2.0.0", "proc-log@^2.0.1":
-  "version" "2.0.1"
-
-"promise-all-reject-late@^1.0.0":
-  "version" "1.0.1"
-
-"promise-call-limit@^1.0.1":
-  "version" "1.0.1"
-
-"promise-inflight@^1.0.1":
-  "version" "1.0.1"
-
-"promise-retry@^2.0.1":
-  "version" "2.0.1"
-  dependencies:
-    "err-code" "^2.0.2"
-    "retry" "^0.12.0"
-
-"promzard@^0.3.0":
-  "version" "0.3.0"
-
   dependencies:
     "@prisma/engines" "4.3.1"
 
@@ -2086,6 +2063,11 @@
   "integrity" "sha512-EPD5q1uXyFxJpCrLnCc1nHnq3gOa6DZBocAIiI2TaSCA7VCJ1UJDMagCzIkXNsUYfD1daK//LTEQ8xiIbrHtcw=="
   "resolved" "https://registry.npmjs.org/util-deprecate/-/util-deprecate-1.0.2.tgz"
   "version" "1.0.2"
+
+"validator@^13.7.0":
+  "integrity" "sha512-nYXQLCBkpJ8X6ltALua9dRrZDHVYxjJ1wgskNt1lH9fzGjs3tgojGSCBjmEPwkWS1y29+DrizMTW19Pr9uB2nw=="
+  "resolved" "https://registry.npmjs.org/validator/-/validator-13.7.0.tgz"
+  "version" "13.7.0"
 
 "which-boxed-primitive@^1.0.2":
   "integrity" "sha512-bwZdv0AKLpplFY2KZRX6TvyuN7ojjr7lwkg6ml0roIy9YeuSr7JS372qlNW18UQYzgYK9ziGcerWqZOmEn9VNg=="
