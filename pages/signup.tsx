@@ -4,6 +4,10 @@ import { Listbox, Transition } from "@headlessui/react";
 import { CheckIcon, ChevronUpDownIcon } from "@heroicons/react/20/solid";
 import {gender} from '../constants/index'
 import { classNames } from "../constants/index";
+import { useFormik } from "formik";
+import * as Yup from 'yup'
+import { createUser } from "../utils/apis";
+import { useRouter } from "next/router";
 
 
 
@@ -11,7 +15,35 @@ import { classNames } from "../constants/index";
 const Signup = () => {
   const [people, setPeople] = useState<Person[]>(gender);
   const [selected, setSelected] = useState<Person>(people[0]);
-
+  const router = useRouter()
+  const formik = useFormik({
+    initialValues: {
+      firstName: "",
+      lastName: "",
+      email: "",
+      password: "",
+      dateOfBirh:"",
+      height:"",
+      weight:""
+      
+    },
+    validationSchema: Yup.object({
+      firstName: Yup.string().required("FirstName is required!"),
+      lastName: Yup.string().required("LastName is required!"),
+      email: Yup.string()
+        .email("Email is not vaild!")
+        .required("Email is required!"),
+      password: Yup.string().required("Password is required!"),
+      dateOfBirh: Yup.string().required("dateOfBrh is required!"),
+      height: Yup.string().required("Height is required!"),
+      weight: Yup.string().required("Weight is required!"),
+    }),
+    onSubmit: async (values) => {
+      const res = await createUser(values );
+        formik.resetForm();
+    
+    },
+  });
   return (
     <>
       <div className="flex min-h-full">
