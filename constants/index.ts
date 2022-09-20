@@ -1,6 +1,8 @@
 import { workoutType } from './../types';
 import { exercieceType } from "../types";
 
+export const Base_Url="http://localhost:3000"
+
 export const gender = [
     {
       id: 1,
