@@ -1,8 +1,26 @@
+import { useFormik } from "formik";
 import Link from "next/link";
+import { useRouter } from "next/router";
 import React from "react";
-
+import * as Yup from "yup";
+import { signInWithEmail } from "../utils/apis";
 
 const SignIn = () => {
+  const router = useRouter();
+  const formik = useFormik({
+    initialValues: {
+      email: "",
+      password: "",
+    },
+    validationSchema: Yup.object({
+      email: Yup.string().email().required("Please Enter your Email"),
+      password: Yup.string().required("Please Enter your password"),
+    }),
+    onSubmit: async (values) => {
+      await signInWithEmail({ ...values }, router);
+      formik.resetForm();
+    },
+  });
   return (
     <>
       <div className="flex min-h-full">
@@ -43,6 +61,11 @@ const SignIn = () => {
                         required
                         className="block w-full appearance-none rounded-md border border-gray-300 px-3 py-2 placeholder-gray-400 shadow-sm focus:border-indigo-500 focus:outline-none focus:ring-indigo-500 sm:text-sm"
                       />
+                      <p className="text-red-600">
+                        {formik.errors.email && formik.touched.email
+                          ? formik.errors.email
+                          : null}
+                      </p>
                     </div>
                   </div>
 
@@ -58,10 +81,18 @@ const SignIn = () => {
                         id="password"
                         name="password"
                         type="password"
+                        value={formik.values.password}
+                        onBlur={formik.handleBlur}
+                        onChange={formik.handleChange}
                         autoComplete="current-password"
                         required
                         className="block w-full appearance-none rounded-md border border-gray-300 px-3 py-2 placeholder-gray-400 shadow-sm focus:border-indigo-500 focus:outline-none focus:ring-indigo-500 sm:text-sm"
                       />
+                      <p className="text-red-600">
+                        {formik.errors.password && formik.touched.password
+                          ? formik.errors.password
+                          : null}
+                      </p>
                     </div>
                   </div>
 

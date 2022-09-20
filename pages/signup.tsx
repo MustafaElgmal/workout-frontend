@@ -2,30 +2,26 @@ import { Person } from "../types";
 import { Fragment, useState } from "react";
 import { Listbox, Transition } from "@headlessui/react";
 import { CheckIcon, ChevronUpDownIcon } from "@heroicons/react/20/solid";
-import {gender} from '../constants/index'
+import { gender } from "../constants/index";
 import { classNames } from "../constants/index";
 import { useFormik } from "formik";
-import * as Yup from 'yup'
+import * as Yup from "yup";
 import { createUser } from "../utils/apis";
 import { useRouter } from "next/router";
-
-
-
 
 const Signup = () => {
   const [people, setPeople] = useState<Person[]>(gender);
   const [selected, setSelected] = useState<Person>(people[0]);
-  const router = useRouter()
+  const router = useRouter();
   const formik = useFormik({
     initialValues: {
       firstName: "",
       lastName: "",
       email: "",
       password: "",
-      dateOfBirh:"",
-      height:"",
-      weight:""
-      
+      dateOfBirth: "",
+      height: "",
+      weight: "",
     },
     validationSchema: Yup.object({
       firstName: Yup.string().required("FirstName is required!"),
@@ -34,14 +30,16 @@ const Signup = () => {
         .email("Email is not vaild!")
         .required("Email is required!"),
       password: Yup.string().required("Password is required!"),
-      dateOfBirh: Yup.string().required("dateOfBrh is required!"),
+      dateOfBirth: Yup.string().required("dateOfBirth is required!"),
       height: Yup.string().required("Height is required!"),
       weight: Yup.string().required("Weight is required!"),
     }),
     onSubmit: async (values) => {
-      const res = await createUser(values );
-        formik.resetForm();
-    
+      const res = await createUser(
+        { ...values, height: +values.height, weight: +values.weight },
+        router
+      );
+      formik.resetForm();
     },
   });
   return (
@@ -82,11 +80,19 @@ const Signup = () => {
                         <input
                           id="firstName"
                           name="firstName"
+                          value={formik.values.firstName}
+                          onBlur={formik.handleBlur}
+                          onChange={formik.handleChange}
                           type="text"
                           autoComplete="firstName"
                           required
                           className="block w-full appearance-none rounded-md border border-gray-300 px-3 py-2 placeholder-gray-400 shadow-sm focus:border-indigo-500 focus:outline-none focus:ring-indigo-500 sm:text-sm"
                         />
+                        <p className="text-red-600">
+                          {formik.errors.firstName && formik.touched.firstName
+                            ? formik.errors.firstName
+                            : null}
+                        </p>
                       </div>
                     </div>
                     <div>
@@ -100,11 +106,19 @@ const Signup = () => {
                         <input
                           id="lastName"
                           name="lastName"
+                          value={formik.values.lastName}
+                          onBlur={formik.handleBlur}
+                          onChange={formik.handleChange}
                           type="text"
                           autoComplete="lastName"
                           required
                           className="block w-full appearance-none rounded-md border border-gray-300 px-3 py-2 placeholder-gray-400 shadow-sm focus:border-indigo-500 focus:outline-none focus:ring-indigo-500 sm:text-sm"
                         />
+                        <p className="text-red-600">
+                          {formik.errors.lastName && formik.touched.lastName
+                            ? formik.errors.lastName
+                            : null}
+                        </p>
                       </div>
                     </div>
                   </div>
@@ -119,11 +133,19 @@ const Signup = () => {
                       <input
                         id="email"
                         name="email"
+                        value={formik.values.email}
+                        onBlur={formik.handleBlur}
+                        onChange={formik.handleChange}
                         type="email"
                         autoComplete="email"
                         required
                         className="block w-full appearance-none rounded-md border border-gray-300 px-3 py-2 placeholder-gray-400 shadow-sm focus:border-indigo-500 focus:outline-none focus:ring-indigo-500 sm:text-sm"
                       />
+                      <p className="text-red-600">
+                        {formik.errors.email && formik.touched.email
+                          ? formik.errors.email
+                          : null}
+                      </p>
                     </div>
                   </div>
 
@@ -138,11 +160,19 @@ const Signup = () => {
                       <input
                         id="password"
                         name="password"
+                        value={formik.values.password}
+                        onBlur={formik.handleBlur}
+                        onChange={formik.handleChange}
                         type="password"
                         autoComplete="current-password"
                         required
                         className="block w-full appearance-none rounded-md border border-gray-300 px-3 py-2 placeholder-gray-400 shadow-sm focus:border-indigo-500 focus:outline-none focus:ring-indigo-500 sm:text-sm"
                       />
+                      <p className="text-red-600">
+                        {formik.errors.password && formik.touched.password
+                          ? formik.errors.password
+                          : null}
+                      </p>
                     </div>
                   </div>
                   <Listbox value={selected} onChange={setSelected}>
@@ -250,13 +280,22 @@ const Signup = () => {
                       </label>
                       <div className="relative mt-1 flex items-center">
                         <input
-                          id="age"
-                          name="age"
-                          type="number"
-                          autoComplete="age"
+                          id="dateOfBirth"
+                          name="dateOfBirth"
+                          value={formik.values.dateOfBirth}
+                          onBlur={formik.handleBlur}
+                          onChange={formik.handleChange}
+                          type="text"
+                          autoComplete="dateOfBirth"
                           required
                           className="block w-full appearance-none rounded-md border border-gray-300 px-3 py-2 placeholder-gray-400 shadow-sm focus:border-indigo-500 focus:outline-none focus:ring-indigo-500 sm:text-sm"
                         />
+                        <p className="text-red-600">
+                          {formik.errors.dateOfBirth &&
+                          formik.touched.dateOfBirth
+                            ? formik.errors.dateOfBirth
+                            : null}
+                        </p>
                         <div className="absolute inset-y-0 right-0 flex py-1.5 pr-1.5">
                           <kbd className="inline-flex items-center rounded border border-gray-200 px-2 font-sans text-sm font-medium text-gray-400">
                             years
@@ -275,11 +314,19 @@ const Signup = () => {
                         <input
                           id="weight"
                           name="weight"
+                          value={formik.values.weight}
+                          onBlur={formik.handleBlur}
+                          onChange={formik.handleChange}
                           type="number"
                           autoComplete="weight"
                           required
                           className="block w-full appearance-none rounded-md border border-gray-300 px-3 py-2 placeholder-gray-400 shadow-sm focus:border-indigo-500 focus:outline-none focus:ring-indigo-500 sm:text-sm"
                         />
+                        <p className="text-red-600">
+                          {formik.errors.weight && formik.touched.weight
+                            ? formik.errors.weight
+                            : null}
+                        </p>
                         <div className="absolute inset-y-0 right-0 flex py-1.5 pr-1.5">
                           <kbd className="inline-flex items-center rounded border border-gray-200 px-2 font-sans text-sm font-medium text-gray-400">
                             kgs
@@ -298,11 +345,19 @@ const Signup = () => {
                         <input
                           id="height"
                           name="height"
+                          value={formik.values.height}
+                          onBlur={formik.handleBlur}
+                          onChange={formik.handleChange}
                           type="number"
                           autoComplete="height"
                           required
                           className="block w-full appearance-none rounded-md border border-gray-300 px-3 py-2 placeholder-gray-400 shadow-sm focus:border-indigo-500 focus:outline-none focus:ring-indigo-500 sm:text-sm"
                         />
+                        <p className="text-red-600">
+                          {formik.errors.height && formik.touched.height
+                            ? formik.errors.height
+                            : null}
+                        </p>
                         <div className="absolute inset-y-0 right-0 flex py-1.5 pr-1.5">
                           <kbd className="inline-flex items-center rounded border border-gray-200 px-2 font-sans text-sm font-medium text-gray-400">
                             cm
