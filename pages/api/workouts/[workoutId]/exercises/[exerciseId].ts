@@ -1,11 +1,11 @@
 import type { NextApiRequest, NextApiResponse } from "next";
-import { prisma } from "../../../../lib/prisma";
+import { prisma } from "../../../../../lib/prisma";
 import { Exercise } from "@prisma/client";
 
 type Data = {
   message?: string;
   error?: string;
-  exercises?: Exercise[];
+  exercise?: Exercise;
 };
 
 export default async function handlerExercises(
@@ -15,14 +15,17 @@ export default async function handlerExercises(
   switch (req.method) {
     case "GET":
       try {
-        const { exerciseId } = req.query;
+        const { exerciseId, workoutId } = req.query;
         if (!exerciseId) {
           return res.status(400).json({ message: "exerciseId is required!" });
         }
-        const exercises = await prisma.exercise.findFirst({
-          where: { exerciseId },
+        const exercise = await prisma.exercise.findFirst({
+          where: {workoutlines:{some:{exerciseId : +exerciseId,workoutId:+workoutId!}} },
         });
-        res.json({ exercises });
+        if (!exercise) {
+          return res.status(400).json({ message: "exerciseId is not exist!" });
+        }
+        res.json({ exercise });
       } catch (error) {
         res.status(500).json({ error: "Server is down" });
       }
