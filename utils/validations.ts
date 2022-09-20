@@ -1,5 +1,7 @@
 import { userCreate } from "./../types";
 import validator from "validator";
+import { PrismaClient } from "@prisma/client";
+const prisma = new PrismaClient();
 export const userValidation = async (user: userCreate) => {
   const errors: { error: string }[] = [];
   const { firstName, lastName, email, password, dateOfBirth, height, weight } =
@@ -35,6 +37,10 @@ export const userValidation = async (user: userCreate) => {
   } else {
     if (!validator.isEmail(email)) {
       errors.push({ error: "password should be email" });
+    }
+    const user=await prisma.user.findFirst({where:{email}})
+    if(user){
+      errors.push({ error: "email is Already exist!" });
     }
   }
   return errors;

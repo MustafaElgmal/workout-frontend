@@ -20,7 +20,7 @@ model User {
   imageAlt     String?
   height       Decimal
   weight       Decimal
-  dateOfBirth  DateTime
+  dateOfBirth  String
   workoutlines Workoutline[]
   logs         Log[]
 }

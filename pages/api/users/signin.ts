@@ -1,14 +1,14 @@
 import { userType } from "./../../../types";
 import type { NextApiRequest, NextApiResponse } from "next";
 import { signInValidation } from "../../../utils/validations";
-import { PrismaClient } from "@prisma/client";
+import { PrismaClient, User } from "@prisma/client";
 const prisma = new PrismaClient();
 
 type Data = {
   message?: string;
   error?: string;
   errors?: { error: string }[];
-  user?: userType;
+  user?:User;
 };
 
 export default async function handlerSignIn(
@@ -24,7 +24,7 @@ export default async function handlerSignIn(
         }
         const { email, password }: { email: string; password: string } =
           req.body;
-        const user = await prisma.User.findFirst({
+        const user = await prisma.user.findFirst({
           where: { email, password },
         });
         if (!user) {
