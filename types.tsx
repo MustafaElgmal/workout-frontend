@@ -14,8 +14,8 @@ export interface userCreate{
 }
 export interface userType extends userCreate{
   id:number 
-  imageUrl:string 
-  imageAlt:string
+  imageUrl:string | null
+  imageAlt:string| null
 }
 
 export interface Person {

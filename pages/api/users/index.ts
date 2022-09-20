@@ -1,14 +1,14 @@
 import { userCreate, userType } from "./../../../types";
 import type { NextApiRequest, NextApiResponse } from "next";
 import { userValidation } from "../../../utils/validations";
-import { PrismaClient } from "@prisma/client";
+import { PrismaClient, User } from "@prisma/client";
 const prisma = new PrismaClient();
 
 type Data = {
   message?: string;
   error?: string;
   errors?: { error: string }[];
-  user?: userType;
+  user?: User
 };
 
 export default async function handlerUser(
@@ -31,17 +31,22 @@ export default async function handlerUser(
           height,
           weight,
         }: userCreate = req.body;
-        const user = await prisma.User.create({
+        const user = await prisma.user.create({
+          data:{
           firstName,
           lastName,
           email,
           password,
           dateOfBirth,
           height,
-          weight,
+          weight
+        }
         });
-        res.json({ user });
+      
+        
+        res.json({user});
       } catch (e) {
+        console.log(e)
         res.status(500).json({ error: "Server is down!" });
       }
       break;
