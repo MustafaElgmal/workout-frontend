@@ -8,7 +8,7 @@ export interface userCreate{
   lastName:string
   email:string
   password:string
-  dateOfBirth:Date
+  dateOfBirth:string
   height:number
   weight:number 
 }
