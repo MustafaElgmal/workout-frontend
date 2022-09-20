@@ -1,8 +1,9 @@
 // Next.js API route support: https://nextjs.org/docs/api-routes/introduction
 import type { NextApiRequest, NextApiResponse } from "next";
 import { workoutType } from "../../../types";
-import { PrismaClient, Workout } from "@prisma/client";
-const prisma = new PrismaClient();
+import {prisma} from '../../../lib/prisma'
+import { Workout } from "@prisma/client";
+
 
 type Data = {
     message?: string;

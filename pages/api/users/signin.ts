@@ -1,8 +1,9 @@
-import { userType } from "./../../../types";
+
 import type { NextApiRequest, NextApiResponse } from "next";
 import { signInValidation } from "../../../utils/validations";
-import { PrismaClient, User } from "@prisma/client";
-const prisma = new PrismaClient();
+import {prisma} from '../../../lib/prisma'
+import { User } from "@prisma/client";
+
 
 type Data = {
   message?: string;
