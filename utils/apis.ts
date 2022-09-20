@@ -4,12 +4,19 @@ import { Base_Url } from "../constants";
 import { userCreate } from "../types";
 
 export const createUser = async (user: userCreate, router: NextRouter) => {
+
   try {
+  
+    
     const res = await axios.post("/api/users");
+    
+    
     router.push("/");
   } catch (e: any) {
+    console.log(e);
+    
     if (e.status !== 500) {
-      alert(e.response.data.message);
+      alert(e.response.data.error[0]);
     } else {
       console.log(e);
     }

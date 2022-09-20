@@ -11,6 +11,7 @@ export interface userCreate{
   dateOfBirth:string
   height:number
   weight:number 
+  gender : string
 }
 export interface userType extends userCreate{
   id:number 

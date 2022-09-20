@@ -4,7 +4,7 @@ import { PrismaClient } from "@prisma/client";
 const prisma = new PrismaClient();
 export const userValidation = async (user: userCreate) => {
   const errors: { error: string }[] = [];
-  const { firstName, lastName, email, password, dateOfBirth, height, weight } =
+  const { firstName, lastName, email, password, dateOfBirth, height, weight,gender } =
     user;
 
   if (!firstName) {
@@ -21,6 +21,9 @@ export const userValidation = async (user: userCreate) => {
   }
   if (!weight) {
     errors.push({ error: "weigth is required!" });
+  }
+  if (!gender) {
+    errors.push({ error: "gender is required!" });
   }
   if (!password) {
     errors.push({ error: "password is required!" });

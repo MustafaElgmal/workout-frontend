@@ -33,13 +33,19 @@ const Signup = () => {
       dateOfBirth: Yup.string().required("dateOfBirth is required!"),
       height: Yup.string().required("Height is required!"),
       weight: Yup.string().required("Weight is required!"),
+
     }),
     onSubmit: async (values) => {
+      console.log( {
+        ...values, height: +values.height, weight: +values.weight, gender: selected.name
+      })
       const res = await createUser(
-        { ...values, height: +values.height, weight: +values.weight },
+        {
+          ...values, height: +values.height, weight: +values.weight, gender: selected.name
+        },
         router
       );
-      formik.resetForm();
+      // formik.resetForm();
     },
   });
   return (
@@ -67,7 +73,7 @@ const Signup = () => {
 
             <div className="mt-8">
               <div className="mt-6">
-                <form action="#" method="POST" className="space-y-6">
+                <form  className="space-y-6">
                   <div className="flex space-x-5">
                     <div className=" ">
                       <label
@@ -292,7 +298,7 @@ const Signup = () => {
                         />
                         <p className="text-red-600">
                           {formik.errors.dateOfBirth &&
-                          formik.touched.dateOfBirth
+                            formik.touched.dateOfBirth
                             ? formik.errors.dateOfBirth
                             : null}
                         </p>
@@ -369,7 +375,7 @@ const Signup = () => {
 
                   <div>
                     <button
-                      type="submit"
+                      onClick={() => formik.handleSubmit()}
                       className="flex w-full justify-center rounded-md border border-transparent bg-black py-2 px-4 text-sm font-medium text-white shadow-sm hover:bg-black focus:outline-none focus:ring-2 focus:ring-black focus:ring-offset-2"
                     >
                       Sign up
