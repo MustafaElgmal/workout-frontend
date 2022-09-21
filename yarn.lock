@@ -147,6 +147,13 @@
   dependencies:
     "@supabase/auth-helpers-shared" "0.1.4"
 
+"@supabase/auth-helpers-react@^0.2.4":
+  "integrity" "sha512-o/6VcnkCQnlPFBOVVlmk5w37fhlalDZKxPV9w5eYwgM4uzg1FwH6b70YNuOhA3EwCcy/S8e3pKVEsKAx/LjFcA=="
+  "resolved" "https://registry.npmjs.org/@supabase/auth-helpers-react/-/auth-helpers-react-0.2.4.tgz"
+  "version" "0.2.4"
+  dependencies:
+    "@supabase/auth-helpers-shared" "0.1.4"
+
 "@supabase/auth-helpers-shared@0.1.4":
   "integrity" "sha512-5jsy8pxrdFIBjcpGWihBb1gsiK2WMO8lKKnNlrZCgAzTdC/rZHVnYs7zK8yaLyoHidLfp6N5ZnocJUm7ZKSABQ=="
   "resolved" "https://registry.npmjs.org/@supabase/auth-helpers-shared/-/auth-helpers-shared-0.1.4.tgz"

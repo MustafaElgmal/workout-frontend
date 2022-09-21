@@ -1,24 +1,23 @@
-import { Exercise, Workout } from "@prisma/client";
+import { Exercise, Workout, Workoutline } from "@prisma/client";
 import { SVGProps } from "react";
 export interface AppProps {
-  programs?:Workout[] |Exercise[],
-  isWorkout?:Boolean
-  workouts?:Workout[]
+  programs?: Workout[] | Exercise[];
+  isWorkout?: Boolean;
+  workouts?: Workout[];
+  exercise?: exercieceType;
+  exercises?: Exercise[];
+  otherExercises?: Exercise[];
+  otherWorkouts?: Workout[];
 }
-export interface userCreate{
-  firstName:string
-  lastName:string
-  email:string
-  password:string
-  age:number
-  height:number
-  weight:number 
-  gender : string
-}
-export interface userType extends userCreate{
-  id:number 
-  imageUrl?:string
-  imageAlt?:string
+export interface userCreate {
+  firstName: string;
+  lastName: string;
+  email: string;
+  password: string;
+  age: number;
+  height: number;
+  weight: number;
+  gender: string;
 }
 
 export interface Person {
@@ -32,15 +31,12 @@ export interface MenuType {
   icon: (props: SVGProps<SVGSVGElement>) => JSX.Element;
   current: Boolean;
 }
-export interface workoutType {
-  id: number;
+export interface userNavigationType {
   name: string;
-  description: string;
-  imageSrc: string;
-  imageAlt: string;
   href: string;
 }
-export interface  exercieceType extends workoutType {
-  video: string;
-  workoutId:number
+
+
+export interface exercieceType extends Exercise {
+  workoutlines: Workoutline[];
 }
