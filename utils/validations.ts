@@ -60,7 +60,7 @@ export const signInValidation = async (user: {
     errors.push({ error: "email is required!" });
   } else {
     if (!validator.isEmail(email)) {
-      errors.push({ error: "password should be email" });
+      errors.push({ error: "email should be vaild !" });
     }
   }
   if (!password) {

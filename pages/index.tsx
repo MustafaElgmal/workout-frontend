@@ -11,7 +11,6 @@ const Home: NextPage = () => {
   const {user}=useUser()
   useEffect(()=>{
     console.log(user)
-
   },[])
   return (
     <Layout>
