@@ -40,7 +40,7 @@ export const userValidation = async (user: userCreate) => {
       errors.push({ error: "email is required!" });
     } else {
       if (!validator.isEmail(email)) {
-        errors.push({ error: "password should be email" });
+        errors.push({ error: "email should be valid !" });
       }
       const user=await prisma.user.findFirst({where:{email}})
       if(user){
