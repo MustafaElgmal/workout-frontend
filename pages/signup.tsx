@@ -8,7 +8,6 @@ import { useFormik } from "formik";
 import * as Yup from "yup";
 import { createUser } from "../utils/apis";
 import { useRouter } from "next/router";
-
 const Signup = () => {
   const [people, setPeople] = useState<Person[]>(gender);
   const [selected, setSelected] = useState<Person>(people[0]);
