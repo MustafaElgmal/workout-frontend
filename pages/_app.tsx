@@ -1,15 +1,19 @@
-import '../styles/globals.css'
-import type { AppProps } from 'next/app'
-import Layout from '../components/layout'
+import "../styles/globals.css";
+import type { AppProps } from "next/app";
+import { UserProvider } from "@supabase/auth-helpers-react";
+import { supabaseClient } from "@supabase/auth-helpers-nextjs";
+import Protected from "../components/protected";
 
 function MyApp({ Component, pageProps }: AppProps) {
   return (
-    <Layout>
+    <UserProvider supabaseClient={supabaseClient}>
+      <Protected>
       <Component {...pageProps} />
-      <div className='bg-green-600 bg-blue-600' hidden></div>
-
-    </Layout>
-  )
+      <div className="bg-green-600 bg-blue-600" hidden></div>
+      </Protected>
+      
+    </UserProvider>
+  );
 }
 
-export default MyApp
+export default MyApp;

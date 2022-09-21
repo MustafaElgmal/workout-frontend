@@ -3,7 +3,8 @@ import Link from "next/link";
 import { useRouter } from "next/router";
 import React from "react";
 import * as Yup from "yup";
-import { supabaseClient } from '@supabase/auth-helpers-nextjs'
+import { supabaseClient } from "@supabase/auth-helpers-nextjs";
+import { signInUser } from "../utils/apis";
 
 const SignIn = () => {
   const router = useRouter();
@@ -17,17 +18,8 @@ const SignIn = () => {
       password: Yup.string().required("Please Enter your password"),
     }),
     onSubmit: async (values) => {
-      const { user,error } = await supabaseClient.auth.signIn({
-        email: values.email,
-        password: values.password
-      })
-      console.log(user)
-      if (user) {
-        router.push('/')
-      } else {
-        console.log(error)
-        router.push('/signin')
-      }
+      
+      await signInUser(values, router);
       formik.resetForm();
     },
   });
@@ -123,7 +115,7 @@ const SignIn = () => {
                   <div>
                     <button
                       type="button"
-                      onClick={()=>formik.handleSubmit()}
+                      onClick={() => formik.handleSubmit()}
                       className="flex w-full justify-center rounded-md border border-transparent bg-black py-2 px-4 text-sm font-medium text-white shadow-sm hover:bg-black focus:outline-none focus:ring-2 focus:ring-black focus:ring-offset-2"
                     >
                       Sign in
