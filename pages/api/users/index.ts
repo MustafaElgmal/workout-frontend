@@ -28,9 +28,10 @@ export default async function handlerUser(
           lastName,
           email,
           password,
-          dateOfBirth,
+          age,
           height,
           weight,
+          gender
         }: userCreate = req.body;
         const user = await prisma.user.create({
           data:{
@@ -38,14 +39,14 @@ export default async function handlerUser(
           lastName,
           email,
           password,
-          dateOfBirth,
+          age,
           height,
-          weight
+          weight,
+          gender
         }
         });
-        
-        
-        res.json({user});
+    
+        res.status(201).json({user});
       } catch (e) {
         console.log(e)
         res.status(500).json({ error: "Server is down!" });

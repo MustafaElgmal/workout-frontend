@@ -7,12 +7,12 @@ export const gender = [
     {
       id: 1,
       name: "Male",
-      avatar: "./assets/boy.png",
+      avatar: "https://vsehzqgmugndfzhsvknp.supabase.co/storage/v1/object/sign/images/boy.png?token=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1cmwiOiJpbWFnZXMvYm95LnBuZyIsImlhdCI6MTY2MzcxMjgzMiwiZXhwIjoxOTc5MDcyODMyfQ.iwkoXkEPZV7YkYxWaHkcGXM7tSLhcYs9mKQAMFNFRu8",
     },
     {
       id: 2,
       name: "Female",
-      avatar: "./assets/girl.png",
+      avatar: "https://vsehzqgmugndfzhsvknp.supabase.co/storage/v1/object/sign/images/girl.png?token=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1cmwiOiJpbWFnZXMvZ2lybC5wbmciLCJpYXQiOjE2NjM3MTI5MDEsImV4cCI6MTk3OTA3MjkwMX0.5SePdRxSxEHVE9JVHCXwTvwT36aUbeUAXY2MHm8zIKo",
     },
   ];
 
