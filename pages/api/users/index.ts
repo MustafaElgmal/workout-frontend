@@ -28,7 +28,7 @@ export default async function handlerUser(
           lastName,
           email,
           password,
-          dateOfBirth,
+          age,
           height,
           weight,
           gender
@@ -39,14 +39,14 @@ export default async function handlerUser(
           lastName,
           email,
           password,
-          dateOfBirth,
+          age,
           height,
           weight,
           gender
         }
         });
     
-        res.json({user});
+        res.status(201).json({user});
       } catch (e) {
         console.log(e)
         res.status(500).json({ error: "Server is down!" });

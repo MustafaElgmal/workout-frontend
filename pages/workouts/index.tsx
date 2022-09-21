@@ -1,10 +1,18 @@
 import { NextPage } from "next";
 import Workouts from "../../components/programs";
-import {workouts} from '../../constants/index'
+import { workouts } from '../../constants/index'
+import { AppProps } from "../../types";
+import { prisma } from '../../lib/prisma'
+export async function getStaticProps() {
+  const workouts = await prisma.workout.findMany()
+  return {
+    props: { workouts }
+  }
+}
 
-const Workout = () => {
+const Workout = ({ workouts }: AppProps) => {
   return (
-    <div className="container mx-auto sm:px-6 lg:px-8 bg-zinc-100 py-10">
+    <div className="container mx-auto sm:px-6 lg:px-8 bg-zinc-100 py-10 min-h-screen">
       <div className="text-center font-bold	">
         <h1 className="text-4xl font-extrabold tracking-tight text-gray-900 ">
           Browse our carefully curated Workouts

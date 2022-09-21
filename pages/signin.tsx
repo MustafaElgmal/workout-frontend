@@ -3,7 +3,7 @@ import Link from "next/link";
 import { useRouter } from "next/router";
 import React from "react";
 import * as Yup from "yup";
-import { signInWithEmail } from "../utils/apis";
+import { supabaseClient } from '@supabase/auth-helpers-nextjs'
 
 const SignIn = () => {
   const router = useRouter();
@@ -17,7 +17,17 @@ const SignIn = () => {
       password: Yup.string().required("Please Enter your password"),
     }),
     onSubmit: async (values) => {
-      await signInWithEmail({ ...values }, router);
+      const { user,error } = await supabaseClient.auth.signIn({
+        email: values.email,
+        password: values.password
+      })
+      console.log(user)
+      if (user) {
+        router.push('/')
+      } else {
+        console.log(error)
+        router.push('/signin')
+      }
       formik.resetForm();
     },
   });
@@ -44,7 +54,7 @@ const SignIn = () => {
 
             <div className="mt-8">
               <div className="mt-6">
-                <form action="#" method="POST" className="space-y-6">
+                <form className="space-y-6">
                   <div>
                     <label
                       htmlFor="email"
@@ -56,6 +66,9 @@ const SignIn = () => {
                       <input
                         id="email"
                         name="email"
+                        value={formik.values.email}
+                        onBlur={formik.handleBlur}
+                        onChange={formik.handleChange}
                         type="email"
                         autoComplete="email"
                         required
@@ -109,7 +122,8 @@ const SignIn = () => {
 
                   <div>
                     <button
-                      type="submit"
+                      type="button"
+                      onClick={()=>formik.handleSubmit()}
                       className="flex w-full justify-center rounded-md border border-transparent bg-black py-2 px-4 text-sm font-medium text-white shadow-sm hover:bg-black focus:outline-none focus:ring-2 focus:ring-black focus:ring-offset-2"
                     >
                       Sign in

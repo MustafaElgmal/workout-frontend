@@ -19,7 +19,7 @@ const Signup = () => {
       lastName: "",
       email: "",
       password: "",
-      dateOfBirth: "",
+      age: "",
       height: "",
       weight: "",
     },
@@ -30,22 +30,20 @@ const Signup = () => {
         .email("Email is not vaild!")
         .required("Email is required!"),
       password: Yup.string().required("Password is required!"),
-      dateOfBirth: Yup.string().required("dateOfBirth is required!"),
+      age: Yup.string().required("age is required!"),
       height: Yup.string().required("Height is required!"),
       weight: Yup.string().required("Weight is required!"),
 
     }),
     onSubmit: async (values) => {
-      console.log( {
-        ...values, height: +values.height, weight: +values.weight, gender: selected.name
-      })
+
       const res = await createUser(
         {
-          ...values, height: +values.height, weight: +values.weight, gender: selected.name
+          ...values, height: +values.height, age: +values.age, weight: +values.weight, gender: selected.name
         },
         router
       );
-      // formik.resetForm();
+      formik.resetForm();
     },
   });
   return (
@@ -73,7 +71,7 @@ const Signup = () => {
 
             <div className="mt-8">
               <div className="mt-6">
-                <form  className="space-y-6">
+                <form className="space-y-6">
                   <div className="flex space-x-5">
                     <div className=" ">
                       <label
@@ -229,7 +227,7 @@ const Signup = () => {
                                       "relative cursor-default select-none py-2 pl-3 pr-9"
                                     )
                                   }
-                                  value={`${person}`}
+                                  value={person}
                                 >
                                   {({ selected, active }) => (
                                     <>
@@ -286,22 +284,17 @@ const Signup = () => {
                       </label>
                       <div className="relative mt-1 flex items-center">
                         <input
-                          id="dateOfBirth"
-                          name="dateOfBirth"
-                          value={formik.values.dateOfBirth}
+                          id="age"
+                          name="age"
+                          value={formik.values.age}
                           onBlur={formik.handleBlur}
                           onChange={formik.handleChange}
                           type="text"
-                          autoComplete="dateOfBirth"
+                          autoComplete="age"
                           required
                           className="block w-full appearance-none rounded-md border border-gray-300 px-3 py-2 placeholder-gray-400 shadow-sm focus:border-indigo-500 focus:outline-none focus:ring-indigo-500 sm:text-sm"
                         />
-                        <p className="text-red-600">
-                          {formik.errors.dateOfBirth &&
-                            formik.touched.dateOfBirth
-                            ? formik.errors.dateOfBirth
-                            : null}
-                        </p>
+
                         <div className="absolute inset-y-0 right-0 flex py-1.5 pr-1.5">
                           <kbd className="inline-flex items-center rounded border border-gray-200 px-2 font-sans text-sm font-medium text-gray-400">
                             years
@@ -323,16 +316,12 @@ const Signup = () => {
                           value={formik.values.weight}
                           onBlur={formik.handleBlur}
                           onChange={formik.handleChange}
-                          type="number"
+                          type="text"
                           autoComplete="weight"
                           required
                           className="block w-full appearance-none rounded-md border border-gray-300 px-3 py-2 placeholder-gray-400 shadow-sm focus:border-indigo-500 focus:outline-none focus:ring-indigo-500 sm:text-sm"
                         />
-                        <p className="text-red-600">
-                          {formik.errors.weight && formik.touched.weight
-                            ? formik.errors.weight
-                            : null}
-                        </p>
+
                         <div className="absolute inset-y-0 right-0 flex py-1.5 pr-1.5">
                           <kbd className="inline-flex items-center rounded border border-gray-200 px-2 font-sans text-sm font-medium text-gray-400">
                             kgs
@@ -354,16 +343,12 @@ const Signup = () => {
                           value={formik.values.height}
                           onBlur={formik.handleBlur}
                           onChange={formik.handleChange}
-                          type="number"
+                          type="text"
                           autoComplete="height"
                           required
                           className="block w-full appearance-none rounded-md border border-gray-300 px-3 py-2 placeholder-gray-400 shadow-sm focus:border-indigo-500 focus:outline-none focus:ring-indigo-500 sm:text-sm"
                         />
-                        <p className="text-red-600">
-                          {formik.errors.height && formik.touched.height
-                            ? formik.errors.height
-                            : null}
-                        </p>
+
                         <div className="absolute inset-y-0 right-0 flex py-1.5 pr-1.5">
                           <kbd className="inline-flex items-center rounded border border-gray-200 px-2 font-sans text-sm font-medium text-gray-400">
                             cm
@@ -372,9 +357,26 @@ const Signup = () => {
                       </div>
                     </div>
                   </div>
+                  <span className="text-red-600">
+                    {formik.errors.age &&
+                      formik.touched.age
+                      ? formik.errors.age
+                      : null}
+                  </span>
+                  <span className="text-red-600">
+                    {formik.errors.weight && formik.touched.weight
+                      ? formik.errors.weight
+                      : null}
+                  </span>
+                  <span className="text-red-600">
+                    {formik.errors.height && formik.touched.height
+                      ? formik.errors.height
+                      : null}
+                  </span>
 
                   <div>
                     <button
+                      type="button"
                       onClick={() => formik.handleSubmit()}
                       className="flex w-full justify-center rounded-md border border-transparent bg-black py-2 px-4 text-sm font-medium text-white shadow-sm hover:bg-black focus:outline-none focus:ring-2 focus:ring-black focus:ring-offset-2"
                     >

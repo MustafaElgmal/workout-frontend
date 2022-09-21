@@ -1,3 +1,4 @@
+import { Exercise, Workout } from "@prisma/client";
 import Link from "next/link";
 import { useRouter } from "next/router";
 import React, { useEffect, useState } from "react";
@@ -6,8 +7,8 @@ import { exercieceType, workoutType } from "../../../../types";
 import { findExercieces,findOtherWorkouts,getCategoryIdFromPath } from "../../../../utils/functions";
 
 const Exercise = () => {
-  const [otherWorkouts, setOtherWorkouts] = useState<workoutType[]>([]);
-  const [exercises, setExercises] = useState<exercieceType[]>();
+  const [otherWorkouts, setOtherWorkouts] = useState<Workout[]>([]);
+  const [exercises, setExercises] = useState<Exercise[]>();
 
   const router = useRouter();
   useEffect(() => {
@@ -37,6 +38,7 @@ const Exercise = () => {
           {otherWorkouts.map((exerciece) => (
             <Link key={exerciece.id} href={exerciece.href}>
               <a>
+                
                 <div className="relative">
                   <div className="relative h-72 w-full overflow-hidden rounded-lg">
                     <img
