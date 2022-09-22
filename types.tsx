@@ -1,4 +1,4 @@
-import { Exercise, Workout, Workoutline } from "@prisma/client";
+import { Exercise, User, Workout, Workoutline } from "@prisma/client";
 import { SVGProps } from "react";
 export interface AppProps {
   programs?: Workout[] | Exercise[];
@@ -14,6 +14,8 @@ export interface RecType{
   recSet:number,
    recReps: number,
    recWeights: number
+  profile?:User
+  children?:JSX.Element
 }
 export interface userCreate {
   firstName: string;

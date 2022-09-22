@@ -5,22 +5,33 @@ import Link from "next/link";
 import {
   Bars3BottomLeftIcon,
   BellIcon,
-  CalendarIcon,
-  ChartBarIcon,
-  HomeIcon,
-  BoltIcon,
   XMarkIcon,
 } from "@heroicons/react/24/outline";
-import { MenuType } from "../types";
+import { AppProps, MenuType } from "../types";
 import { changeNavigationCurrent, handleClick } from "../utils/functions";
-import { classNames, navigation, userNavigation } from "../constants";
+import {classNames, navigation, userNavigation } from "../constants";
 
-export default function Layout({ children }: any) {
+import { getUserProfile } from "../utils/apis";
+import { useUser } from "@supabase/auth-helpers-react";
+import { User } from "@prisma/client";
+
+export default function Layout({ children }: AppProps) {
   const [menu, setMenu] = useState<MenuType[]>(navigation);
+  const [profile, setProfile] = useState<User>();
   const [sidebarOpen, setSidebarOpen] = useState(false);
   const [Router, setRouter] = useState<string>("");
   const router = useRouter();
+  const { user } = useUser();
+  const getProfile = async () => {
+    if (user !== null) {
+      await getUserProfile(user.email as string, setProfile);
+    } else {
+      router.push("/signin");
+    }
+  };
+
   useEffect(() => {
+    getProfile();
     setRouter(router.asPath);
     changeNavigationCurrent(router.asPath, menu, setMenu);
   }, []);
@@ -180,7 +191,7 @@ export default function Layout({ children }: any) {
           </button>
           <div className="flex flex-1 justify-end px-4">
             <div className="ml-4 flex items-center md:ml-6">
-              <span>Your Name</span>
+              <span>{`${profile?.firstName} ${profile?.lastName}`}</span>
               <button
                 type="button"
                 className="rounded-full bg-white p-1 text-gray-400 hover:text-gray-500 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2"
@@ -196,8 +207,12 @@ export default function Layout({ children }: any) {
                     <span className="sr-only">Open user menu</span>
                     <img
                       className="h-8 w-8 rounded-full"
-                      src="https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80"
-                      alt=""
+                      src={`${
+                        profile?.imageUrl
+                          ? profile.imageUrl
+                          : "https://review2020.s3.amazonaws.com/360_F_346839683_6nAPzbhpSkIpb8pmAwufkC7c5eD7wYws.jpg"
+                      }`}
+                      alt="Profile"
                     />
                   </Menu.Button>
                 </div>
