@@ -6,15 +6,23 @@ import { supabaseClient } from "@supabase/auth-helpers-nextjs";
 
 export const createUser = async (userr: userCreate, router: NextRouter) => {
   try {
-    await supabaseClient.auth.signUp({
-      email: userr.email,
-      password: userr.password,
-    });
+    await supabaseClient.auth.signUp(
+      {
+        email: userr.email,
+        password: userr.password,
+      },
+      {
+        data: {
+          name: `${userr.firstName} ${userr.lastName}`,
+          age: userr.age,
+        },
+      }
+    );
     const { user, error } = await supabaseClient.auth.signIn({
       email: userr.email,
       password: userr.password,
     });
-    const res = await axios.post("/api/users", userr);
+    const res = await axios.post("/api/users", { ...userr, id: user?.id });
     if (res.status === 201 && userr !== null) router.push("/");
     else {
       router.push("/signin");
@@ -56,11 +64,21 @@ export const signInUser = async (
   }
 };
 
-export const getUserProfile=async(email:string,setProfile:Function)=>{
-  try{
+export const getUserProfile = async (email: string, setProfile: Function) => {
+  try {
     const res = await axios.get(`${Base_Url}/api/users/${email}`);
-    setProfile(res.data.profile)
-  }catch(e){
-    console.log(e)
+    setProfile(res.data.profile);
+  } catch (e) {
+    console.log(e);
   }
+};
+
+export const getLogs=async(userId:string)=>{
+  try {
+    const res = await axios.get(`${Base_Url}/api/history/${userId}`);
+    return res.data.logs
+  } catch (e) {
+    console.log(e);
+  }
+
 }

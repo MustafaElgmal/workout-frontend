@@ -5,12 +5,14 @@ import { ErrorMessage } from "formik";
 const prisma = new PrismaClient();
 export const userValidation = async (user: userCreate) => {
   const errors: { error: string }[] = [];
-  const { firstName, lastName, email, password, age, height, weight, gender } =
+  const { firstName, lastName, email, password, age, height, weight, gender,id } =
     user;
 
   if (!firstName) {
-    console.log(user);
     errors.push({ error: "firstName is required!" });
+  }
+  if (!id) {
+    errors.push({ error: "Id is required!" });
   }
   if (!lastName) {
     errors.push({ error: "lastName is required!" });

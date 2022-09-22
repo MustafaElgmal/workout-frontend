@@ -1,4 +1,5 @@
 import { getUser, withPageAuth } from "@supabase/auth-helpers-nextjs";
+import { useUser } from "@supabase/auth-helpers-react";
 import axios from "axios";
 import type { GetServerSideProps, NextPage } from "next";
 import Layout from "../components/layout";
@@ -16,6 +17,7 @@ export const getServerSideProps: GetServerSideProps = withPageAuth({
 });
 
 const Home: NextPage = ({ profile }: AppProps) => {
+  const {user}=useUser()
   return (
     <Layout>
       <div className="container mx-auto sm:px-6 lg:px-8 bg-zinc-100	py-10	">
@@ -31,7 +33,7 @@ const Home: NextPage = ({ profile }: AppProps) => {
               alt="Profile"
             />
             <div className="p-2">
-              <h2 className="text-xl	font-bold">{`Good morning, ${profile?.firstName} ${profile?.lastName}`}</h2>
+              <h2 className="text-xl	font-bold">{`Good morning, ${user?.user_metadata.name}`}</h2>
               <span>🔥10 Day Streak</span>
             </div>
           </div>

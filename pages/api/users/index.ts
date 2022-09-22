@@ -33,7 +33,8 @@ export default async function handlerUser(
           age,
           height,
           weight,
-          gender
+          gender,
+          id
         }: userCreate = req.body;
         const user = await prisma.user.create({
           data:{
@@ -44,7 +45,8 @@ export default async function handlerUser(
           age,
           height,
           weight,
-          gender
+          gender,
+          id
         }
         });
     

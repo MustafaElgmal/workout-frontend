@@ -1,4 +1,4 @@
-import { Exercise, User, Workout, Workoutline } from "@prisma/client";
+import { Exercise, Log, User, Workout, Workoutline } from "@prisma/client";
 import { SVGProps } from "react";
 export interface AppProps {
   programs?: Workout[] | Exercise[];
@@ -11,7 +11,7 @@ export interface AppProps {
   workoutline?: Workoutline 
   profile?:User
   children?:JSX.Element
-  
+  logs?:historyType[]
 }
 export interface RecType{
   recSet:number,
@@ -27,6 +27,7 @@ export interface userCreate {
   height: number;
   weight: number;
   gender: string;
+  id:string
 }
 
 export interface Person {
@@ -50,4 +51,14 @@ export interface LogCreateType{step:number,userReps:number,userWeights:number,wo
 
 export interface exercieceType extends Exercise {
   workoutlines: Workoutline[];
+}
+export interface workoutlineType extends Workoutline{
+  workout:Workout,
+  exercise:Exercise
+
+}
+
+export interface historyType extends Log{
+  workoutline:workoutlineType
+
 }

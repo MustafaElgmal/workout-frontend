@@ -7,7 +7,6 @@ import {
   isEqual,
   isSameMonth,
   isToday,
-  startOfMonth,
   startOfToday,
   endOfWeek,
   parse,
@@ -17,10 +16,26 @@ import {
 } from "date-fns";
 
 import WorkoutHistory from "../components/workoutHistory";
-import { classNames, colStartClass } from "../constants/index";
+import { Base_Url, classNames, colStartClass } from "../constants/index";
 import Layout from "../components/layout";
+import { getUser, withPageAuth } from "@supabase/auth-helpers-nextjs";
+import { Log } from "@prisma/client";
+import axios from "axios";
+import { AppProps } from "../types";
+import { getLogs } from "../utils/apis";
+export const getServerSideProps = withPageAuth({
+  redirectTo: "/signIn",
+  async getServerSideProps(ctx) {
+    const { user } = await getUser(ctx);
 
-const Calender = () => {
+    const logs: Log[] = await getLogs('9')
+    return {
+      props: { logs },
+    };
+  },
+});
+
+const Calender = ({ logs }: AppProps) => {
   const [today, settoday] = useState<Date>(startOfToday());
   const [selectedDay, setSelectedDay] = useState<Date>(today);
   const [currentMonth, setCurrentMonth] = useState<string>(
@@ -42,9 +57,7 @@ const Calender = () => {
     setCurrentMonth(format(firstDayNextMonth, "MMM-yyyy"));
   }
 
-  useEffect(()=>{
-
-  },[selectedDay])
+  useEffect(() => {}, [selectedDay]);
   return (
     <Layout>
       <div className="container mx-auto sm:px-6 lg:px-8 bg-zinc-100 py-10 min-h-screen">
@@ -139,10 +152,10 @@ const Calender = () => {
               </div>
               <div className="w-1/2">
                 <h2 className="font-semibold ">Date</h2>
-                <span>{format(selectedDay,'MMMM d yyyy')}</span>
+                <span>{format(selectedDay, "MMMM d yyyy")}</span>
               </div>
             </div>
-            <WorkoutHistory />
+            <WorkoutHistory logs={logs} />
           </ol>
         </div>
       </div>

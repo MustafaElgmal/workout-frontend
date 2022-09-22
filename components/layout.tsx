@@ -9,7 +9,7 @@ import {
 } from "@heroicons/react/24/outline";
 import { AppProps, MenuType } from "../types";
 import { changeNavigationCurrent, handleClick } from "../utils/functions";
-import {classNames, navigation, userNavigation } from "../constants";
+import { classNames, navigation, userNavigation } from "../constants";
 
 import { getUserProfile } from "../utils/apis";
 import { useUser } from "@supabase/auth-helpers-react";
@@ -191,7 +191,7 @@ export default function Layout({ children }: AppProps) {
           </button>
           <div className="flex flex-1 justify-end px-4">
             <div className="ml-4 flex items-center md:ml-6">
-              <span>{`${profile?.firstName} ${profile?.lastName}`}</span>
+              <span>{user?.user_metadata.name}</span>
               <button
                 type="button"
                 className="rounded-full bg-white p-1 text-gray-400 hover:text-gray-500 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2"
