@@ -5,7 +5,6 @@ import Table from "../../../../components/table";
 import { AppProps } from "../../../../types";
 import { prisma } from "../../../../lib/prisma";
 import Layout from "../../../../components/layout";
-import { CountdownCircleTimer } from "react-countdown-circle-timer";
 import Timer from "../../../../components/timer";
 
 export const getStaticPaths: GetStaticPaths = async () => {

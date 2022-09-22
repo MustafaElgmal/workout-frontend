@@ -32,7 +32,6 @@ export const handleClick = (name: string) => {
 
 export const getArrayOfSet = (workoutline: Workoutline, setRecs: Function) => {
   const arr: RecType[] = [];
-
   for (let i = 0; i < workoutline.recSets; i++) {
     arr.push({
       recSet: i+1,

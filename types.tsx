@@ -9,13 +9,14 @@ export interface AppProps {
   otherExercises?: Exercise[];
   otherWorkouts?: Workout[];
   workoutline?: Workoutline 
+  profile?:User
+  children?:JSX.Element
+  
 }
 export interface RecType{
   recSet:number,
    recReps: number,
    recWeights: number
-  profile?:User
-  children?:JSX.Element
 }
 export interface userCreate {
   firstName: string;

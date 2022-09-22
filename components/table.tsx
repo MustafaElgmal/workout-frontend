@@ -8,10 +8,7 @@ export default function Table({ workoutline }: AppProps) {
     const [recs, setRecs] = useState<RecType[]>([])
 
     useEffect(() => {
-
         getArrayOfSet(workoutline!, setRecs)
-        console.log(recs)
-
     }, []);
     return (
         <div className=" w-1/2 md:w-full">

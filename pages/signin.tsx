@@ -3,7 +3,6 @@ import Link from "next/link";
 import { useRouter } from "next/router";
 import React from "react";
 import * as Yup from "yup";
-import { supabaseClient } from "@supabase/auth-helpers-nextjs";
 import { signInUser } from "../utils/apis";
 
 const SignIn = () => {
