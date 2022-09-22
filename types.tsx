@@ -45,6 +45,8 @@ export interface userNavigationType {
   href: string;
 }
 
+export interface LogCreateType{step:number,userReps:number,userWeights:number,workoutlineId:number,userId:string}
+
 
 export interface exercieceType extends Exercise {
   workoutlines: Workoutline[];
