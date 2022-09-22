@@ -1,5 +1,3 @@
-
-
 generator client {
   provider = "prisma-client-js"
 }
@@ -10,18 +8,18 @@ datasource db {
 }
 
 model User {
-  id           String          @id 
-  firstName    String
-  lastName     String
-  email        String        @unique
-  password     String
-  gender       String
-  imageUrl     String?
-  imageAlt     String?
-  height       Decimal
-  weight       Decimal
-  age          Int
-  logs         Log[]
+  id        String  @id
+  firstName String
+  lastName  String
+  email     String  @unique
+  password  String
+  gender    String
+  imageUrl  String?
+  imageAlt  String?
+  height    Decimal
+  weight    Decimal
+  age       Int
+  logs      Log[]
 }
 
 model Workout {
@@ -61,11 +59,11 @@ model Workoutline {
 
 model Log {
   id            Int         @id @default(autoincrement())
-  userReps       Int
-  userWeights    Int
+  userReps      Int
+  userWeights   Int
   step          Int
   createdAt     DateTime    @default(now())
-  userId       String
+  userId        String
   WorkoutlineId Int
   user          User        @relation(fields: [userId], references: [id])
   workoutline   Workoutline @relation(fields: [WorkoutlineId], references: [id])
