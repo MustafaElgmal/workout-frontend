@@ -8,6 +8,12 @@ export interface AppProps {
   exercises?: Exercise[];
   otherExercises?: Exercise[];
   otherWorkouts?: Workout[];
+  workoutline?: Workoutline 
+}
+export interface RecType{
+  recSet:number,
+   recReps: number,
+   recWeights: number
   profile?:User
   children?:JSX.Element
 }
