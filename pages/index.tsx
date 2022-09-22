@@ -1,17 +1,21 @@
-import { useUser } from "@supabase/auth-helpers-react";
-import type { NextPage } from "next";
-import { useEffect, useState } from "react";
+import { getUser, withPageAuth } from "@supabase/auth-helpers-nextjs";
+import axios from "axios";
+import type { GetServerSideProps, NextPage } from "next";
 import Layout from "../components/layout";
 import Table from "../components/table";
-import { projects } from "../constants/index";
+import { Base_Url, projects } from "../constants/index";
 import { classNames } from "../constants/index";
+import { AppProps } from "../types";
 
-const Home: NextPage = () => {
-  const [name ,setName]=useState<string>("")
-  const {user}=useUser()
-  useEffect(()=>{
-    console.log(user)
-  },[])
+export const getServerSideProps: GetServerSideProps = withPageAuth({
+  async getServerSideProps(ctx) {
+    const { user } = await getUser(ctx);
+    const res = await axios.get(`${Base_Url}/api/users/${user.email}`);
+    return { props: { profile: res.data.profile } };
+  },
+});
+
+const Home: NextPage = ({ profile }: AppProps) => {
   return (
     <Layout>
       <div className="container mx-auto sm:px-6 lg:px-8 bg-zinc-100	py-10	">
@@ -19,15 +23,15 @@ const Home: NextPage = () => {
           <div className="flex items-center">
             <img
               className="inline-block h-14 w-14 rounded-full "
-              src="https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80"
-              alt=""
+              src={`${
+                profile?.imageUrl
+                  ? profile.imageUrl
+                  : "https://review2020.s3.amazonaws.com/360_F_346839683_6nAPzbhpSkIpb8pmAwufkC7c5eD7wYws.jpg"
+              }`}
+              alt="Profile"
             />
             <div className="p-2">
-              <h2
-                className="text-xl	font-bold"
-              >
-                Good morning, Your Name
-              </h2>
+              <h2 className="text-xl	font-bold">{`Good morning, ${profile?.firstName} ${profile?.lastName}`}</h2>
               <span>🔥10 Day Streak</span>
             </div>
           </div>
@@ -84,8 +88,12 @@ const Home: NextPage = () => {
             <div className="z-10">
               <img
                 className="inline-block h-9 w-9 rounded-full"
-                src="https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80"
-                alt=""
+                src={`${
+                  profile?.imageUrl
+                    ? profile.imageUrl
+                    : "https://review2020.s3.amazonaws.com/360_F_346839683_6nAPzbhpSkIpb8pmAwufkC7c5eD7wYws.jpg"
+                }`}
+                alt="Profile"
               />
             </div>
             <div className="ml-3">
@@ -106,8 +114,12 @@ const Home: NextPage = () => {
             <div>
               <img
                 className="inline-block h-9 w-9 rounded-full"
-                src="https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80"
-                alt=""
+                src={`${
+                  profile?.imageUrl
+                    ? profile.imageUrl
+                    : "https://review2020.s3.amazonaws.com/360_F_346839683_6nAPzbhpSkIpb8pmAwufkC7c5eD7wYws.jpg"
+                }`}
+                alt="Profile"
               />
             </div>
             <div className="ml-3">

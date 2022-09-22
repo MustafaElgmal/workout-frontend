@@ -56,6 +56,11 @@ export const signInUser = async (
   }
 };
 
-export const getLogs=async()=>{
-  
+export const getUserProfile=async(email:string,setProfile:Function)=>{
+  try{
+    const res = await axios.get(`${Base_Url}/api/users/${email}`);
+    setProfile(res.data.profile)
+  }catch(e){
+    console.log(e)
+  }
 }
