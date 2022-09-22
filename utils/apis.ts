@@ -1,8 +1,9 @@
 import { NextRouter, useRouter } from "next/router";
 import axios from "axios";
 import { Base_Url } from "../constants";
-import { userCreate } from "../types";
+import { LogCreateType, userCreate } from "../types";
 import { supabaseClient } from "@supabase/auth-helpers-nextjs";
+import { Log } from "@prisma/client";
 
 export const createUser = async (userr: userCreate, router: NextRouter) => {
   try {
@@ -35,7 +36,18 @@ export const createUser = async (userr: userCreate, router: NextRouter) => {
     }
   }
 };
-
+export const createLog = async (log: LogCreateType) => {
+  try {
+    const res = await axios.post("/api/logs", log);
+    console.log("Log is created!");
+  } catch (e: any) {
+    if (e.status !== 500) {
+      alert(e.response.data.errors[0].error);
+    } else {
+      console.log(e);
+    }
+  }
+};
 export const signInUser = async (
   userr: { email: string; password: string },
   router: NextRouter
@@ -82,3 +94,4 @@ export const getLogs=async(userId:string)=>{
   }
 
 }
+
