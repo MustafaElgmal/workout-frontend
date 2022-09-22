@@ -1,8 +1,9 @@
-import { userCreate, userType } from "./../../../types";
+import { userCreate } from "./../../../types";
 import type { NextApiRequest, NextApiResponse } from "next";
 import { userValidation } from "../../../utils/validations";
 import {prisma} from '../../../lib/prisma'
 import {  User } from "@prisma/client";
+import { getUser } from "@supabase/auth-helpers-nextjs";
 
 
 type Data = {
@@ -10,6 +11,7 @@ type Data = {
   error?: string;
   errors?: { error: string }[];
   user?: User
+  profile?:User
 };
 
 export default async function handlerUser(
