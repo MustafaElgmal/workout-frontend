@@ -28,3 +28,5 @@ export const handleClick = (name: string) => {
     supabaseClient.auth.signOut();
   }
 };
+
+

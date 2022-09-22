@@ -55,3 +55,7 @@ export const signInUser = async (
     }
   }
 };
+
+export const getLogs=async()=>{
+  
+}
