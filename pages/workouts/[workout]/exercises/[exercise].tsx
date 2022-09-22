@@ -1,10 +1,12 @@
 import { GetStaticPaths, GetStaticProps } from "next";
 import Link from "next/link";
-import React from "react";
+import React, { useState } from "react";
 import Table from "../../../../components/table";
 import { AppProps } from "../../../../types";
 import { prisma } from "../../../../lib/prisma";
 import Layout from "../../../../components/layout";
+import { CountdownCircleTimer } from "react-countdown-circle-timer";
+import Timer from "../../../../components/timer";
 
 export const getStaticPaths: GetStaticPaths = async () => {
   const workoutlines = await prisma.workoutline.findMany();
@@ -19,6 +21,7 @@ export const getStaticPaths: GetStaticPaths = async () => {
   return { paths, fallback: false };
 };
 export const getStaticProps: GetStaticProps = async ({ params }) => {
+
   const exercise = await prisma.exercise.findFirst({
     where: {
       workoutlines: {
@@ -39,6 +42,7 @@ export const getStaticProps: GetStaticProps = async ({ params }) => {
 };
 
 const ExercieceDetails = ({ exercise, otherExercises }: AppProps) => {
+
   return (
     <Layout>
       <div className="container mx-auto sm:px-6 lg:px-8 bg-zinc-100 py-10 min-h-screen">
@@ -62,18 +66,12 @@ const ExercieceDetails = ({ exercise, otherExercises }: AppProps) => {
         </div>
         <div className="mt-10">
           <h2 className="font-bold text-xl">Log exerciece</h2>
-          <div className="flex space-x-40">
-            <Table />
+          <div className="flex space-x-20 items-center">
+            <Table workoutline={exercise?.workoutlines[0]} />
             <div className="text-center">
-              <div className="timeBorder">
-                <p className="timer">00:30</p>
-              </div>
-              <button
-                type="button"
-                className=" mt-10 inline-flex items-center rounded-md border border-transparent bg-black px-6 py-3 text-base font-medium text-white shadow-sm hover:bg-black focus:outline-none focus:ring-2 focus:ring-black focus:ring-offset-2"
-              >
-                Start Timer
-              </button>
+
+              <Timer />
+
             </div>
           </div>
         </div>

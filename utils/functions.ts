@@ -1,5 +1,6 @@
+import { Workoutline } from "@prisma/client";
 import { supabaseClient } from "@supabase/auth-helpers-nextjs";
-import { MenuType } from "./../types";
+import { MenuType, RecType } from "./../types";
 export const changeNavigationCurrent = (
   href: string,
   menu: MenuType[],
@@ -27,4 +28,17 @@ export const handleClick = (name: string) => {
   if (name === "Sign out") {
     supabaseClient.auth.signOut();
   }
+};
+
+export const getArrayOfSet = (workoutline: Workoutline, setRecs: Function) => {
+  const arr: RecType[] = [];
+
+  for (let i = 0; i < workoutline.recSets; i++) {
+    arr.push({
+      recSet: i+1,
+      recReps: workoutline.recReps,
+      recWeights: workoutline.recWeights,
+    });
+  }
+  setRecs(arr);
 };

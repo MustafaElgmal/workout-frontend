@@ -23,8 +23,11 @@
     "ng2-charts": "^4.0.0",
     "react": "18.2.0",
     "react-calendar": "^3.8.0",
+    "react-countdown-circle-timer": "^3.0.9",
     "react-dom": "18.2.0",
     "react-icons": "^4.4.0",
+    "react-timecode": "^1.2.0",
+    "react-timer-wrapper": "^0.4.1",
     "validator": "^13.7.0",
     "yup": "^0.32.11"
   },

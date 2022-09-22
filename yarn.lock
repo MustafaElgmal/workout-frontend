@@ -575,6 +575,11 @@
   optionalDependencies:
     "fsevents" "~2.3.2"
 
+"clean-react-props@^0.4.0":
+  "integrity" "sha512-8KKm9sC/cUax4SBWwSY5a3W44aJKOUQg39Bo3fRErp3/mF8D1kMN9xc1lvQGmvkK/AmpH2Xh/UYVZOJMcxoy9w=="
+  "resolved" "https://registry.npmjs.org/clean-react-props/-/clean-react-props-0.4.0.tgz"
+  "version" "0.4.0"
+
 "color-convert@^2.0.1":
   "integrity" "sha512-RRECPsj7iu/xb5oKYcsFHSppFNnsj/52OVTRKb4zP5onXwVF3zVmmToNcOfGC+CRDpfK/U584fMg38ZHCaElKQ=="
   "resolved" "https://registry.npmjs.org/color-convert/-/color-convert-2.0.1.tgz"
@@ -1936,7 +1941,7 @@
   dependencies:
     "@prisma/engines" "4.3.1"
 
-"prop-types@^15.6.0", "prop-types@^15.8.1":
+"prop-types@^15.5.10", "prop-types@^15.6.0", "prop-types@^15.7.2", "prop-types@^15.8.1":
   "integrity" "sha512-oj87CgZICdulUohogVAR7AjlC0327U4el4L6eAvOqCeudMDVU0NThNaV+b9Df4dXgSP1gXMTnPdhfe/2qDH5cg=="
   "resolved" "https://registry.npmjs.org/prop-types/-/prop-types-15.8.1.tgz"
   "version" "15.8.1"
@@ -1980,6 +1985,11 @@
   "resolved" "https://registry.npmjs.org/react-chartjs-2/-/react-chartjs-2-4.3.1.tgz"
   "version" "4.3.1"
 
+"react-countdown-circle-timer@^3.0.9":
+  "integrity" "sha512-2rE2NklqgtArbvM9RVR3NctiKQ8+lY8PEjUZ2S1pKowD8CmaXUGqIaCbFBcygYH2aZQs9qPIQA49Z+9Jc2TOiQ=="
+  "resolved" "https://registry.npmjs.org/react-countdown-circle-timer/-/react-countdown-circle-timer-3.0.9.tgz"
+  "version" "3.0.9"
+
 "react-dom@^16 || ^17 || ^18", "react-dom@^16.3.0 || ^17.0.0 || ^18.0.0", "react-dom@^17.0.2 || ^18.0.0-0", "react-dom@18.2.0":
   "integrity" "sha512-6IMTriUmvsjHUjNtEDudZfuDQUoWXVxKHhlEGSk81n4YFS+r/Kl99wXiwlVXtPBtJenozv2P+hxDsw9eA7Xo6g=="
   "resolved" "https://registry.npmjs.org/react-dom/-/react-dom-18.2.0.tgz"
@@ -2003,7 +2013,23 @@
   "resolved" "https://registry.npmjs.org/react-is/-/react-is-16.13.1.tgz"
   "version" "16.13.1"
 
-"react@*", "react@^16 || ^17 || ^18", "react@^16.3.0 || ^17.0.0 || ^18.0.0", "react@^16.8.0 || ^17.0.0 || ^18.0.0", "react@^17.0.2 || ^18.0.0-0", "react@^18.2.0", "react@>= 16", "react@>= 16.8.0 || 17.x.x || ^18.0.0-0", "react@>=16.8.0", "react@18.2.0":
+"react-timecode@^1.2.0":
+  "integrity" "sha512-nm8KCipv0HItTLYFc4VkPFgTbETDRCRnVN4NDAggQfEouW3XDduXcewJsCsdck/jv309z25EdxVPyGTtirIk2w=="
+  "resolved" "https://registry.npmjs.org/react-timecode/-/react-timecode-1.2.0.tgz"
+  "version" "1.2.0"
+  dependencies:
+    "clean-react-props" "^0.4.0"
+    "prop-types" "^15.7.2"
+
+"react-timer-wrapper@^0.4.1":
+  "integrity" "sha512-8hG5Q02+73xlLzPneYnspZfhiQ7+9mJyoEdA9khkYuen6sWHMfpraOBGGAgRtTqHu/tp3dIwsr8Yfku2iFjKYw=="
+  "resolved" "https://registry.npmjs.org/react-timer-wrapper/-/react-timer-wrapper-0.4.1.tgz"
+  "version" "0.4.1"
+  dependencies:
+    "clean-react-props" "^0.4.0"
+    "prop-types" "^15.5.10"
+
+"react@*", "react@^16 || ^17 || ^18", "react@^16.3.0 || ^17.0.0 || ^18.0.0", "react@^16.8.0 || ^17.0.0 || ^18.0.0", "react@^17.0.2 || ^18.0.0-0", "react@^18.2.0", "react@>= 16", "react@>= 16.8.0 || 17.x.x || ^18.0.0-0", "react@>=15", "react@>=16.8.0", "react@18.2.0":
   "integrity" "sha512-/3IjMdb2L9QbBdWiW5e3P2/npwMBaU9mHCSCUzNln0ZCYbcfTsGbTJrU/kGemdH2IWmB2ioZ+zkxtmq6g09fGQ=="
   "resolved" "https://registry.npmjs.org/react/-/react-18.2.0.tgz"
   "version" "18.2.0"
