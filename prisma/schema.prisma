@@ -10,7 +10,7 @@ datasource db {
 }
 
 model User {
-  id           Int           @id @default(autoincrement())
+  id           String          @id 
   firstName    String
   lastName     String
   email        String        @unique
@@ -21,7 +21,6 @@ model User {
   height       Decimal
   weight       Decimal
   age          Int
-  workoutlines Workoutline[]
   logs         Log[]
 }
 
@@ -51,12 +50,10 @@ model Workoutline {
   recSets    Int
   recReps    Int
   recWeights Int
-  userId     Int
   workoutId  Int
   exerciseId Int
   logs       Log[]
   exercise   Exercise @relation(fields: [exerciseId], references: [id])
-  user       User     @relation(fields: [userId], references: [id])
   workout    Workout  @relation(fields: [workoutId], references: [id])
 
   @@unique([workoutId, exerciseId])
@@ -64,12 +61,11 @@ model Workoutline {
 
 model Log {
   id            Int         @id @default(autoincrement())
-  recSets       Int
-  recReps       Int
-  recWeights    Int
+  userReps       Int
+  userWeights    Int
   step          Int
   createdAt     DateTime    @default(now())
-  userId        Int
+  userId       String
   WorkoutlineId Int
   user          User        @relation(fields: [userId], references: [id])
   workoutline   Workoutline @relation(fields: [WorkoutlineId], references: [id])
