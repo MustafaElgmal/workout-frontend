@@ -9,12 +9,11 @@ import {
 } from "@heroicons/react/24/outline";
 import { AppProps, MenuType } from "../types";
 import { changeNavigationCurrent, handleClick } from "../utils/functions";
-import { Base_Url, classNames, navigation, userNavigation } from "../constants";
-import { GetServerSideProps } from "next";
-import { getUser, User, withPageAuth } from "@supabase/auth-helpers-nextjs";
-import axios from "axios";
+import {classNames, navigation, userNavigation } from "../constants";
+
 import { getUserProfile } from "../utils/apis";
 import { useUser } from "@supabase/auth-helpers-react";
+import { User } from "@prisma/client";
 
 export default function Layout({ children }: AppProps) {
   const [menu, setMenu] = useState<MenuType[]>(navigation);
