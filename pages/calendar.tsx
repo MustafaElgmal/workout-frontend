@@ -11,6 +11,7 @@ import { Menu, Transition } from "@headlessui/react";
 import Link from "next/link";
 import WorkoutHistory from "../components/workoutHistory";
 import { classNames } from "../constants/index";
+import Layout from "../components/layout";
 
 const days = [
   { date: "2022-01-01", isCurrentMonth: true, isSelected: true, isToday: true },
@@ -198,7 +199,8 @@ const days = [
 
 const Calender = () => {
   return (
-    <div className="container mx-auto sm:px-6 lg:px-8 bg-zinc-100 py-10 min-h-screen">
+   <Layout>
+     <div className="container mx-auto sm:px-6 lg:px-8 bg-zinc-100 py-10 min-h-screen">
       <h1 className="text-2xl font-extrabold tracking-tight text-gray-900 sm:text-3xl">
         Workout history
       </h1>
@@ -282,6 +284,7 @@ const Calender = () => {
         </ol>
       </div>
     </div>
+   </Layout>
   );
 };
 

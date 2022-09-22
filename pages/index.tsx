@@ -24,8 +24,7 @@ const Home: NextPage = () => {
             />
             <div className="p-2">
               <h2
-                className="text-xl	font-bold
-"
+                className="text-xl	font-bold"
               >
                 Good morning, Your Name
               </h2>

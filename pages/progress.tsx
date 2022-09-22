@@ -1,4 +1,5 @@
 import StockChart from "../components/chart";
+import Layout from "../components/layout";
 
 const data = {
     stockFullName: "SW Limited.",
@@ -54,7 +55,8 @@ const progress = [
 export default function Progress() {
 
     return (
-        <div className="container mx-auto sm:px-6 lg:px-8 bg-zinc-100 py-10">
+       <Layout>
+         <div className="container mx-auto sm:px-6 lg:px-8 bg-zinc-100 py-10">
             <div>
                 <h1 className="text-2xl font-extrabold tracking-tight text-gray-900 sm:text-3xl">My Progress</h1>
             </div>
@@ -62,6 +64,7 @@ export default function Progress() {
                 {progress.map(inx => <StockChart key={inx.bgColor} info={data} color={inx.bgColor} name={inx.name} lbs={inx.lbs} />)}
             </div>
         </div>
+       </Layout>
     );
 }
 
