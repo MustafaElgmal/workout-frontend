@@ -1,8 +1,10 @@
+import { useUser } from "@supabase/auth-helpers-react"
 import { useFormik } from "formik"
 import { createLog } from "../utils/apis"
 
 
 const RowTable = ({ ele, workoutline }: any) => {
+    const{user}=useUser()
     const formik = useFormik({
         initialValues: {
             step: ele.recSet,
@@ -15,7 +17,7 @@ const RowTable = ({ ele, workoutline }: any) => {
                 userReps: +values.userReps!,
                 userWeights: +values.userWeights!,
                 workoutlineId: workoutline?.id!,
-                userId: "9"
+                userId: user?.id!
             })
         }
     })

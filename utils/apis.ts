@@ -85,10 +85,10 @@ export const getUserProfile = async (email: string, setProfile: Function) => {
   }
 };
 
-export const getLogs=async(userId:string)=>{
+export const getLogs=async(userId:string,setLogs:Function)=>{
   try {
     const res = await axios.get(`${Base_Url}/api/history/${userId}`);
-    return res.data.logs
+    setLogs(res.data.logs)
   } catch (e) {
     console.log(e);
   }

@@ -21,21 +21,13 @@ import Layout from "../components/layout";
 import { getUser, withPageAuth } from "@supabase/auth-helpers-nextjs";
 import { Log } from "@prisma/client";
 import axios from "axios";
-import { AppProps } from "../types";
+import { AppProps, historyType, LogCreateType } from "../types";
 import { getLogs } from "../utils/apis";
-export const getServerSideProps = withPageAuth({
-  redirectTo: "/signIn",
-  async getServerSideProps(ctx) {
-    const { user } = await getUser(ctx);
+import { useUser } from "@supabase/auth-helpers-react";
+import Router, { useRouter } from "next/router";
 
-    const logs: Log[] = await getLogs('9')
-    return {
-      props: { logs },
-    };
-  },
-});
-
-const Calender = ({ logs }: AppProps) => {
+const Calender = () => {
+  const [logs, setLogs] = useState<historyType[]>([]);
   const [today, settoday] = useState<Date>(startOfToday());
   const [selectedDay, setSelectedDay] = useState<Date>(today);
   const [currentMonth, setCurrentMonth] = useState<string>(
@@ -56,8 +48,19 @@ const Calender = ({ logs }: AppProps) => {
     let firstDayNextMonth = add(firstDayCurrentMonth, { months: 1 });
     setCurrentMonth(format(firstDayNextMonth, "MMM-yyyy"));
   }
+  const { user } = useUser();
+  const router = useRouter();
+  const getAllhistory = async () => {
+    if (user !== null) {
+      await getLogs(user.id, setLogs);
+    } else {
+      router.push("/signin");
+    }
+  };
 
-  useEffect(() => {}, [selectedDay]);
+  useEffect(() => {
+    getAllhistory();
+  }, [selectedDay]);
   return (
     <Layout>
       <div className="container mx-auto sm:px-6 lg:px-8 bg-zinc-100 py-10 min-h-screen">
@@ -148,7 +151,7 @@ const Calender = ({ logs }: AppProps) => {
             <div className="sticky bg-[#F9FAFB] p-5 flex w-1\2">
               <div className="w-1/2">
                 <h2 className="font-semibold ">Workout</h2>
-                <span>Cardio Day</span>
+                <span>{`${logs.length>0?logs[0].workoutline.workout.name:'-----'} Day`}</span>
               </div>
               <div className="w-1/2">
                 <h2 className="font-semibold ">Date</h2>

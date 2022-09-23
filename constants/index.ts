@@ -43,8 +43,8 @@ export const navigation: MenuType[] = [
   { name: "Progress", href: "/progress", icon: ChartBarIcon, current: false },
 ];
 export const userNavigation: userNavigationType[] = [
-  { name: "Your Profile", href: "#" },
-  { name: "Settings", href: "#" },
+  { name: "Your Profile", href: "/" },
+  { name: "Upload Photo", href: "#" },
   { name: "Sign out", href: "/signin" },
 ];
 

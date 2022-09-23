@@ -2,6 +2,8 @@ import { getUser, withPageAuth } from "@supabase/auth-helpers-nextjs";
 import { useUser } from "@supabase/auth-helpers-react";
 import axios from "axios";
 import type { GetServerSideProps, NextPage } from "next";
+import { useRouter } from "next/router";
+import { useState } from "react";
 import Layout from "../components/layout";
 import Table from "../components/table";
 import { Base_Url, projects } from "../constants/index";
@@ -17,7 +19,12 @@ export const getServerSideProps: GetServerSideProps = withPageAuth({
 });
 
 const Home: NextPage = ({ profile }: AppProps) => {
-  const {user}=useUser()
+  const [selected, setSelected] = useState<{ btn1: Boolean; btn2: Boolean }>({
+    btn1: false,
+    btn2: true,
+  });
+  const { user } = useUser();
+  const router = useRouter();
   return (
     <Layout>
       <div className="container mx-auto sm:px-6 lg:px-8 bg-zinc-100	py-10	">
@@ -39,14 +46,29 @@ const Home: NextPage = ({ profile }: AppProps) => {
           </div>
           <div className="space-x-2">
             <button
+              onClick={() => {
+                router.push("/workouts");
+                setSelected({ btn1: !selected.btn1, btn2: !selected.btn2 });
+              }}
               type="button"
-              className="inline-flex items-center rounded-md border border-gray-300 bg-white px-4 py-2 text-sm font-medium text-gray-700 shadow-sm hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-black focus:ring-offset-2"
+              className={`${
+                !selected.btn1
+                  ? "inline-flex items-center rounded-md border border-gray-300 bg-white px-4 py-2 text-sm font-medium text-gray-700 shadow-sm hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-black focus:ring-offset-2"
+                  : "inline-flex items-center rounded-md border border-gray-300 bg-black px-4 py-2 text-sm font-medium text-white shadow-sm hover:bg-black focus:outline-none focus:ring-2 focus:ring-black focus:ring-offset-2"
+              }`}
             >
               Browse workouts
             </button>
             <button
+              onClick={() =>
+                setSelected({ btn1: !selected.btn1, btn2: !selected.btn2 })
+              }
               type="button"
-              className="inline-flex items-center rounded-md border border-gray-300 bg-black px-4 py-2 text-sm font-medium text-white shadow-sm hover:bg-black focus:outline-none focus:ring-2 focus:ring-black focus:ring-offset-2"
+              className={`${
+                !selected.btn2
+                  ? "inline-flex items-center rounded-md border border-gray-300 bg-white px-4 py-2 text-sm font-medium text-gray-700 shadow-sm hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-black focus:ring-offset-2"
+                  : "inline-flex items-center rounded-md border border-gray-300 bg-black px-4 py-2 text-sm font-medium text-white shadow-sm hover:bg-black focus:outline-none focus:ring-2 focus:ring-black focus:ring-offset-2"
+              }`}
             >
               Start today&apos;s workout
             </button>

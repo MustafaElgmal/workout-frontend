@@ -27,7 +27,6 @@ export default async function handlerUserProfile(
           where: { userId: user as string },
           include: { workoutline: { include: { workout: true,exercise:true } } },
         });
-        console.log(logs)
         res.json({logs})
       } catch (e) {
         res.status(500).json({ error: "Server is down!" });
