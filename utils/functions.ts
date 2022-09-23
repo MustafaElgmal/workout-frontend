@@ -1,6 +1,7 @@
 import { Workoutline } from "@prisma/client";
 import { supabaseClient } from "@supabase/auth-helpers-nextjs";
-import { MenuType, RecType } from "./../types";
+import moment from "moment";
+import { historyType, MenuType, RecType } from "./../types";
 export const changeNavigationCurrent = (
   href: string,
   menu: MenuType[],
@@ -34,10 +35,21 @@ export const getArrayOfSet = (workoutline: Workoutline, setRecs: Function) => {
   const arr: RecType[] = [];
   for (let i = 0; i < workoutline?.recSets!; i++) {
     arr.push({
-      recSet: i+1,
+      recSet: i + 1,
       recReps: workoutline.recReps,
       recWeights: workoutline.recWeights,
     });
   }
   setRecs(arr);
+};
+
+export const filterAllhistoryByDay = (
+  logs: historyType[],
+  day: Date,
+  setLogs: Function
+) => {
+  const filterLogs = logs.filter(
+    (log) => moment(log.createdAt).format("L") === moment(day).format("L")
+  );
+  setLogs(filterLogs);
 };

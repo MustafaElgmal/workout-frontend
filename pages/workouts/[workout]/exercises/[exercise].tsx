@@ -20,28 +20,30 @@ export const getStaticPaths: GetStaticPaths = async () => {
   return { paths, fallback: false };
 };
 export const getStaticProps: GetStaticProps = async ({ params }) => {
-
   const exercise = await prisma.exercise.findFirst({
     where: {
       workoutlines: {
         some: { workoutId: +params?.workout!, exerciseId: +params?.exercise! },
       },
     },
-    include: { workoutlines: true },
+    include: { workoutlines: {where:{workoutId:+params?.workout!}} },
   });
   const otherExercises = await prisma.exercise.findMany({
     where: {
       workoutlines: {
-        some: { workoutId: +params?.workout!, exerciseId: +params?.exercise! },
+        some: {
+          workoutId: +params?.workout!,
+          exerciseId: { not: +params?.exercise! },
+        },
       },
     },
+    include: { workoutlines: {where:{workoutId:+params?.workout!}} },
   });
 
   return { props: { exercise, otherExercises } };
 };
 
 const ExercieceDetails = ({ exercise, otherExercises }: AppProps) => {
-
   return (
     <Layout>
       <div className="container mx-auto sm:px-6 lg:px-8 bg-zinc-100 py-10 min-h-screen">
@@ -68,9 +70,7 @@ const ExercieceDetails = ({ exercise, otherExercises }: AppProps) => {
           <div className="flex space-x-20 items-center">
             <Table workoutline={exercise?.workoutlines[0]} />
             <div className="text-center">
-
               <Timer />
-
             </div>
           </div>
         </div>
