@@ -1,5 +1,6 @@
 import { Workoutline } from "@prisma/client";
 import { supabaseClient } from "@supabase/auth-helpers-nextjs";
+import _ from "lodash";
 import moment from "moment";
 import { historyType, MenuType, RecType } from "./../types";
 export const changeNavigationCurrent = (
@@ -7,8 +8,9 @@ export const changeNavigationCurrent = (
   menu: MenuType[],
   setMenu: Function
 ) => {
+
   const navigation = menu.map((item) =>
-    item.href === href
+    item.href.split('/')[1]===href.split('/')[1]
       ? { ...item, current: true }
       : { ...item, current: false }
   );
@@ -51,5 +53,12 @@ export const filterAllhistoryByDay = (
   const filterLogs = logs.filter(
     (log) => moment(log.createdAt).format("L") === moment(day).format("L")
   );
-  setLogs(filterLogs);
+  const result = _(filterLogs)
+  .groupBy("workoutline.workout.name")
+  .map((v,email) => ({
+    name:email,
+    logs: _.map(v),
+  }))
+  .value();
+  setLogs(result);
 };

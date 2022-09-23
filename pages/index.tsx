@@ -73,7 +73,7 @@ const Home: NextPage = ({ profile }: AppProps) => {
             <button
               onClick={() => {
                 router.push("/workouts");
-                setSelected({ btn1: !selected.btn1, btn2: !selected.btn2 });
+                {!selected.btn1?setSelected({ btn1: !selected.btn1, btn2: !selected.btn2 }):''}
               }}
               type="button"
               className={`${
@@ -85,9 +85,10 @@ const Home: NextPage = ({ profile }: AppProps) => {
               Browse workouts
             </button>
             <button
-              onClick={() =>
-                setSelected({ btn1: !selected.btn1, btn2: !selected.btn2 })
-              }
+              onClick={() => {
+                router.push("/");
+                {!selected.btn2?setSelected({ btn1: !selected.btn1, btn2: !selected.btn2 }):''};
+              }}
               type="button"
               className={`${
                 !selected.btn2

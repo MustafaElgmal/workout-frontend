@@ -14,6 +14,7 @@ import {
   getDay,
   startOfWeek,
 } from "date-fns";
+import _ from "lodash";
 
 import { classNames, colStartClass } from "../constants/index";
 import Layout from "../components/layout";
@@ -34,7 +35,8 @@ export const getServerSideProps: GetServerSideProps = withPageAuth({
 });
 
 const Calender = ({ logs }: AppProps) => {
-  const [logsFilter, setLogs] = useState<historyType[]>();
+  const [logsFilter, setLogs] =
+    useState<{ name: string; logs: historyType[] }[]>();
   const [today, settoday] = useState<Date>(startOfToday());
   const [selectedDay, setSelectedDay] = useState<Date>(today);
   const [currentMonth, setCurrentMonth] = useState<string>(
@@ -148,10 +150,7 @@ const Calender = ({ logs }: AppProps) => {
               ))}
             </div>
           </div>
-          <WorkoutHistory
-            selectedDay={selectedDay}
-            logGroups={[{ name: "abu samsher", logs: logsFilter! }]}
-          />
+          <WorkoutHistory selectedDay={selectedDay} logGroups={logsFilter} />
         </div>
       </div>
     </Layout>
