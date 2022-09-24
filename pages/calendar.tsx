@@ -14,28 +14,29 @@ import {
   getDay,
   startOfWeek,
 } from "date-fns";
+import _ from "lodash";
 
-import WorkoutHistory from "../components/workoutHistory";
-import { Base_Url, classNames, colStartClass } from "../constants/index";
+import { classNames, colStartClass } from "../constants/index";
 import Layout from "../components/layout";
 import { getUser, withPageAuth } from "@supabase/auth-helpers-nextjs";
-import { Log } from "@prisma/client";
-import axios from "axios";
-import { AppProps } from "../types";
+
+import { AppProps, historyType } from "../types";
 import { getLogs } from "../utils/apis";
-export const getServerSideProps = withPageAuth({
-  redirectTo: "/signIn",
+import { GetServerSideProps } from "next";
+import { filterAllhistoryByDay } from "../utils/functions";
+import WorkoutHistory from "../components/workoutHistory";
+export const getServerSideProps: GetServerSideProps = withPageAuth({
+  redirectTo: "/signin",
   async getServerSideProps(ctx) {
     const { user } = await getUser(ctx);
-
-    const logs: Log[] = await getLogs('9')
-    return {
-      props: { logs },
-    };
+    const logs: historyType[] = await getLogs(user.id);
+    return { props: { logs } };
   },
 });
 
 const Calender = ({ logs }: AppProps) => {
+  const [logsFilter, setLogs] =
+    useState<{ name: string; logs: historyType[] }[]>();
   const [today, settoday] = useState<Date>(startOfToday());
   const [selectedDay, setSelectedDay] = useState<Date>(today);
   const [currentMonth, setCurrentMonth] = useState<string>(
@@ -57,7 +58,12 @@ const Calender = ({ logs }: AppProps) => {
     setCurrentMonth(format(firstDayNextMonth, "MMM-yyyy"));
   }
 
-  useEffect(() => {}, [selectedDay]);
+  useEffect(() => {
+    filterAllhistoryByDay(logs!, selectedDay, setLogs);
+  }, [selectedDay]);
+
+  console.log(logsFilter);
+  console.log(selectedDay);
   return (
     <Layout>
       <div className="container mx-auto sm:px-6 lg:px-8 bg-zinc-100 py-10 min-h-screen">
@@ -144,19 +150,7 @@ const Calender = ({ logs }: AppProps) => {
               ))}
             </div>
           </div>
-          <ol className="m-5 divide-y divide-gray-100 text-sm leading-6 lg:col-span-7 xl:col-span-8">
-            <div className="sticky bg-[#F9FAFB] p-5 flex w-1\2">
-              <div className="w-1/2">
-                <h2 className="font-semibold ">Workout</h2>
-                <span>Cardio Day</span>
-              </div>
-              <div className="w-1/2">
-                <h2 className="font-semibold ">Date</h2>
-                <span>{format(selectedDay, "MMMM d yyyy")}</span>
-              </div>
-            </div>
-            <WorkoutHistory logs={logs} />
-          </ol>
+          <WorkoutHistory selectedDay={selectedDay} logGroups={logsFilter} />
         </div>
       </div>
     </Layout>

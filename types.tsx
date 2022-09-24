@@ -8,15 +8,17 @@ export interface AppProps {
   exercises?: Exercise[];
   otherExercises?: Exercise[];
   otherWorkouts?: Workout[];
-  workoutline?: Workoutline 
-  profile?:User
-  children?:JSX.Element
-  logs?:historyType[]
+  workoutline?: Workoutline;
+  profile?: User;
+  children?: JSX.Element;
+  logs?: historyType[];
+  logGroups?: { name: string; logs: historyType[]}[];
+  selectedDay?: Date;
 }
-export interface RecType{
-  recSet:number,
-   recReps: number,
-   recWeights: number
+export interface RecType {
+  recSet: number;
+  recReps: number;
+  recWeights: number;
 }
 export interface userCreate {
   firstName: string;
@@ -27,7 +29,7 @@ export interface userCreate {
   height: number;
   weight: number;
   gender: string;
-  id:string
+  id: string;
 }
 
 export interface Person {
@@ -46,19 +48,22 @@ export interface userNavigationType {
   href: string;
 }
 
-export interface LogCreateType{step:number,userReps:number,userWeights:number,workoutlineId:number,userId:string}
-
+export interface LogCreateType {
+  step: number;
+  userReps: number;
+  userWeights: number;
+  workoutlineId: number;
+  userId: string;
+}
 
 export interface exercieceType extends Exercise {
   workoutlines: Workoutline[];
 }
-export interface workoutlineType extends Workoutline{
-  workout:Workout,
-  exercise:Exercise
-
+export interface workoutlineType extends Workoutline {
+  workout: Workout;
+  exercise: Exercise;
 }
 
-export interface historyType extends Log{
-  workoutline:workoutlineType
-
+export interface historyType extends Log {
+  workoutline: workoutlineType;
 }

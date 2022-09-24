@@ -8,11 +8,9 @@ import RowTable from "./rowTable"
 
 export default function Table({ workoutline }: AppProps) {
     const [recs, setRecs] = useState<RecType[]>([])
-    const { user } = useUser()
     useEffect(() => {
         getArrayOfSet(workoutline!, setRecs)
     }, []);
-    
     return (
         <div className=" w-1/2 md:w-full">
 

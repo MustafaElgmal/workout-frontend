@@ -2,6 +2,9 @@ import { getUser, withPageAuth } from "@supabase/auth-helpers-nextjs";
 import { useUser } from "@supabase/auth-helpers-react";
 import axios from "axios";
 import type { GetServerSideProps, NextPage } from "next";
+import { useRouter } from "next/router";
+import { useState } from "react";
+import StockChart from "../components/chart";
 import Layout from "../components/layout";
 import Table from "../components/table";
 import { Base_Url, projects } from "../constants/index";
@@ -16,8 +19,37 @@ export const getServerSideProps: GetServerSideProps = withPageAuth({
   },
 });
 
+const data = {
+  stockFullName: "SW Limited.",
+  stockShortName: "ASX:SFW",
+  price: {
+    current: 2.32,
+    open: 2.23,
+    low: 2.215,
+    high: 2.325,
+    cap: 93765011,
+    ratio: 20.1,
+    dividend: 1.67,
+  },
+  chartData: {
+    labels: ["January", "February", "March   ", "April", "May", "July"],
+    data: [100, 120, 140, 160, 180, 200, 220, 240, 260, 280, 300],
+  },
+};
+const progress = [
+  { bgColor: "bg-red-600", name: "Squat", lbs: "255" },
+  { bgColor: "bg-black", name: "Bicep Curl", lbs: "55" },
+  { bgColor: "bg-blue-600", name: "Bench Press", lbs: "150" },
+  { bgColor: "bg-green-600", name: "Overhead Press", lbs: "150" },
+];
+
 const Home: NextPage = ({ profile }: AppProps) => {
-  const {user}=useUser()
+  const [selected, setSelected] = useState<{ btn1: Boolean; btn2: Boolean }>({
+    btn1: false,
+    btn2: true,
+  });
+  const { user } = useUser();
+  const router = useRouter();
   return (
     <Layout>
       <div className="container mx-auto sm:px-6 lg:px-8 bg-zinc-100	py-10	">
@@ -39,14 +71,30 @@ const Home: NextPage = ({ profile }: AppProps) => {
           </div>
           <div className="space-x-2">
             <button
+              onClick={() => {
+                router.push("/workouts");
+                {!selected.btn1?setSelected({ btn1: !selected.btn1, btn2: !selected.btn2 }):''}
+              }}
               type="button"
-              className="inline-flex items-center rounded-md border border-gray-300 bg-white px-4 py-2 text-sm font-medium text-gray-700 shadow-sm hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-black focus:ring-offset-2"
+              className={`${
+                !selected.btn1
+                  ? "inline-flex items-center rounded-md border border-gray-300 bg-white px-4 py-2 text-sm font-medium text-gray-700 shadow-sm hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-black focus:ring-offset-2"
+                  : "inline-flex items-center rounded-md border border-gray-300 bg-black px-4 py-2 text-sm font-medium text-white shadow-sm hover:bg-black focus:outline-none focus:ring-2 focus:ring-black focus:ring-offset-2"
+              }`}
             >
               Browse workouts
             </button>
             <button
+              onClick={() => {
+                router.push("/");
+                {!selected.btn2?setSelected({ btn1: !selected.btn1, btn2: !selected.btn2 }):''};
+              }}
               type="button"
-              className="inline-flex items-center rounded-md border border-gray-300 bg-black px-4 py-2 text-sm font-medium text-white shadow-sm hover:bg-black focus:outline-none focus:ring-2 focus:ring-black focus:ring-offset-2"
+              className={`${
+                !selected.btn2
+                  ? "inline-flex items-center rounded-md border border-gray-300 bg-white px-4 py-2 text-sm font-medium text-gray-700 shadow-sm hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-black focus:ring-offset-2"
+                  : "inline-flex items-center rounded-md border border-gray-300 bg-black px-4 py-2 text-sm font-medium text-white shadow-sm hover:bg-black focus:outline-none focus:ring-2 focus:ring-black focus:ring-offset-2"
+              }`}
             >
               Start today&apos;s workout
             </button>
@@ -78,63 +126,23 @@ const Home: NextPage = ({ profile }: AppProps) => {
             ))}
           </ul>
         </div>
-        <div>
-          <div className="py-6 px-10">today&apos;s workout (Leg Day)</div>
-        </div>
-        <div className="px-4 relative sm:px-6 lg:px-8 ">
-          <div className=" flex mt-5 items-center">
-            <span
-              className="absolute top-5 left-15 ml-4 h-full w-0.5 bg-gray-200 handl"
-              aria-hidden="true"
-            ></span>
-            <div className="z-10">
-              <img
-                className="inline-block h-9 w-9 rounded-full"
-                src={`${
-                  profile?.imageUrl
-                    ? profile.imageUrl
-                    : "https://review2020.s3.amazonaws.com/360_F_346839683_6nAPzbhpSkIpb8pmAwufkC7c5eD7wYws.jpg"
-                }`}
-                alt="Profile"
+
+        <div className="container mx-auto sm:px-6 lg:px-8 bg-zinc-100 py-10">
+          <div>
+            <h1 className="text-2xl font-extrabold tracking-tight text-gray-900 sm:text-3xl">
+              My Progress
+            </h1>
+          </div>
+          <div className="min-w-screen min-h-screen flex-wrap	   flex items-center justify-center px-5 py-5 ">
+            {progress.map((inx) => (
+              <StockChart
+                key={inx.bgColor}
+                info={data}
+                color={inx.bgColor}
+                name={inx.name}
+                lbs={inx.lbs}
               />
-            </div>
-            <div className="ml-3">
-              <p className="text-sm font-medium text-gray-700 group-hover:text-gray-900">
-                Jumping jacks
-              </p>
-              <p className="text-xs font-medium text-gray-500 group-hover:text-gray-700">
-                3 Sets x 20 Reps
-              </p>
-            </div>
-          </div>
-          <div className="container  sm:px-6 lg:px-8  border-l-slate-800 	">
-            <Table />
-          </div>
-        </div>
-        <div className=" relative px-4 sm:px-6 lg:px-8 ">
-          <div className="flex mt-5 items-center">
-            <div>
-              <img
-                className="inline-block h-9 w-9 rounded-full"
-                src={`${
-                  profile?.imageUrl
-                    ? profile.imageUrl
-                    : "https://review2020.s3.amazonaws.com/360_F_346839683_6nAPzbhpSkIpb8pmAwufkC7c5eD7wYws.jpg"
-                }`}
-                alt="Profile"
-              />
-            </div>
-            <div className="ml-3">
-              <p className="text-sm font-medium text-gray-700 group-hover:text-gray-900">
-                Air Squat
-              </p>
-              <p className="text-xs font-medium text-gray-500 group-hover:text-gray-700">
-                2 Sets x 100 Reps
-              </p>
-            </div>
-          </div>
-          <div className="container mx-auto sm:px-6 lg:px-8 	">
-            <Table />
+            ))}
           </div>
         </div>
       </div>

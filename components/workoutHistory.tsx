@@ -1,24 +1,28 @@
-import Link from "next/link";
+import { format } from "date-fns";
 import React from "react";
 import { AppProps } from "../types";
+import ExerciseHistory from "./exercisesHistory";
 
-
-const WorkoutHistory = ({logs}:AppProps) => {
+const WorkoutHistory = ({ logGroups, selectedDay }: AppProps) => {
   return (
     <>
-      {logs?.map((log) => (
-        <div className="bg-[#F9FAFB] flex space-x-10 mt-6" key={log.id}>
-          <div className="w-1/3">
-            <img className="imgbackexer" src={log.workoutline.exercise.imageUrl} />
+      {logGroups?.map((group) => (
+        <ol
+          className="m-5 divide-y divide-gray-100 text-sm leading-6 lg:col-span-7 xl:col-span-8"
+          key={group.name}
+        >
+          <div className="sticky top-20 bg-[#F9FAFB] p-5 flex w-1\2">
+            <div className="w-1/2">
+              <h2 className="font-semibold ">Workout</h2>
+              <span>{group.name}</span>
+            </div>
+            <div className="w-1/2">
+              <h2 className="font-semibold ">Date</h2>
+              <span>{format(selectedDay!, "MMMM d yyyy")}</span>
+            </div>
           </div>
-          <div className="w-3/5">
-            <h2 className="font-bold">{log.workoutline.exercise.name}</h2>
-            <p>{log.workoutline.exercise.description}</p>
-            <Link href={log.workoutline.exercise.href}>
-              <a className="font-bold">View Exercise</a>
-            </Link>
-          </div>
-        </div>
+          <ExerciseHistory logs={group.logs} />
+        </ol>
       ))}
     </>
   );

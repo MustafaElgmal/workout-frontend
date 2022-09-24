@@ -5,8 +5,17 @@ import { ErrorMessage } from "formik";
 const prisma = new PrismaClient();
 export const userValidation = async (user: userCreate) => {
   const errors: { error: string }[] = [];
-  const { firstName, lastName, email, password, age, height, weight, gender,id } =
-    user;
+  const {
+    firstName,
+    lastName,
+    email,
+    password,
+    age,
+    height,
+    weight,
+    gender,
+    id,
+  } = user;
 
   if (!firstName) {
     errors.push({ error: "firstName is required!" });
@@ -71,7 +80,7 @@ export const signInValidation = async (user: {
   }
   return errors;
 };
-export const LogValidation =  (log: LogCreateType) => {
+export const LogValidation = (log: LogCreateType) => {
   const errors: { error: string }[] = [];
   const { step, userReps, userWeights, workoutlineId, userId } = log;
   if (!step) {
@@ -91,4 +100,18 @@ export const LogValidation =  (log: LogCreateType) => {
     errors.push({ error: "userId is required!" });
   }
   return errors;
+};
+
+export const forgetPasswordValidation = (password: string) => {
+  if (!password) {
+    return { error: "password is required!" };
+  } else {
+    if (!validator.isStrongPassword(password)) {
+      return {
+        error:
+          "password should be strong!{ minLength: 8, minLowercase: 1, minUppercase: 1, minNumbers: 1, minSymbols: 1}",
+      };
+    }
+  }
+  return {error:''}
 };
