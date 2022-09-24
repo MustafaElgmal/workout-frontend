@@ -62,7 +62,7 @@ const StockChart = ({ info,color,name,lbs }:any) => {
     
     return (
         <>
-            <div className="rounded  overflow-hidden md:w-1/2 flex flex-col  " >
+            <div className="rounded  overflow-hidden md:w-1/2 w-full flex flex-col  " >
                 <div className={`${color} mt-8    rounded-lg  px-5  pb-4 pt-8  mx-4 text-white items-center` }>
                     <Line  data={data} options={options} />
                 </div>

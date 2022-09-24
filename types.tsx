@@ -1,11 +1,11 @@
 import { Exercise, Log, User, Workout, Workoutline } from "@prisma/client";
 import { SVGProps } from "react";
 export interface AppProps {
-  programs?: Workout[] | Exercise[];
+  programs?: Workout[] | exercieceType[];
   isWorkout?: Boolean;
   workouts?: Workout[];
   exercise?: exercieceType;
-  exercises?: Exercise[];
+  exercises?: exercieceType[];
   otherExercises?: Exercise[];
   otherWorkouts?: Workout[];
   workoutline?: Workoutline;

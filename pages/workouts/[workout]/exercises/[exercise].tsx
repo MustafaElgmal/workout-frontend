@@ -47,8 +47,8 @@ const ExercieceDetails = ({ exercise, otherExercises }: AppProps) => {
   return (
     <Layout>
       <div className="container mx-auto sm:px-6 lg:px-8 bg-zinc-100 py-10 min-h-screen">
-        <div className="flex space-x-5">
-          <div>
+        <div className="flex lg:flex-nowrap flex-wrap">
+          <div className="md:w-full w-1/2 mx-3">
             <iframe
               width="560"
               height="315"
@@ -59,7 +59,7 @@ const ExercieceDetails = ({ exercise, otherExercises }: AppProps) => {
               allowFullScreen
             ></iframe>
           </div>
-          <div className="text-xl">
+          <div className="text-xl md:w-full w/1/2 mx-3">
             <h1 className="font-extrabold text-2xl">{exercise?.name}</h1>
             <p>{`${exercise?.workoutlines[0].recSets} sets X ${exercise?.workoutlines[0].recWeights} reps `}</p>
             <p>{exercise?.description}</p>
@@ -67,9 +67,11 @@ const ExercieceDetails = ({ exercise, otherExercises }: AppProps) => {
         </div>
         <div className="mt-10">
           <h2 className="font-bold text-xl">Log exerciece</h2>
-          <div className="flex space-x-20 items-center">
+          <div className="flex   items-center flex-wrap lg:flex-nowrap items-center space-y-5 justify-center">
+            <div className="w-full  lg:w-2/3 mx-10 ">
             <Table workoutline={exercise?.workoutlines[0]} />
-            <div className="text-center">
+            </div>
+            <div className="text-center md:w-1/3 w-full mx-10  ">
               <Timer />
             </div>
           </div>
