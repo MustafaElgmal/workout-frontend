@@ -18,6 +18,7 @@ export const getStaticPaths: GetStaticPaths = async () => {
 export const getStaticProps: GetStaticProps = async ({ params }) => {
   const exercises = await prisma.exercise.findMany({
     where: { workoutlines: { some: { workoutId: +params?.workout! } } },
+    include: { workoutlines: { where: { workoutId: +params?.workout! } } }
   });
   const otherWorkouts = await prisma.workout.findMany({
     where: { id: { notIn: [+params?.workout!] } },

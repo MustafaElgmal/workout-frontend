@@ -37,6 +37,9 @@ a {
   box-sizing: border-box;
   
 }
+.h-css{
+  height: 450px !important;
+}
 .imgbackSignIn{
   background-image: url('../public/assets/alexander-redl-d3bYmnZ0ank-unsplash.jpg');
   background-position: center;

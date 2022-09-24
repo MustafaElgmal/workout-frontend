@@ -33,7 +33,7 @@ const data = {
   },
   chartData: {
     labels: ["January", "February", "March   ", "April", "May", "July"],
-    data: [100, 120, 140, 160, 180, 200, 220, 240, 260, 280, 300],
+    data: [260,90,150,200,300 ,200],
   },
 };
 const progress = [

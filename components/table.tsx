@@ -12,7 +12,7 @@ export default function Table({ workoutline }: AppProps) {
         getArrayOfSet(workoutline!, setRecs)
     }, []);
     return (
-        <div className=" w-1/2 md:w-full">
+        <div className=" w-full">
 
             <div className="mt-2 flex flex-col w-full md:w-full">
                 <div className="-my-2 -mx-4 overflow-x-auto sm:-mx-6 lg:-mx-8">

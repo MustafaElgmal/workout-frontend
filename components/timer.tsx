@@ -10,7 +10,7 @@ const Timer = () => {
   };
 
   return (
-    <>
+    <div className="flex-col flex items-center justify-center">
       {isPlay ? (
         <>
           <CountdownCircleTimer
@@ -39,7 +39,7 @@ const Timer = () => {
       >
         {isPlay ? "Stop" : "Start Timer"}
       </button>
-    </>
+    </div>
   );
 };
 export default Timer;
