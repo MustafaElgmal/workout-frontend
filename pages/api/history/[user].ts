@@ -15,11 +15,9 @@ export default async function handlerUserProfile(
   switch (req.method) {
     case "GET":
       try {
-        const { day } = req.headers;
+        
         const { user } = req.query;
-        // if (!day) {
-        //   return res.status(400).json({ error: "Day is required as header!" });
-        // }
+       
         if (!user) {
           return res.status(400).json({ error: "Day is required as params!" });
         }

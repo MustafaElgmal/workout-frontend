@@ -25,11 +25,11 @@ export const gender = [
   },
 ];
 
-export const projects = [
-  { name: "rounded-md", lbs: 255, bgColor: "bg-red-600" },
-  { name: "Bicep Curl", lbs: 55, bgColor: "bg-black" },
-  { name: "Bench Press", lbs: 150, bgColor: "bg-blue-600" },
-  { name: "Overhead Press", lbs: 90, bgColor: "bg-green-600" },
+export const progress = [
+  { bgColor: "bg-red-600", name: "Squat", lbs: 0 },
+  { bgColor: "bg-black", name: "Bicep Curl", lbs: 0 },
+  { bgColor: "bg-blue-600", name: "Bench Press", lbs: 0 },
+  { bgColor: "bg-green-600", name: "Triceps Curl", lbs: 0 },
 ];
 export const navigation: MenuType[] = [
   { name: "Dashboard", href: "/", icon: HomeIcon, current: true },

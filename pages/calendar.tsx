@@ -24,7 +24,7 @@ import { AppProps, historyType } from "../types";
 import { getLogs } from "../utils/apis";
 import { GetServerSideProps } from "next";
 import { filterAllhistoryByDay } from "../utils/functions";
-import WorkoutHistory from "../components/workoutHistory";
+import WorkoutHistory from "../components/WorkoutHistory";
 export const getServerSideProps: GetServerSideProps = withPageAuth({
   redirectTo: "/signin",
   async getServerSideProps(ctx) {
@@ -35,6 +35,7 @@ export const getServerSideProps: GetServerSideProps = withPageAuth({
 });
 
 const Calender = ({ logs }: AppProps) => {
+  console.log(logs)
   const [logsFilter, setLogs] =
     useState<{ name: string; logs: historyType[] }[]>();
   const [today, settoday] = useState<Date>(startOfToday());
@@ -63,7 +64,6 @@ const Calender = ({ logs }: AppProps) => {
   }, [selectedDay]);
 
   console.log(logsFilter);
-  console.log(selectedDay);
   return (
     <Layout>
       <div className="container mx-auto sm:px-6 lg:px-8 bg-zinc-100 py-10 min-h-screen">

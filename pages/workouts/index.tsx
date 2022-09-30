@@ -1,4 +1,4 @@
-import Workouts from "../../components/programs";
+import Workouts from "../../components/workouts";
 import { AppProps } from "../../types";
 import { prisma } from "../../lib/prisma";
 import Layout from "../../components/layout";
@@ -23,7 +23,7 @@ const Workout = ({ workouts }: AppProps) => {
           </p>
         </div>
         <div>
-          <Workouts programs={workouts} isWorkout={true} />
+          <Workouts workouts={workouts}/>
         </div>
       </div>
     </Layout>

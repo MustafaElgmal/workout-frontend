@@ -9,9 +9,8 @@ function MyApp({ Component, pageProps }: AppProps) {
     <UserProvider supabaseClient={supabaseClient}>
       <Protected>
       <Component {...pageProps} />
-      <div className="bg-green-600 bg-blue-600" hidden></div>
+      <div className="bg-green-600 bg-blue-600 bg-red-600 bg-black" hidden></div>
       </Protected>
-      
     </UserProvider>
   );
 }
