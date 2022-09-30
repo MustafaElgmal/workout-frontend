@@ -1,7 +1,6 @@
 import { Exercise, Log, User, Workout, Workoutline } from "@prisma/client";
 import { SVGProps } from "react";
 export interface AppProps {
-  programs?: Workout[] | exercieceType[];
   isWorkout?: Boolean;
   workouts?: Workout[];
   exercise?: exercieceType;
@@ -67,3 +66,9 @@ export interface workoutlineType extends Workoutline {
 export interface historyType extends Log {
   workoutline: workoutlineType;
 }
+export interface progressType {
+  bgColor: string;
+  name: string;
+  lbs: number;
+}
+

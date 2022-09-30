@@ -2,7 +2,7 @@ import { GetStaticPaths, GetStaticProps } from "next";
 import { prisma } from "../../../../lib/prisma";
 import Link from "next/link";
 import React from "react";
-import Exercises from "../../../../components/programs";
+import Exercises from "../../../../components/exercises";
 import { AppProps } from "../../../../types";
 import Layout from "../../../../components/layout";
 
@@ -45,7 +45,7 @@ const WorkoutExercises = ({ exercises, otherWorkouts }: AppProps) => {
           </p>
         </div>
         <div>
-          <Exercises programs={exercises} isWorkout={false} />
+          <Exercises exercises={exercises}/>
         </div>
 
         <div className="mt-10">

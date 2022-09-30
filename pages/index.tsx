@@ -3,19 +3,21 @@ import { useUser } from "@supabase/auth-helpers-react";
 import axios from "axios";
 import type { GetServerSideProps, NextPage } from "next";
 import { useRouter } from "next/router";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import StockChart from "../components/chart";
 import Layout from "../components/layout";
-import Table from "../components/table";
-import { Base_Url, projects } from "../constants/index";
+import { Base_Url, progress } from "../constants/index";
 import { classNames } from "../constants/index";
-import { AppProps } from "../types";
+import { AppProps, progressType } from "../types";
+import { getLogs } from "../utils/apis";
+import { getPersonalRecord, getStreakDay } from "../utils/functions";
 
 export const getServerSideProps: GetServerSideProps = withPageAuth({
   async getServerSideProps(ctx) {
     const { user } = await getUser(ctx);
     const res = await axios.get(`${Base_Url}/api/users/${user.email}`);
-    return { props: { profile: res.data.profile } };
+    const logs = await getLogs(user.id);
+    return { props: { profile: res.data.profile, logs } };
   },
 });
 
@@ -33,23 +35,24 @@ const data = {
   },
   chartData: {
     labels: ["January", "February", "March   ", "April", "May", "July"],
-    data: [260,90,150,200,300 ,200],
+    data: [260, 90, 150, 200, 300, 200],
   },
 };
-const progress = [
-  { bgColor: "bg-red-600", name: "Squat", lbs: "255" },
-  { bgColor: "bg-black", name: "Bicep Curl", lbs: "55" },
-  { bgColor: "bg-blue-600", name: "Bench Press", lbs: "150" },
-  { bgColor: "bg-green-600", name: "Overhead Press", lbs: "150" },
-];
 
-const Home: NextPage = ({ profile }: AppProps) => {
+const Home: NextPage = ({ profile, logs }: AppProps) => {
+  const [days, setDays] = useState<number>(0);
+  const [personalRecords,setPersonalRecords]=useState<progressType[]>([])
   const [selected, setSelected] = useState<{ btn1: Boolean; btn2: Boolean }>({
     btn1: false,
     btn2: true,
   });
   const { user } = useUser();
   const router = useRouter();
+  useEffect(() => {
+    getStreakDay(logs!, setDays);
+    getPersonalRecord(logs!, progress,setPersonalRecords);
+  }, [logs]);
+
   return (
     <Layout>
       <div className="container mx-auto sm:px-6 lg:px-8 bg-zinc-100	py-10	">
@@ -66,14 +69,21 @@ const Home: NextPage = ({ profile }: AppProps) => {
             />
             <div className="p-2">
               <h2 className="text-xl	font-bold">{`Good morning, ${user?.user_metadata.name}`}</h2>
-              <span>🔥10 Day Streak</span>
+              <span>{`${days > 0 ? `🔥${days} Day Streak` : ""}`}</span>
             </div>
           </div>
           <div className="space-x-2">
             <button
               onClick={() => {
                 router.push("/workouts");
-                {!selected.btn1?setSelected({ btn1: !selected.btn1, btn2: !selected.btn2 }):''}
+                {
+                  !selected.btn1
+                    ? setSelected({
+                        btn1: !selected.btn1,
+                        btn2: !selected.btn2,
+                      })
+                    : "";
+                }
               }}
               type="button"
               className={`${
@@ -87,7 +97,14 @@ const Home: NextPage = ({ profile }: AppProps) => {
             <button
               onClick={() => {
                 router.push("/");
-                {!selected.btn2?setSelected({ btn1: !selected.btn1, btn2: !selected.btn2 }):''};
+                {
+                  !selected.btn2
+                    ? setSelected({
+                        btn1: !selected.btn1,
+                        btn2: !selected.btn2,
+                      })
+                    : "";
+                }
               }}
               type="button"
               className={`${
@@ -107,18 +124,18 @@ const Home: NextPage = ({ profile }: AppProps) => {
             role="list"
             className="mt-3 grid grid-cols-1 gap-5 sm:grid-cols-2 sm:gap-6 lg:grid-cols-4"
           >
-            {projects.map((project) => (
+            {personalRecords.map((progres) => (
               <li
-                key={project.name}
+                key={progres.name}
                 className={classNames(
-                  `${project.bgColor} col-span-1 flex rounded-xl shadow-sm `
+                  `${progres.bgColor} col-span-1 flex rounded-xl shadow-sm `
                 )}
               >
                 <div className="flex flex-1 items-center justify-between truncate rounded-xl border-t border-r border-b py-5">
                   <div className="flex-1 truncate px-6 py-2 text-sm">
-                    <div className="font-medium text-white">{project.name}</div>
+                    <div className="font-medium text-white">{progres.name}</div>
                     <p className="text-white text-lg font-bold">
-                      {project.lbs} lbs
+                      {progres.lbs} lbs
                     </p>
                   </div>
                 </div>

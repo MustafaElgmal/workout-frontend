@@ -59,10 +59,10 @@ const ExercieceDetails = ({ exercise, otherExercises }: AppProps) => {
               allowFullScreen
             ></iframe>
           </div>
-          <div className="text-xl md:w-full w/1/2 mx-3">
+          <div className="text-xl md:w-full w/1/2 mx-3 ">
             <h1 className="font-extrabold text-2xl">{exercise?.name}</h1>
-            <p>{`${exercise?.workoutlines[0].recSets} sets X ${exercise?.workoutlines[0].recWeights} reps `}</p>
-            <p>{exercise?.description}</p>
+            <p className="mt-2">{`${exercise?.workoutlines[0].recSets} sets X ${exercise?.workoutlines[0].recWeights} reps `}</p>
+            <p className="mt-2">{exercise?.description}</p>
           </div>
         </div>
         <div className="mt-10">
