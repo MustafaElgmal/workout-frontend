@@ -38,7 +38,11 @@ const Signup = () => {
 
       const res = await createUser(
         {
-          ...values, height: +values.height, age: +values.age, weight: +values.weight, gender: selected.name
+          ...values,
+           height: +values.height, 
+           age: +values.age,
+            weight: +values.weight, 
+            gender: selected.name,
         },
         router
       );
