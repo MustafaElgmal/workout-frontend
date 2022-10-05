@@ -110,3 +110,9 @@ export const getPersonalRecord = (
   }
   setPersonalRecords(personalRecords);
 };
+
+
+export const IsBusy=(day:Date,logs:historyType[])=>{
+
+
+}
