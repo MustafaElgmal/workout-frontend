@@ -24,8 +24,7 @@ import { AppProps, historyType } from "../types";
 import { getLogs } from "../utils/apis";
 import { GetServerSideProps } from "next";
 import { filterAllhistoryByDay } from "../utils/functions";
-import WorkoutHistory from "../components/WorkoutHistory";
-
+import WorkoutHistory from "../components/workoutHistory";
 export const getServerSideProps: GetServerSideProps = withPageAuth({
   redirectTo: "/signin",
   async getServerSideProps(ctx) {

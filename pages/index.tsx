@@ -14,7 +14,9 @@ import { getLogs } from "../utils/apis";
 import { getPersonalRecord, getStreakDay } from "../utils/functions";
 
 export const getServerSideProps: GetServerSideProps = withPageAuth({
+
   redirectTo:'/signin',
+
   async getServerSideProps(ctx) {
     const { user } = await getUser(ctx);
     const res = await axios.get(`${Base_Url}/api/users/${user.email}`);
@@ -165,7 +167,7 @@ const Home: NextPage = ({ profile, logs }: AppProps) => {
           </div>
         </div>
       </div>
-    </Layout>
+     </Layout>
   );
 };
 
