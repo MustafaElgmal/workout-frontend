@@ -14,14 +14,10 @@ export const userValidation = async (user: userCreate) => {
     height,
     weight,
     gender,
-    id,
   } = user;
 
   if (!firstName) {
     errors.push({ error: "firstName is required!" });
-  }
-  if (!id) {
-    errors.push({ error: "Id is required!" });
   }
   if (!lastName) {
     errors.push({ error: "lastName is required!" });

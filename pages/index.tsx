@@ -1,3 +1,4 @@
+/* eslint-disable @next/next/no-img-element */
 import { getUser, withPageAuth } from "@supabase/auth-helpers-nextjs";
 import { useUser } from "@supabase/auth-helpers-react";
 import axios from "axios";
@@ -13,6 +14,7 @@ import { getLogs } from "../utils/apis";
 import { getPersonalRecord, getStreakDay } from "../utils/functions";
 
 export const getServerSideProps: GetServerSideProps = withPageAuth({
+  redirectTo:'/signin',
   async getServerSideProps(ctx) {
     const { user } = await getUser(ctx);
     const res = await axios.get(`${Base_Url}/api/users/${user.email}`);
