@@ -46,7 +46,7 @@ export default async function handlerUser(
           height,
           weight,
           gender,
-          id
+          id:id!
         }
         });
     

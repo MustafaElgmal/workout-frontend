@@ -43,7 +43,7 @@ export const navigation: MenuType[] = [
 ];
 export const userNavigation: userNavigationType[] = [
   { name: "Your Profile", href: "/" },
-  { name: "Upload Photo", href: "#" },
+  { name: "Upload Photo", href: "/" },
   { name: "Sign out", href: "/signin" },
 ];
 

@@ -29,7 +29,7 @@ export interface userCreate {
   height: number;
   weight: number;
   gender: string;
-  id: string;
+  id?: string;
 }
 
 export interface Person {
