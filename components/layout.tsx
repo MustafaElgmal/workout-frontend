@@ -1,3 +1,4 @@
+/* eslint-disable @next/next/no-img-element */
 import { Fragment, useEffect, useState } from "react";
 import { Dialog, Menu, Transition } from "@headlessui/react";
 import { useRouter } from "next/router";
@@ -24,7 +25,7 @@ export default function Layout({ children }: AppProps) {
   const { user  } = useUser();
   const getProfile = async () => {
     if (user !== null) {
-      await getUserProfile(user.email as string, setProfile);
+      await getUserProfile(user.id as string, setProfile);
     } else {
       router.push("/signin");
     }
@@ -240,8 +241,10 @@ export default function Layout({ children }: AppProps) {
                             {item.name}
                           </a>
                         )}
+
                       </Menu.Item>
                     ))}
+                    
                   </Menu.Items>
                 </Transition>
               </Menu>

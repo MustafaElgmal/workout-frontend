@@ -76,9 +76,9 @@ export const signInUser = async (
   }
 };
 
-export const getUserProfile = async (email: string, setProfile: Function) => {
+export const getUserProfile = async (id: string, setProfile: Function) => {
   try {
-    const res = await axios.get(`${Base_Url}/api/users/${email}`);
+    const res = await axios.get(`${Base_Url}/api/users/${id}`);
     setProfile(res.data.profile);
   } catch (e) {
     console.log(e);

@@ -19,8 +19,9 @@ export const getServerSideProps: GetServerSideProps = withPageAuth({
 
   async getServerSideProps(ctx) {
     const { user } = await getUser(ctx);
-    const res = await axios.get(`${Base_Url}/api/users/${user.email}`);
+    const res = await axios.get(`${Base_Url}/api/users/${user.id}`);
     const logs = await getLogs(user.id);
+    
     return { props: { profile: res.data.profile, logs } };
   },
 });

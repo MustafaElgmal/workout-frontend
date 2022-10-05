@@ -15,13 +15,13 @@ export default async function handlerUserProfile(
   switch (req.method) {
     case "GET":
       try {
-        const { email } = req.query;
+        const { id } = req.query;
 
-        if (!email) {
+        if (!id) {
           return res.status(500).json({ message: "Email is required!" });
         }
         const profile = await prisma.user.findFirst({
-          where: { email: email as string },
+          where: { id:id as string },
         });
         if (!profile) {
           return res.status(404).json({ message: "user is not found!" });

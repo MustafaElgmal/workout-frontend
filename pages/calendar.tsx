@@ -35,7 +35,6 @@ export const getServerSideProps: GetServerSideProps = withPageAuth({
 });
 
 const Calender = ({ logs }: AppProps) => {
-  console.log(logs)
   const [logsFilter, setLogs] =
     useState<{ name: string; logs: historyType[] }[]>();
   const [today, settoday] = useState<Date>(startOfToday());
@@ -48,6 +47,7 @@ const Calender = ({ logs }: AppProps) => {
     start: startOfWeek(firstDayCurrentMonth),
     end: endOfWeek(endOfMonth(firstDayCurrentMonth)),
   });
+  console.log(newDays)
 
   function prevMonth() {
     let firstDayNextMonth = add(firstDayCurrentMonth, { months: -1 });
