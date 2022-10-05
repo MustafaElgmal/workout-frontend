@@ -21,7 +21,7 @@ export default function Layout({ children }: AppProps) {
   const [sidebarOpen, setSidebarOpen] = useState(false);
   const [Router, setRouter] = useState<string>("");
   const router = useRouter();
-  const { user } = useUser();
+  const { user  } = useUser();
   const getProfile = async () => {
     if (user !== null) {
       await getUserProfile(user.email as string, setProfile);
