@@ -3,7 +3,6 @@ import { AppProps, RecType } from "../types"
 import React from "react"
 import { useState } from "react"
 import { getArrayOfSet } from "../utils/functions"
-import { useUser } from "@supabase/auth-helpers-react"
 import RowTable from "./rowTable"
 
 export default function Table({ workoutline }: AppProps) {

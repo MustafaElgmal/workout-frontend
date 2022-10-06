@@ -5,7 +5,7 @@ import { createLog } from "../utils/apis";
 
 const RowTable = ({ ele, workoutline }: any) => {
  const [isChecked,setChecked]=useState<Boolean>(false)
-  const { user } = useUser();
+  const { user,isLoading } = useUser();
   const formik = useFormik({
     initialValues: {
       step: ele.recSet,
@@ -22,6 +22,9 @@ const RowTable = ({ ele, workoutline }: any) => {
       });
     },
   });
+  if (isLoading) {
+    return <div>...Loding</div>;
+  }
   return (
     <tr key={ele.recSet} className="bg-gray-50">
       <form id="form1"></form>
