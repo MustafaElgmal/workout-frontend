@@ -8,7 +8,7 @@ import { useEffect, useState } from "react";
 import { useDispatch } from "react-redux";
 import StockChart from "../components/chart";
 import Layout from "../components/layout";
-import {  progress } from "../constants/index";
+import { progress } from "../constants/index";
 import { classNames } from "../constants/index";
 import { useAppSelector } from "../redux/app/hookes";
 import { AppProps, progressType } from "../types";
@@ -23,9 +23,9 @@ export const getServerSideProps: GetServerSideProps = withPageAuth({
     const { user } = await getUser(ctx);
     const logs = await prisma.log.findMany({
       where: { userId: user.id },
-      include: { workoutline: { include: { workout: true,exercise:true } } },
+      include: { workoutline: { include: { workout: true, exercise: true } } },
     });
-    return { props: {logs:JSON.parse(JSON.stringify(logs)) } };
+    return { props: { logs: JSON.parse(JSON.stringify(logs)) } };
   },
 });
 
@@ -86,9 +86,11 @@ const Home: NextPage = ({ logs }: AppProps) => {
             <input
               type="file"
               accept=".jpg,.png"
-              onChange={async (e) =>
-                await addPhoto(user?.id!, e.target.files[0] as File, dispatch)
-              }
+              onChange={async (e) => {
+                if (e.target.files !== null) {
+                  await addPhoto(user?.id!, e.target.files[0], dispatch);
+                }
+              }}
             />
             <button
               onClick={() => {
