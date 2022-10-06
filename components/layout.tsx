@@ -23,7 +23,7 @@ export default function Layout({ children }: AppProps) {
   const [sidebarOpen, setSidebarOpen] = useState(false);
   const [Router, setRouter] = useState<string>("");
   const router = useRouter();
-  const { user, isLoading } = useUser();
+  const { user } = useUser();
   const dispatch = useDispatch();
 
   const getProfile = async () => {
@@ -40,9 +40,6 @@ export default function Layout({ children }: AppProps) {
     changeNavigationCurrent(router.asPath, menu, setMenu);
   }, []);
  
-  if (isLoading) {
-    return <div>...Loding</div>;
-  }
   return (
     <div>
       <Transition.Root show={sidebarOpen} as={Fragment}>

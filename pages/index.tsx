@@ -1,14 +1,13 @@
 /* eslint-disable @next/next/no-img-element */
 import { getUser, withPageAuth } from "@supabase/auth-helpers-nextjs";
 import { useUser } from "@supabase/auth-helpers-react";
-import axios from "axios";
 import type { GetServerSideProps, NextPage } from "next";
 import { useRouter } from "next/router";
 import { useEffect, useState } from "react";
 import { useDispatch } from "react-redux";
 import StockChart from "../components/chart";
 import Layout from "../components/layout";
-import { progress } from "../constants/index";
+import { progress,data } from "../constants/index";
 import { classNames } from "../constants/index";
 import { useAppSelector } from "../redux/app/hookes";
 import { AppProps, progressType } from "../types";
@@ -18,34 +17,17 @@ import { prisma } from "../lib/prisma";
 
 export const getServerSideProps: GetServerSideProps = withPageAuth({
   redirectTo: "/signin",
-
   async getServerSideProps(ctx) {
     const { user } = await getUser(ctx);
     const logs = await prisma.log.findMany({
       where: { userId: user.id },
-      include: { workoutline: { include: { workout: true, exercise: true } } },
+      include: { workoutline: { include: { workout: true,exercise:true } } },
     });
-    return { props: { logs: JSON.parse(JSON.stringify(logs)) } };
+    return { props: {logs:JSON.parse(JSON.stringify(logs)) } };
   },
 });
 
-const data = {
-  stockFullName: "SW Limited.",
-  stockShortName: "ASX:SFW",
-  price: {
-    current: 2.32,
-    open: 2.23,
-    low: 2.215,
-    high: 2.325,
-    cap: 93765011,
-    ratio: 20.1,
-    dividend: 1.67,
-  },
-  chartData: {
-    labels: ["January", "February", "March   ", "April", "May", "July"],
-    data: [260, 90, 150, 200, 300, 200],
-  },
-};
+
 
 const Home: NextPage = ({ logs }: AppProps) => {
   const dispatch = useDispatch();
@@ -64,9 +46,8 @@ const Home: NextPage = ({ logs }: AppProps) => {
   }, [logs]);
 
   if (isLoading) {
-    return <div>...Loding</div>;
+    return <div>Loding...</div>;
   }
-
   return (
     <Layout>
       <div className="container mx-auto sm:px-6 lg:px-8 bg-zinc-100	py-10	">
@@ -173,17 +154,7 @@ const Home: NextPage = ({ logs }: AppProps) => {
               My Progress
             </h1>
           </div>
-          <div className="min-w-screen min-h-screen flex-wrap	   flex items-center justify-center px-5 py-5 ">
-            {progress.map((inx) => (
-              <StockChart
-                key={inx.bgColor}
-                info={data}
-                color={inx.bgColor}
-                name={inx.name}
-                lbs={inx.lbs}
-              />
-            ))}
-          </div>
+          
         </div>
       </div>
     </Layout>
