@@ -56,12 +56,16 @@ const Home: NextPage = ({ logs }: AppProps) => {
     btn1: false,
     btn2: true,
   });
-  const { user } = useUser();
+  const { user, isLoading } = useUser();
   const router = useRouter();
   useEffect(() => {
     getStreakDay(logs!, setDays);
     getPersonalRecord(logs!, progress, setPersonalRecords);
   }, [logs]);
+
+  if (isLoading) {
+    return <div>...Loding</div>;
+  }
 
   return (
     <Layout>
