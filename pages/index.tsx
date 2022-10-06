@@ -16,7 +16,11 @@ import { addPhoto, getLogs } from "../utils/apis";
 import { getPersonalRecord, getStreakDay } from "../utils/functions";
 
 export const getServerSideProps: GetServerSideProps = withPageAuth({
-  redirectTo: "/signin",
+
+
+  redirectTo:'/signin',
+
+
   async getServerSideProps(ctx) {
     const { user } = await getUser(ctx);
     const logs = await getLogs(user.id);
@@ -176,7 +180,7 @@ const Home: NextPage = ({ logs }: AppProps) => {
           </div>
         </div>
       </div>
-    </Layout>
+     </Layout>
   );
 };
 

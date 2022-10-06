@@ -25,6 +25,7 @@ export default function Layout({ children }: AppProps) {
   const router = useRouter();
   const { user, isLoading } = useUser();
   const dispatch = useDispatch();
+
   const getProfile = async () => {
     console.log(user);
     if (user !== null) {
