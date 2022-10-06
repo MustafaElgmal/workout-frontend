@@ -1,3 +1,4 @@
+/* eslint-disable @next/next/no-img-element */
 import { Person } from "../types";
 import { Fragment, useState } from "react";
 import { Listbox, Transition } from "@headlessui/react";
@@ -8,6 +9,7 @@ import { useFormik } from "formik";
 import * as Yup from "yup";
 import { createUser } from "../utils/apis";
 import { useRouter } from "next/router";
+import Link from "next/link";
 const Signup = () => {
   const [people, setPeople] = useState<Person[]>(gender);
   const [selected, setSelected] = useState<Person>(people[0]);
@@ -32,13 +34,15 @@ const Signup = () => {
       age: Yup.string().required("age is required!"),
       height: Yup.string().required("Height is required!"),
       weight: Yup.string().required("Weight is required!"),
-
     }),
     onSubmit: async (values) => {
-
       const res = await createUser(
         {
-          ...values, height: +values.height, age: +values.age, weight: +values.weight, gender: selected.name
+          ...values,
+          height: +values.height,
+          age: +values.age,
+          weight: +values.weight,
+          gender: selected.name,
         },
         router
       );
@@ -60,12 +64,11 @@ const Signup = () => {
             </h2>
             <p className="mt-2 text-sm text-gray-600">
               Or{" "}
-              <a
-                href="#"
-                className="font-medium text-black hover:text-indigo-500"
-              >
-                sign in to an existing account
-              </a>
+              <Link href="/signin">
+                <a className="font-medium text-black hover:text-indigo-500">
+                  sign in to an existing account
+                </a>
+              </Link>
             </p>
 
             <div className="mt-8">
@@ -357,8 +360,7 @@ const Signup = () => {
                     </div>
                   </div>
                   <span className="text-red-600">
-                    {formik.errors.age &&
-                      formik.touched.age
+                    {formik.errors.age && formik.touched.age
                       ? formik.errors.age
                       : null}
                   </span>

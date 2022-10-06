@@ -14,18 +14,21 @@ import { classNames, navigation, userNavigation } from "../constants";
 
 import { getUserProfile } from "../utils/apis";
 import { useUser } from "@supabase/auth-helpers-react";
-import { User } from "@prisma/client";
+import { useDispatch } from "react-redux";
+import { useAppSelector } from "../redux/app/hookes";
 
 export default function Layout({ children }: AppProps) {
   const [menu, setMenu] = useState<MenuType[]>(navigation);
-  const [profile, setProfile] = useState<User>();
+  const profile = useAppSelector((state) => state.user.profile);
   const [sidebarOpen, setSidebarOpen] = useState(false);
   const [Router, setRouter] = useState<string>("");
   const router = useRouter();
-  const { user } = useUser();
+  const { user, isLoading } = useUser();
+  const dispatch = useDispatch();
   const getProfile = async () => {
+    console.log(user);
     if (user !== null) {
-      await getUserProfile(user.id as string, setProfile);
+      await getUserProfile(user.id as string, dispatch);
     } else {
       router.push("/signin");
     }
@@ -36,7 +39,10 @@ export default function Layout({ children }: AppProps) {
     setRouter(router.asPath);
     changeNavigationCurrent(router.asPath, menu, setMenu);
   }, []);
-
+  console.log(profile);
+  if (isLoading) {
+    return <div>...Loding</div>;
+  }
   return (
     <div>
       <Transition.Root show={sidebarOpen} as={Fragment}>
@@ -192,7 +198,7 @@ export default function Layout({ children }: AppProps) {
           </button>
           <div className="flex flex-1 justify-end px-4">
             <div className="ml-4 flex items-center md:ml-6">
-              <span>{user?.user_metadata.name}</span>
+              <h1 className="font-bold">{profile.firstName}</h1>
               <button
                 type="button"
                 className="rounded-full bg-white p-1 text-gray-400 hover:text-gray-500 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2"
@@ -200,7 +206,6 @@ export default function Layout({ children }: AppProps) {
                 <span className="sr-only">View notifications</span>
                 <BellIcon className="h-6 w-6" aria-hidden="true" />
               </button>
-
               {/* Profile dropdown */}
               <Menu as="div" className="relative ml-3">
                 <div>
@@ -230,21 +235,23 @@ export default function Layout({ children }: AppProps) {
                     {userNavigation.map((item) => (
                       <Menu.Item key={item.name}>
                         {({ active }) => (
-                          <a
+                          <Link
                             href={item.href}
-                            className={classNames(
-                              active ? "bg-gray-100" : "",
-                              "block px-4 py-2 text-sm text-gray-700"
-                            )}
                             onClick={() => handleClick(item.name)}
                           >
-                            {item.name}
-                          </a>
+                            <a
+                              className={classNames(
+                                active ? "bg-gray-100" : "",
+                                "block px-4 py-2 text-sm text-gray-700",
+                                "hover:bg-gray-100"
+                              )}
+                            >
+                              {item.name}
+                            </a>
+                          </Link>
                         )}
-
                       </Menu.Item>
                     ))}
-                    
                   </Menu.Items>
                 </Transition>
               </Menu>

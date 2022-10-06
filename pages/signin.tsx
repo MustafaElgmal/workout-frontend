@@ -18,7 +18,6 @@ const SignIn = () => {
       password: Yup.string().required("Please Enter your password"),
     }),
     onSubmit: async (values) => {
-      
       await signInUser(values, router);
       formik.resetForm();
     },
@@ -103,12 +102,11 @@ const SignIn = () => {
 
                   <div className="flex items-center justify-between">
                     <div className="text-sm">
-                      <a
-                        href="#"
-                        className="font-medium  hover:text-indigo-500"
-                      >
-                        Forgot your password?
-                      </a>
+                      <Link href="/forgetPasswordCode">
+                        <a className="font-medium  hover:text-indigo-500">
+                          Forgot your password?
+                        </a>
+                      </Link>
                     </div>
                   </div>
 

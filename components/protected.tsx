@@ -5,9 +5,18 @@ import SignIn from "../pages/signin";
 
 const Protected = ({ children }: any) => {
   const { user } = useUser();
+  console.log("user");
   const router = useRouter();
   return (
-    <div>{user!==null || router.asPath === "/signup" ? children : <SignIn />}</div>
+    <div>
+      {user !== null ||
+      router.asPath === "/signup" ||
+      router.asPath === "/forgetPasswordCode" ? (
+        children
+      ) : (
+        <SignIn />
+      )}
+    </div>
   );
 };
 

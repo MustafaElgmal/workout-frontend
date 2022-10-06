@@ -3,7 +3,9 @@ import axios from "axios";
 import { Base_Url } from "../constants";
 import { LogCreateType, userCreate } from "../types";
 import { supabaseClient } from "@supabase/auth-helpers-nextjs";
-import { Log } from "@prisma/client";
+import { prisma } from "../lib/prisma";
+import { Dispatch } from "@reduxjs/toolkit";
+import { setProfile } from "../redux/features/profile";
 
 export const createUser = async (userr: userCreate, router: NextRouter) => {
   try {
@@ -75,23 +77,43 @@ export const signInUser = async (
     }
   }
 };
-
-export const getUserProfile = async (id: string, setProfile: Function) => {
+export const getUserProfile = async (id: string, dispatch: Dispatch) => {
   try {
     const res = await axios.get(`${Base_Url}/api/users/${id}`);
-    setProfile(res.data.profile);
+    dispatch(setProfile(res.data.profile));
   } catch (e) {
     console.log(e);
   }
 };
 
-export const getLogs=async(userId:string)=>{
+export const getLogs = async (userId: string) => {
   try {
     const res = await axios.get(`${Base_Url}/api/history/${userId}`);
-   return res.data.logs
+    return res.data.logs;
   } catch (e) {
     console.log(e);
   }
+};
 
-}
-
+export const addPhoto = async (
+  userId: string,
+  file: File,
+  dispatch: Dispatch
+) => {
+  try {
+    const formData = new FormData();
+    formData.append("image", file);
+    const res = await axios.post(
+      `${Base_Url}/api/users/image/${userId}`,
+      formData,
+      {
+        headers: {
+          "Content-Type": "multipart/form-data",
+        },
+      }
+    );
+    dispatch(setProfile(res.data.profile));
+  } catch (e) {
+    console.log(e);
+  }
+};

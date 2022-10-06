@@ -1,4 +1,4 @@
-import { forgetPasswordValidation } from "./../../../../utils/validations";
+import { forgetPasswordValidation } from "../../../../utils/validations";
 import { User } from "@prisma/client";
 import type { NextApiRequest, NextApiResponse } from "next";
 import { prisma } from "../../../../lib/prisma";
@@ -22,7 +22,7 @@ export default async function handler(
       try {
         const error = forgetPasswordValidation(req.body.password);
         if (error.error !== "") {
-          return res.status(400).json({ error:error.error });
+          return res.status(400).json({ error: error.error });
         }
         const { password } = req.body;
         const updatedUser = await prisma.user.update({
