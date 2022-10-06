@@ -5,24 +5,26 @@ import axios from "axios";
 import type { GetServerSideProps, NextPage } from "next";
 import { useRouter } from "next/router";
 import { useEffect, useState } from "react";
+import { useDispatch } from "react-redux";
 import StockChart from "../components/chart";
 import Layout from "../components/layout";
 import { Base_Url, progress } from "../constants/index";
 import { classNames } from "../constants/index";
+import { useAppSelector } from "../redux/app/hookes";
 import { AppProps, progressType } from "../types";
-import { getLogs } from "../utils/apis";
+import { addPhoto, getLogs } from "../utils/apis";
 import { getPersonalRecord, getStreakDay } from "../utils/functions";
 
 export const getServerSideProps: GetServerSideProps = withPageAuth({
 
+
   redirectTo:'/signin',
+
 
   async getServerSideProps(ctx) {
     const { user } = await getUser(ctx);
-    const res = await axios.get(`${Base_Url}/api/users/${user.id}`);
     const logs = await getLogs(user.id);
-    
-    return { props: { profile: res.data.profile, logs } };
+    return { props: { logs } };
   },
 });
 
@@ -44,18 +46,21 @@ const data = {
   },
 };
 
-const Home: NextPage = ({ profile, logs }: AppProps) => {
+const Home: NextPage = ({ logs }: AppProps) => {
+  const dispatch = useDispatch();
+  const profile = useAppSelector((state) => state.user.profile);
   const [days, setDays] = useState<number>(0);
-  const [personalRecords,setPersonalRecords]=useState<progressType[]>([])
+  const [personalRecords, setPersonalRecords] = useState<progressType[]>([]);
   const [selected, setSelected] = useState<{ btn1: Boolean; btn2: Boolean }>({
     btn1: false,
     btn2: true,
   });
   const { user } = useUser();
+  console.log(user);
   const router = useRouter();
   useEffect(() => {
     getStreakDay(logs!, setDays);
-    getPersonalRecord(logs!, progress,setPersonalRecords);
+    getPersonalRecord(logs!, progress, setPersonalRecords);
   }, [logs]);
 
   return (
@@ -73,11 +78,18 @@ const Home: NextPage = ({ profile, logs }: AppProps) => {
               alt="Profile"
             />
             <div className="p-2">
-              <h2 className="text-xl	font-bold">{`Good morning, ${user?.user_metadata.name}`}</h2>
+              <h2 className="text-xl	font-bold">{`Good morning, ${profile?.firstName}`}</h2>
               <span>{`${days > 0 ? `🔥${days} Day Streak` : ""}`}</span>
             </div>
           </div>
           <div className="space-x-2">
+            <input
+              type="file"
+              accept="image/JPG,image/png"
+              onChange={async (e) =>
+                await addPhoto(user?.id!, e.target.files[0] as File, dispatch)
+              }
+            />
             <button
               onClick={() => {
                 router.push("/workouts");

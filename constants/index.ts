@@ -8,7 +8,7 @@ import {
 } from "@heroicons/react/24/outline";
 import { MenuType } from "../types";
 
-export const Base_Url = "https://workoutapp-seven.vercel.app";
+export const Base_Url = "http://localhost:3000";
 
 export const gender = [
   {
