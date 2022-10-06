@@ -7,7 +7,7 @@ import { useEffect, useState } from "react";
 import { useDispatch } from "react-redux";
 import StockChart from "../components/chart";
 import Layout from "../components/layout";
-import { progress,data } from "../constants/index";
+import { progress, data } from "../constants/index";
 import { classNames } from "../constants/index";
 import { useAppSelector } from "../redux/app/hookes";
 import { AppProps, progressType } from "../types";
@@ -21,13 +21,11 @@ export const getServerSideProps: GetServerSideProps = withPageAuth({
     const { user } = await getUser(ctx);
     const logs = await prisma.log.findMany({
       where: { userId: user.id },
-      include: { workoutline: { include: { workout: true,exercise:true } } },
+      include: { workoutline: { include: { workout: true, exercise: true } } },
     });
-    return { props: {logs:JSON.parse(JSON.stringify(logs)) } };
+    return { props: { logs: JSON.parse(JSON.stringify(logs)) } };
   },
 });
-
-
 
 const Home: NextPage = ({ logs }: AppProps) => {
   const dispatch = useDispatch();
@@ -51,7 +49,7 @@ const Home: NextPage = ({ logs }: AppProps) => {
   return (
     <Layout>
       <div className="container mx-auto sm:px-6 lg:px-8 bg-zinc-100	py-10	 min-h-screen">
-        <div className="bg-white py-6 px-10 flex justify-between items-center">
+        <div className="bg-white py-6 lg:px-10  flex justify-between items-center">
           <div className="flex items-center">
             <img
               className="inline-block h-14 w-14 rounded-full "
@@ -67,7 +65,7 @@ const Home: NextPage = ({ logs }: AppProps) => {
               <span>{`${days > 0 ? `🔥${days} Day Streak` : ""}`}</span>
             </div>
           </div>
-          <div className="space-x-2">
+          <div className="grid grid-cols-1 sm:grid-cols-1 lg:grid-cols-3 w-1/2">
             <input
               type="file"
               accept=".jpg,.png"
@@ -92,8 +90,8 @@ const Home: NextPage = ({ logs }: AppProps) => {
               type="button"
               className={`${
                 !selected.btn1
-                  ? "inline-flex items-center rounded-md border border-gray-300 bg-white px-4 py-2 text-sm font-medium text-gray-700 shadow-sm hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-black focus:ring-offset-2"
-                  : "inline-flex items-center rounded-md border border-gray-300 bg-black px-4 py-2 text-sm font-medium text-white shadow-sm hover:bg-black focus:outline-none focus:ring-2 focus:ring-black focus:ring-offset-2"
+                  ? "  inline-flex items-center rounded-md border border-gray-300 bg-white px-4 py-2 text-sm font-medium text-gray-700 shadow-sm hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-black focus:ring-offset-2"
+                  : "  inline-flex items-center rounded-md border border-gray-300 bg-black px-4 py-2 text-sm font-medium text-white shadow-sm hover:bg-black focus:outline-none focus:ring-2 focus:ring-black focus:ring-offset-2"
               }`}
             >
               Browse workouts
@@ -113,7 +111,7 @@ const Home: NextPage = ({ logs }: AppProps) => {
               type="button"
               className={`${
                 !selected.btn2
-                  ? "inline-flex items-center rounded-md border border-gray-300 bg-white px-4 py-2 text-sm font-medium text-gray-700 shadow-sm hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-black focus:ring-offset-2"
+                  ? " inline-flex items-center rounded-md border border-gray-300 bg-white px-4 py-2 text-sm font-medium text-gray-700 shadow-sm hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-black focus:ring-offset-2"
                   : "inline-flex items-center rounded-md border border-gray-300 bg-black px-4 py-2 text-sm font-medium text-white shadow-sm hover:bg-black focus:outline-none focus:ring-2 focus:ring-black focus:ring-offset-2"
               }`}
             >
@@ -165,7 +163,6 @@ const Home: NextPage = ({ logs }: AppProps) => {
               />
             ))}
           </div>
-          
         </div>
       </div>
     </Layout>

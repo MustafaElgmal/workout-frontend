@@ -30,9 +30,9 @@ export const getServerSideProps: GetServerSideProps = withPageAuth({
     const { user } = await getUser(ctx);
     const logs = await prisma.log.findMany({
       where: { userId: user.id },
-      include: { workoutline: { include: { workout: true,exercise:true } } },
+      include: { workoutline: { include: { workout: true, exercise: true } } },
     });
-    return { props: {logs:JSON.parse(JSON.stringify(logs)) } };
+    return { props: { logs: JSON.parse(JSON.stringify(logs)) } };
   },
 });
 
@@ -50,7 +50,7 @@ const Calender = ({ logs }: AppProps) => {
     end: endOfWeek(endOfMonth(firstDayCurrentMonth)),
   });
 
-
+  console.log(logsFilter);
   function prevMonth() {
     let firstDayNextMonth = add(firstDayCurrentMonth, { months: -1 });
     setCurrentMonth(format(firstDayNextMonth, "MMM-yyyy"));
@@ -65,7 +65,6 @@ const Calender = ({ logs }: AppProps) => {
     filterAllhistoryByDay(logs!, selectedDay, setLogs);
   }, [selectedDay]);
 
- 
   return (
     <Layout>
       <div className="container mx-auto sm:px-6 lg:px-8 bg-zinc-100 py-10 min-h-screen">
