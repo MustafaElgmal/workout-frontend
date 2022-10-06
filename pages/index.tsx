@@ -50,7 +50,7 @@ const Home: NextPage = ({ logs }: AppProps) => {
   }
   return (
     <Layout>
-      <div className="container mx-auto sm:px-6 lg:px-8 bg-zinc-100	py-10	">
+      <div className="container mx-auto sm:px-6 lg:px-8 bg-zinc-100	py-10	 min-h-screen">
         <div className="bg-white py-6 px-10 flex justify-between items-center">
           <div className="flex items-center">
             <img
@@ -153,6 +153,17 @@ const Home: NextPage = ({ logs }: AppProps) => {
             <h1 className="text-2xl font-extrabold tracking-tight text-gray-900 sm:text-3xl">
               My Progress
             </h1>
+          </div>
+          <div className="min-w-screen min-h-screen flex-wrap	flex items-center justify-center px-5 py-5 ">
+            {progress.map((progres) => (
+              <StockChart
+                key={progres.bgColor}
+                info={data}
+                color={progres.bgColor}
+                name={progres.name}
+                lbs={progres.lbs}
+              />
+            ))}
           </div>
           
         </div>

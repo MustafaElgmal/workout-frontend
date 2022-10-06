@@ -71,7 +71,7 @@ export const data = {
     dividend: 1.67,
   },
   chartData: {
-    labels: ["January", "February", "March   ", "April", "May", "July"],
+    labels: ["January", "February", "March", "April", "May", "July"],
     data: [260, 90, 150, 200, 300, 200],
   },
 };
