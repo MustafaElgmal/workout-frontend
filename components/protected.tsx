@@ -4,14 +4,13 @@ import React from "react";
 import SignIn from "../pages/signin";
 
 const Protected = ({ children }: any) => {
-  const { user } = useUser();
-  console.log("user");
+  const { user,error } = useUser();
   const router = useRouter();
   return (
     <div>
       {user !== null ||
       router.asPath === "/signup" ||
-      router.asPath === "/forgetPasswordCode" ? (
+      router.asPath === "/resetPassword" ? (
         children
       ) : (
         <SignIn />

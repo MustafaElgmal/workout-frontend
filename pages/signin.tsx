@@ -102,7 +102,7 @@ const SignIn = () => {
 
                   <div className="flex items-center justify-between">
                     <div className="text-sm">
-                      <Link href="/forgetPasswordCode">
+                      <Link href="/resetPassword">
                         <a className="font-medium  hover:text-indigo-500">
                           Forgot your password?
                         </a>
