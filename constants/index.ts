@@ -45,16 +45,33 @@ export const userNavigation: userNavigationType[] = [
   { name: "Sign out", href: "/signin" },
 ];
 
-export const colStartClass:string[]=[
-  '',
-  'col-start-2',
-  'col-start-3',
-  'col-start-4',
-  'col-start-5',
-  'col-start-6',
-  'col-start-7'
-]
+export const colStartClass: string[] = [
+  "",
+  "col-start-2",
+  "col-start-3",
+  "col-start-4",
+  "col-start-5",
+  "col-start-6",
+  "col-start-7",
+];
 
 export const classNames = (...classes: string[]) => {
   return classes.filter(Boolean).join(" ");
+};
+export const data = {
+  stockFullName: "SW Limited.",
+  stockShortName: "ASX:SFW",
+  price: {
+    current: 2.32,
+    open: 2.23,
+    low: 2.215,
+    high: 2.325,
+    cap: 93765011,
+    ratio: 20.1,
+    dividend: 1.67,
+  },
+  chartData: {
+    labels: ["January", "February", "March   ", "April", "May", "July"],
+    data: [260, 90, 150, 200, 300, 200],
+  },
 };

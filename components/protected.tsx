@@ -4,11 +4,9 @@ import React from "react";
 import SignIn from "../pages/signin";
 
 const Protected = ({ children }: any) => {
-  const { user, isLoading } = useUser();
+  const { user} = useUser();
   const router = useRouter();
-  if (isLoading) {
-    return <div>...Loding</div>;
-  }
+ 
   return (
     <div>
       {user !== null ||
