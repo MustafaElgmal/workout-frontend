@@ -19,9 +19,8 @@ import _ from "lodash";
 import { classNames, colStartClass } from "../constants/index";
 import Layout from "../components/layout";
 import { getUser, withPageAuth } from "@supabase/auth-helpers-nextjs";
-
+import { prisma } from "../lib/prisma";
 import { AppProps, historyType } from "../types";
-import { getLogs } from "../utils/apis";
 import { GetServerSideProps } from "next";
 import { filterAllhistoryByDay } from "../utils/functions";
 import WorkoutHistory from "../components/workoutHistory";
@@ -29,8 +28,11 @@ export const getServerSideProps: GetServerSideProps = withPageAuth({
   redirectTo: "/signin",
   async getServerSideProps(ctx) {
     const { user } = await getUser(ctx);
-    const logs: historyType[] = await getLogs(user.id);
-    return { props: { logs } };
+    const logs = await prisma.log.findMany({
+      where: { userId: user.id },
+      include: { workoutline: { include: { workout: true,exercise:true } } },
+    });
+    return { props: {logs:JSON.parse(JSON.stringify(logs)) } };
   },
 });
 
@@ -47,7 +49,7 @@ const Calender = ({ logs }: AppProps) => {
     start: startOfWeek(firstDayCurrentMonth),
     end: endOfWeek(endOfMonth(firstDayCurrentMonth)),
   });
-  console.log(newDays)
+
 
   function prevMonth() {
     let firstDayNextMonth = add(firstDayCurrentMonth, { months: -1 });
@@ -63,7 +65,7 @@ const Calender = ({ logs }: AppProps) => {
     filterAllhistoryByDay(logs!, selectedDay, setLogs);
   }, [selectedDay]);
 
-  console.log(logsFilter);
+ 
   return (
     <Layout>
       <div className="container mx-auto sm:px-6 lg:px-8 bg-zinc-100 py-10 min-h-screen">

@@ -1,9 +1,7 @@
 import { NextRouter, useRouter } from "next/router";
 import axios from "axios";
-import { Base_Url } from "../constants";
 import { LogCreateType, userCreate } from "../types";
 import { supabaseClient } from "@supabase/auth-helpers-nextjs";
-import { prisma } from "../lib/prisma";
 import { Dispatch } from "@reduxjs/toolkit";
 import { setProfile } from "../redux/features/profile";
 
@@ -79,17 +77,8 @@ export const signInUser = async (
 };
 export const getUserProfile = async (id: string, dispatch: Dispatch) => {
   try {
-    const res = await axios.get(`${Base_Url}/api/users/${id}`);
+    const res = await axios.get(`/api/users/${id}`);
     dispatch(setProfile(res.data.profile));
-  } catch (e) {
-    console.log(e);
-  }
-};
-
-export const getLogs = async (userId: string) => {
-  try {
-    const res = await axios.get(`${Base_Url}/api/history/${userId}`);
-    return res.data.logs;
   } catch (e) {
     console.log(e);
   }
@@ -103,17 +92,25 @@ export const addPhoto = async (
   try {
     const formData = new FormData();
     formData.append("image", file);
-    const res = await axios.post(
-      `${Base_Url}/api/users/image/${userId}`,
-      formData,
-      {
-        headers: {
-          "Content-Type": "multipart/form-data",
-        },
-      }
-    );
+    const res = await axios.post(`/api/users/image/${userId}`, formData, {
+      headers: {
+        "Content-Type": "multipart/form-data",
+      },
+    });
     dispatch(setProfile(res.data.profile));
   } catch (e) {
+    console.log(e);
+  }
+};
+
+export const sendForgetPasswordEmai = async (email: string) => {
+  try {
+    await axios.post(`/api/sendGride`, { email });
+    alert("Email is Send");
+  } catch (e: any) {
+    if (e.response.status === 404) {
+      return alert(e.response.data.message);
+    }
     console.log(e);
   }
 };

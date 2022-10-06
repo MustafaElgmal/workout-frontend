@@ -8,23 +8,24 @@ import { useEffect, useState } from "react";
 import { useDispatch } from "react-redux";
 import StockChart from "../components/chart";
 import Layout from "../components/layout";
-import { Base_Url, progress } from "../constants/index";
+import {  progress } from "../constants/index";
 import { classNames } from "../constants/index";
 import { useAppSelector } from "../redux/app/hookes";
 import { AppProps, progressType } from "../types";
-import { addPhoto, getLogs } from "../utils/apis";
+import { addPhoto } from "../utils/apis";
 import { getPersonalRecord, getStreakDay } from "../utils/functions";
+import { prisma } from "../lib/prisma";
 
 export const getServerSideProps: GetServerSideProps = withPageAuth({
-
-
-  redirectTo:'/signin',
-
+  redirectTo: "/signin",
 
   async getServerSideProps(ctx) {
     const { user } = await getUser(ctx);
-    const logs = await getLogs(user.id);
-    return { props: { logs } };
+    const logs = await prisma.log.findMany({
+      where: { userId: user.id },
+      include: { workoutline: { include: { workout: true,exercise:true } } },
+    });
+    return { props: {logs:JSON.parse(JSON.stringify(logs)) } };
   },
 });
 
@@ -56,7 +57,6 @@ const Home: NextPage = ({ logs }: AppProps) => {
     btn2: true,
   });
   const { user } = useUser();
-  console.log(user);
   const router = useRouter();
   useEffect(() => {
     getStreakDay(logs!, setDays);
@@ -85,7 +85,7 @@ const Home: NextPage = ({ logs }: AppProps) => {
           <div className="space-x-2">
             <input
               type="file"
-              accept="image/JPG,image/png"
+              accept=".jpg,.png"
               onChange={async (e) =>
                 await addPhoto(user?.id!, e.target.files[0] as File, dispatch)
               }
@@ -180,7 +180,7 @@ const Home: NextPage = ({ logs }: AppProps) => {
           </div>
         </div>
       </div>
-     </Layout>
+    </Layout>
   );
 };
 

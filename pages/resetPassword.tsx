@@ -4,21 +4,20 @@ import Link from "next/link";
 import { useRouter } from "next/router";
 import React from "react";
 import * as Yup from "yup";
+import { sendForgetPasswordEmai } from "../utils/apis";
 
-const ForgetPasswordCode = () => {
+const RestPassword = () => {
   const router = useRouter();
   const formik = useFormik({
     initialValues: {
       email: "",
     },
     validationSchema: Yup.object({
-      email: Yup.string().required("Email is required!"),
+      email: Yup.string().email().required("Email is required!"),
     }),
     onSubmit: async (values) => {
-      const res = await axios.post("/api/sendGride", values);
-      if (res.status === 201) {
-        router.push("/signin");
-      }
+      await sendForgetPasswordEmai(values.email);
+
       formik.resetForm();
     },
   });
@@ -90,4 +89,4 @@ const ForgetPasswordCode = () => {
   );
 };
 
-export default ForgetPasswordCode;
+export default RestPassword;

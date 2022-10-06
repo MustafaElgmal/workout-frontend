@@ -58,7 +58,7 @@ const options = {
 
 const StockChart = ({ info,color,name,lbs }:any) => {
     const data = buildData(info);
-    console.log(color);
+  
     
     return (
         <>

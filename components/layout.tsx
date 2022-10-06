@@ -27,7 +27,6 @@ export default function Layout({ children }: AppProps) {
   const dispatch = useDispatch();
 
   const getProfile = async () => {
-    console.log(user);
     if (user !== null) {
       await getUserProfile(user.id as string, dispatch);
     } else {
@@ -40,7 +39,7 @@ export default function Layout({ children }: AppProps) {
     setRouter(router.asPath);
     changeNavigationCurrent(router.asPath, menu, setMenu);
   }, []);
-  console.log(profile);
+ 
   if (isLoading) {
     return <div>...Loding</div>;
   }
