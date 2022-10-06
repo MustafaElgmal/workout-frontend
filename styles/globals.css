@@ -60,6 +60,9 @@ a {
   height: 100vh;
 
 }
+.img{
+  background-size: cover;
+}
 .imgbackexer{
   height:35vh;
   width:100%;

@@ -116,3 +116,15 @@ export const IsBusy=(day:Date,logs:historyType[])=>{
 
 
 }
+
+export const logsUniqe=(logs:historyType[],setUniqeLogs:Function)=>{
+  const result = _(logs)
+  .groupBy("workoutline.exercise.name")
+  .map((v, email) => ({
+    name: email,
+    logs: _.map(v),
+  }))
+  .value();
+  setUniqeLogs(result)
+
+}
