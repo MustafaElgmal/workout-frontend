@@ -50,7 +50,6 @@ const Calender = ({ logs }: AppProps) => {
     end: endOfWeek(endOfMonth(firstDayCurrentMonth)),
   });
 
-  console.log(logsFilter);
   function prevMonth() {
     let firstDayNextMonth = add(firstDayCurrentMonth, { months: -1 });
     setCurrentMonth(format(firstDayNextMonth, "MMM-yyyy"));

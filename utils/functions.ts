@@ -26,11 +26,7 @@ export const getCategoryIdFromPath = (path: string): number => {
   return parseInt(id);
 };
 
-export const handleClick = (name: string) => {
-  if (name === "Sign out") {
-    supabaseClient.auth.signOut();
-  }
-};
+
 
 export const getArrayOfSet = (workoutline: Workoutline, setRecs: Function) => {
   const arr: RecType[] = [];

@@ -19,6 +19,7 @@ export const getServerSideProps: GetServerSideProps = withPageAuth({
   redirectTo: "/signin",
   async getServerSideProps(ctx) {
     const { user } = await getUser(ctx);
+    console.log(user)
     const logs = await prisma.log.findMany({
       where: { userId: user.id },
       include: { workoutline: { include: { workout: true, exercise: true } } },
@@ -37,6 +38,7 @@ const Home: NextPage = ({ logs }: AppProps) => {
     btn2: true,
   });
   const { user, isLoading } = useUser();
+  console.log(user)
   const router = useRouter();
   useEffect(() => {
     getStreakDay(logs!, setDays);
@@ -159,7 +161,7 @@ const Home: NextPage = ({ logs }: AppProps) => {
                 info={data}
                 color={progres.bgColor}
                 name={progres.name}
-                lbs={progres.lbs}
+                lbs={30}
               />
             ))}
           </div>
