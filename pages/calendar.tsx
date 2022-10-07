@@ -22,7 +22,7 @@ import { getUser, withPageAuth } from "@supabase/auth-helpers-nextjs";
 import { prisma } from "../lib/prisma";
 import { AppProps, historyType } from "../types";
 import { GetServerSideProps } from "next";
-import { filterAllhistoryByDay } from "../utils/functions";
+import { filterAllhistoryByDay, IsBusy } from "../utils/functions";
 import WorkoutHistory from "../components/workoutHistory";
 export const getServerSideProps: GetServerSideProps = withPageAuth({
   redirectTo: "/signin",
@@ -119,6 +119,7 @@ const Calender = ({ logs }: AppProps) => {
                       !isEqual(day, selectedDay) && isToday(day)
                         ? "text-red-500"
                         : "",
+                      IsBusy(day,logs!)?"bg-green-900":"",
                       !isEqual(day, selectedDay) &&
                         !isToday(day) &&
                         isSameMonth(day, firstDayCurrentMonth)
