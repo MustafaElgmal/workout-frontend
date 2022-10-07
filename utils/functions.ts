@@ -109,6 +109,13 @@ export const getPersonalRecord = (
 
 
 export const IsBusy=(day:Date,logs:historyType[])=>{
+  for(let i=0;i<logs.length;i++){
+    if(moment(logs[i].createdAt).format("L") === moment(day).format("L")){
+      return true
+
+    }
+  }
+  return false
 
 
 }
