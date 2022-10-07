@@ -11,7 +11,6 @@ const ExerciseHistory = ({logs}:AppProps) => {
   useEffect(()=>{
     logsUniqe(logs!,setUniqeLogs)
   },[])
-  console.log(uniqeLogs)
   return (
     <>
       {uniqeLogs?.map((log) => (

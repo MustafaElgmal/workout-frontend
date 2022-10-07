@@ -40,8 +40,6 @@ export const navigation: MenuType[] = [
   { name: "Calendar", href: "/calendar", icon: CalendarIcon, current: false },
 ];
 export const userNavigation: userNavigationType[] = [
-  { name: "Your Profile", href: "/" },
-  { name: "Upload Photo", href: "/" },
   { name: "Sign out", href: "/signin" },
 ];
 

@@ -9,13 +9,14 @@ import {
   XMarkIcon,
 } from "@heroicons/react/24/outline";
 import { AppProps, MenuType } from "../types";
-import { changeNavigationCurrent, handleClick } from "../utils/functions";
+import { changeNavigationCurrent } from "../utils/functions";
 import { classNames, navigation, userNavigation } from "../constants";
 
 import { getUserProfile } from "../utils/apis";
 import { useUser } from "@supabase/auth-helpers-react";
 import { useDispatch } from "react-redux";
 import { useAppSelector } from "../redux/app/hookes";
+import { supabaseClient } from "@supabase/auth-helpers-nextjs";
 
 export default function Layout({ children }: AppProps) {
   const [menu, setMenu] = useState<MenuType[]>(navigation);
@@ -39,7 +40,7 @@ export default function Layout({ children }: AppProps) {
     setRouter(router.asPath);
     changeNavigationCurrent(router.asPath, menu, setMenu);
   }, []);
- 
+
   return (
     <div>
       <Transition.Root show={sidebarOpen} as={Fragment}>
@@ -229,26 +230,22 @@ export default function Layout({ children }: AppProps) {
                   leaveTo="transform opacity-0 scale-95"
                 >
                   <Menu.Items className="absolute right-0 z-10 mt-2 w-48 origin-top-right rounded-md bg-white py-1 shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none">
-                    {userNavigation.map((item) => (
-                      <Menu.Item key={item.name}>
-                        {({ active }) => (
-                          <Link
-                            href={item.href}
-                            onClick={() => handleClick(item.name)}
-                          >
-                            <a
-                              className={classNames(
-                                active ? "bg-gray-100" : "",
-                                "block px-4 py-2 text-sm text-gray-700",
-                                "hover:bg-gray-100"
-                              )}
-                            >
-                              {item.name}
-                            </a>
-                          </Link>
-                        )}
-                      </Menu.Item>
-                    ))}
+                    <Menu.Item>
+                      {({ active }) => (
+                        <p
+                          className={classNames(
+                            active ? "bg-gray-100" : "",
+                            "block px-4 py-2 text-sm text-gray-700 cursor-pointer",
+                            "hover:bg-gray-100"
+                          )}
+                          onClick={async () => {
+                            await supabaseClient.auth.signOut();
+                          }}
+                        >
+                          Sign out
+                        </p>
+                      )}
+                    </Menu.Item>
                   </Menu.Items>
                 </Transition>
               </Menu>
