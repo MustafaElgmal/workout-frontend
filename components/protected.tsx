@@ -6,7 +6,7 @@ import SignIn from "../pages/signin";
 const Protected = ({ children }: any) => {
   const { user} = useUser();
   const router = useRouter();
-  console.log(user)
+ 
  
   return (
     <div>

@@ -6,6 +6,7 @@ import { Dispatch } from "@reduxjs/toolkit";
 import { setProfile } from "../redux/features/profile";
 
 export const createUser = async (userr: userCreate, router: NextRouter) => {
+  console.log(userr)
   try {
     await supabaseClient.auth.signUp(
       {
@@ -18,12 +19,14 @@ export const createUser = async (userr: userCreate, router: NextRouter) => {
           age: userr.age,
         },
       }
+    
     );
     const { user, error } = await supabaseClient.auth.signIn({
       email: userr.email,
       password: userr.password,
     });
     const res = await axios.post("/api/users", { ...userr, id: user?.id });
+    console.log(res)
     if (res.status === 201 && userr !== null) router.push("/");
     else {
       router.push("/signin");
@@ -39,7 +42,6 @@ export const createUser = async (userr: userCreate, router: NextRouter) => {
 export const createLog = async (log: LogCreateType) => {
   try {
     const res = await axios.post("/api/logs", log);
-    console.log("Log is created!");
   } catch (e: any) {
     if (e.status !== 500) {
       alert(e.response.data.errors[0].error);

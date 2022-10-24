@@ -52,7 +52,6 @@ export default async function handlerUser(
     
         res.status(201).json({user});
       } catch (e) {
-        console.log(e)
         res.status(500).json({ error: "Server is down!" });
       }
       break;

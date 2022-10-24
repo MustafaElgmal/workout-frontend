@@ -36,15 +36,14 @@ const Signup = () => {
       weight: Yup.string().required("Weight is required!"),
     }),
     onSubmit: async (values) => {
+     
       const res = await createUser(
         {
           ...values,
-
           height: +values.height,
           age: +values.age,
           weight: +values.weight,
           gender: selected.name,
-
         },
         router
       );

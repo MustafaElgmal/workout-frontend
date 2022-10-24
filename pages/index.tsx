@@ -10,16 +10,15 @@ import Layout from "../components/layout";
 import { progress, data } from "../constants/index";
 import { classNames } from "../constants/index";
 import { useAppSelector } from "../redux/app/hookes";
-import { AppProps, progressType } from "../types";
-import { addPhoto } from "../utils/apis";
-import { getPersonalRecord, getStreakDay } from "../utils/functions";
+import { AppProps, chartType, progressType } from "../types";
+import { getChartsRecords, getPersonalRecord, getStreakDay } from "../utils/functions";
 import { prisma } from "../lib/prisma";
 
 export const getServerSideProps: GetServerSideProps = withPageAuth({
   redirectTo: "/signin",
   async getServerSideProps(ctx) {
     const { user } = await getUser(ctx);
-    console.log(user)
+   
     const logs = await prisma.log.findMany({
       where: { userId: user.id },
       include: { workoutline: { include: { workout: true, exercise: true } } },
@@ -33,16 +32,19 @@ const Home: NextPage = ({ logs }: AppProps) => {
   const profile = useAppSelector((state) => state.user.profile);
   const [days, setDays] = useState<number>(0);
   const [personalRecords, setPersonalRecords] = useState<progressType[]>([]);
+  const [chartRecords, setChartRecords] = useState<chartType[]>([]);
   const [selected, setSelected] = useState<{ btn1: Boolean; btn2: Boolean }>({
     btn1: false,
     btn2: true,
   });
   const { user, isLoading } = useUser();
-  console.log(user)
+ 
   const router = useRouter();
   useEffect(() => {
     getStreakDay(logs!, setDays);
     getPersonalRecord(logs!, progress, setPersonalRecords);
+    getChartsRecords(logs!,progress,setChartRecords)
+    
   }, [logs]);
 
   if (isLoading) {
@@ -58,7 +60,7 @@ const Home: NextPage = ({ logs }: AppProps) => {
               src={`${
                 profile?.imageUrl
                   ? profile.imageUrl
-                  : "https://review2020.s3.amazonaws.com/360_F_346839683_6nAPzbhpSkIpb8pmAwufkC7c5eD7wYws.jpg"
+                  : "https://vsehzqgmugndfzhsvknp.supabase.co/storage/v1/object/sign/images/360_F_346839683_6nAPzbhpSkIpb8pmAwufkC7c5eD7wYws.jpg?token=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1cmwiOiJpbWFnZXMvMzYwX0ZfMzQ2ODM5NjgzXzZuQVB6YmhwU2tJcGI4cG1Bd3Vma0M3YzVlRDd3WXdzLmpwZyIsImlhdCI6MTY2NjYyMTUzOCwiZXhwIjoxOTgxOTgxNTM4fQ.yqrGRk7JGCuzW0KPIObHaPKKmKrijkSih7KzN406SYM"
               }`}
               alt="Profile"
             />
@@ -67,16 +69,8 @@ const Home: NextPage = ({ logs }: AppProps) => {
               <span>{`${days > 0 ? `🔥${days} Day Streak` : ""}`}</span>
             </div>
           </div>
-          <div className="grid grid-cols-1 sm:grid-cols-1 lg:grid-cols-3 w-1/2">
-            <input
-              type="file"
-              accept=".jpg,.png"
-              onChange={async (e) => {
-                if (e.target.files !== null) {
-                  await addPhoto(user?.id!, e.target.files[0], dispatch);
-                }
-              }}
-            />
+          <div className="grid grid-cols-1 sm:grid-cols-1 lg:grid-cols-2 space-x-2">
+           
             <button
               onClick={() => {
                 router.push("/workouts");
@@ -155,13 +149,13 @@ const Home: NextPage = ({ logs }: AppProps) => {
             </h1>
           </div>
           <div className="min-w-screen min-h-screen flex-wrap	flex items-center justify-center px-5 py-5 ">
-            {progress.map((progres) => (
+            {chartRecords.map((progres) => (
               <StockChart
                 key={progres.bgColor}
-                info={data}
+                info={progres.data}
                 color={progres.bgColor}
                 name={progres.name}
-                lbs={30}
+                lbs={progres.lbs}
               />
             ))}
           </div>
