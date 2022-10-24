@@ -2,7 +2,13 @@ import { Workoutline } from "@prisma/client";
 import { supabaseClient } from "@supabase/auth-helpers-nextjs";
 import _ from "lodash";
 import moment from "moment";
-import { historyType, MenuType, progressType, RecType } from "./../types";
+import {
+  chartType,
+  historyType,
+  MenuType,
+  progressType,
+  RecType,
+} from "./../types";
 export const changeNavigationCurrent = (
   href: string,
   menu: MenuType[],
@@ -25,8 +31,6 @@ export const getCategoryIdFromPath = (path: string): number => {
   const id = parts[parts.length - 2];
   return parseInt(id);
 };
-
-
 
 export const getArrayOfSet = (workoutline: Workoutline, setRecs: Function) => {
   const arr: RecType[] = [];
@@ -107,27 +111,79 @@ export const getPersonalRecord = (
   setPersonalRecords(personalRecords);
 };
 
+export const getChartsRecords = (
+  logs: historyType[],
+  progress: progressType[],
+  setChartRecords: Function
+) => {
+  const chartRecords: chartType[] = [];
+  let data: {
+    chartData: {
+      labels: string[];
+      data: number[];
+    };
+  }={
+    chartData: {
+      labels: ["January", "February", "March", "April", "May", "June","July","August","September","October","Noverber","December"],
+      data: [],
+    },
+  }
+  let weights = 0,
+    number = 1,
+    sum = 0
+  for (let j = 0; j < 4; j++) {
+    weights = 0;
+    data={
+      chartData: {
+        labels: ["January", "February", "March", "April", "May", "June","July","August","September","October","Noverber","December"],
+        data: [],
+      },
+    }
+    console.log(progress[j])
+    console.log(data.chartData.data)
+    for (let k = 0; k < 12; k++) {
+      number = 1;
+      sum = 0;
+      for (let i = 0; i < logs.length; i++) {
+        if (logs[i].workoutline.exercise.name === progress[j].name) {
+          if (logs[i].userWeights > weights) weights = logs[i].userWeights;
+          if (moment(logs[j].createdAt).month() === k) {
+            number++;
+            sum += logs[i].userWeights;
+          }
+        }
+        
+      
+      }
+      data.chartData.data.push(sum/number);
+    }
 
-export const IsBusy=(day:Date,logs:historyType[])=>{
-  for(let i=0;i<logs.length;i++){
-    if(moment(logs[i].createdAt).format("L") === moment(day).format("L")){
-      return true
+    chartRecords.push({
+      bgColor: progress[j].bgColor,
+      name: progress[j].name,
+      lbs: weights,
+      data,
+    });
+  }
+  setChartRecords(chartRecords);
+};
 
+export const IsBusy = (day: Date, logs: historyType[]) => {
+  for (let i = 0; i < logs.length; i++) {
+    if (moment(logs[i].createdAt).format("L") === moment(day).format("L")) {
+      return true;
     }
   }
-  return false
+  return false;
+};
 
-
-}
-
-export const logsUniqe=(logs:historyType[],setUniqeLogs:Function)=>{
+export const logsUniqe = (logs: historyType[], setUniqeLogs: Function) => {
   const result = _(logs)
-  .groupBy("workoutline.exercise.name")
-  .map((v, email) => ({
-    name: email,
-    logs: _.map(v),
-  }))
-  .value();
-  setUniqeLogs(result)
-
-}
+    .groupBy("workoutline.exercise.name")
+    .map((v, email) => ({
+      name: email,
+      logs: _.map(v),
+    }))
+    .value();
+  setUniqeLogs(result);
+};

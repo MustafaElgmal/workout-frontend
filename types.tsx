@@ -11,9 +11,8 @@ export interface AppProps {
   profile?: User;
   children?: JSX.Element;
   logs?: historyType[];
-  logGroups?: { name: string; logs: historyType[]}[];
+  logGroups?: { name: string; logs: historyType[] }[];
   selectedDay?: Date;
-
 }
 export interface RecType {
   recSet: number;
@@ -73,3 +72,11 @@ export interface progressType {
   lbs: number;
 }
 
+export interface chartType extends progressType {
+  data: {
+    chartData: {
+      labels: string[];
+      data: number[];
+    };
+  };
+}

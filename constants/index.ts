@@ -57,19 +57,8 @@ export const classNames = (...classes: string[]) => {
   return classes.filter(Boolean).join(" ");
 };
 export const data = {
-  stockFullName: "SW Limited.",
-  stockShortName: "ASX:SFW",
-  price: {
-    current: 2.32,
-    open: 2.23,
-    low: 2.215,
-    high: 2.325,
-    cap: 93765011,
-    ratio: 20.1,
-    dividend: 1.67,
-  },
   chartData: {
-    labels: ["January", "February", "March", "April", "May", "July"],
-    data: [260, 90, 150, 200, 300, 200],
+    labels: ["January", "February", "March", "April", "May", "June","July","August","September","October","Noverber","December"],
+    data: [260, 90, 150, 200, 300, 200,0,0,0,0,0,0],
   },
 };

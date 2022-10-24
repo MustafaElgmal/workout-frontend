@@ -12,7 +12,7 @@ import { AppProps, MenuType } from "../types";
 import { changeNavigationCurrent } from "../utils/functions";
 import { classNames, navigation, userNavigation } from "../constants";
 
-import { getUserProfile } from "../utils/apis";
+import { addPhoto, getUserProfile } from "../utils/apis";
 import { useUser } from "@supabase/auth-helpers-react";
 import { useDispatch } from "react-redux";
 import { useAppSelector } from "../redux/app/hookes";
@@ -24,7 +24,7 @@ export default function Layout({ children }: AppProps) {
   const [sidebarOpen, setSidebarOpen] = useState(false);
   const [Router, setRouter] = useState<string>("");
   const router = useRouter();
-  const { user } = useUser();
+  const { user, isLoading } = useUser();
   const dispatch = useDispatch();
 
   const getProfile = async () => {
@@ -98,7 +98,7 @@ export default function Layout({ children }: AppProps) {
                 <div className="flex flex-shrink-0 items-center px-4">
                   <img
                     className="h-8 w-auto"
-                    src="https://review2020.s3.amazonaws.com/logo-4.png"
+                    src="https://vsehzqgmugndfzhsvknp.supabase.co/storage/v1/object/sign/images/170241003-d8362438-32bb-4b11-8471-479165fcb399.png?token=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1cmwiOiJpbWFnZXMvMTcwMjQxMDAzLWQ4MzYyNDM4LTMyYmItNGIxMS04NDcxLTQ3OTE2NWZjYjM5OS5wbmciLCJpYXQiOjE2NjY2MjAwNzQsImV4cCI6MTk4MTk4MDA3NH0.3wxxliDHdyUoe-cF6t6Ja38A24IpDFfKIQ2KjZPZP0s"
                     alt="logo"
                   />
                 </div>
@@ -148,7 +148,7 @@ export default function Layout({ children }: AppProps) {
           <div className="flex flex-shrink-0 items-center px-4">
             <img
               style={{ width: "150px" }}
-              src="https://review2020.s3.amazonaws.com/logo-4.png"
+              src="https://vsehzqgmugndfzhsvknp.supabase.co/storage/v1/object/sign/images/170241003-d8362438-32bb-4b11-8471-479165fcb399.png?token=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1cmwiOiJpbWFnZXMvMTcwMjQxMDAzLWQ4MzYyNDM4LTMyYmItNGIxMS04NDcxLTQ3OTE2NWZjYjM5OS5wbmciLCJpYXQiOjE2NjY2MjAwNzQsImV4cCI6MTk4MTk4MDA3NH0.3wxxliDHdyUoe-cF6t6Ja38A24IpDFfKIQ2KjZPZP0s"
               alt="logo"
             />
           </div>
@@ -214,7 +214,7 @@ export default function Layout({ children }: AppProps) {
                       src={`${
                         profile?.imageUrl
                           ? profile.imageUrl
-                          : "https://review2020.s3.amazonaws.com/360_F_346839683_6nAPzbhpSkIpb8pmAwufkC7c5eD7wYws.jpg"
+                          : "https://vsehzqgmugndfzhsvknp.supabase.co/storage/v1/object/sign/images/360_F_346839683_6nAPzbhpSkIpb8pmAwufkC7c5eD7wYws.jpg?token=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1cmwiOiJpbWFnZXMvMzYwX0ZfMzQ2ODM5NjgzXzZuQVB6YmhwU2tJcGI4cG1Bd3Vma0M3YzVlRDd3WXdzLmpwZyIsImlhdCI6MTY2NjYyMTUzOCwiZXhwIjoxOTgxOTgxNTM4fQ.yqrGRk7JGCuzW0KPIObHaPKKmKrijkSih7KzN406SYM"
                       }`}
                       alt="Profile"
                     />
@@ -230,6 +230,40 @@ export default function Layout({ children }: AppProps) {
                   leaveTo="transform opacity-0 scale-95"
                 >
                   <Menu.Items className="absolute right-0 z-10 mt-2 w-48 origin-top-right rounded-md bg-white py-1 shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none">
+                    <div>
+                      <div>
+                        <div className="flex justify-center items-center w-full">
+                          <label
+                            htmlFor="pic"
+                            className=" flex flex-col  w-full   rounded-lg   cursor-pointer dark:hover:bg-bray-800 dark:bg-gray-700 hover:bg-gray-100 dark:border-gray-600 dark:hover:border-gray-500 dark:hover:bg-gray-600"
+                          >
+                            <span className=" px-4 py-2 text-sm text-gray-700 dark:text-gray-400">
+                              Upload Photo
+                            </span>
+
+                            <input
+                              className="hidden"
+                              id="pic"
+                              type="file"
+                              accept=".jpg,.png"
+                              onChange={async (e) => {
+                                console.log(e.target);
+                                console.log(user?.id);
+
+                                if (e.target.files !== null) {
+                                  await addPhoto(
+                                    user?.id!,
+                                    e.target.files[0],
+                                    dispatch
+                                  );
+                                }
+                              }}
+                            />
+                          </label>
+                        </div>
+                      </div>
+                    </div>
+
                     <Menu.Item>
                       {({ active }) => (
                         <p
