@@ -6,7 +6,6 @@ import { Dispatch } from "@reduxjs/toolkit";
 import { setProfile } from "../redux/features/profile";
 
 export const createUser = async (userr: userCreate, router: NextRouter) => {
-  console.log(userr)
   try {
     await supabaseClient.auth.signUp(
       {
@@ -26,7 +25,7 @@ export const createUser = async (userr: userCreate, router: NextRouter) => {
       password: userr.password,
     });
     const res = await axios.post("/api/users", { ...userr, id: user?.id });
-    console.log(res)
+   
     if (res.status === 201 && userr !== null) router.push("/");
     else {
       router.push("/signin");

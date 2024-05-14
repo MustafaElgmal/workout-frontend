@@ -1,3 +1,4 @@
+/* eslint-disable @next/next/no-img-element */
 import { GetStaticPaths, GetStaticProps } from "next";
 import { prisma } from "../../../../lib/prisma";
 import Link from "next/link";

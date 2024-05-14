@@ -247,9 +247,6 @@ export default function Layout({ children }: AppProps) {
                               type="file"
                               accept=".jpg,.png"
                               onChange={async (e) => {
-                                console.log(e.target);
-                                console.log(user?.id);
-
                                 if (e.target.files !== null) {
                                   await addPhoto(
                                     user?.id!,

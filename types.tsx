@@ -13,6 +13,7 @@ export interface AppProps {
   logs?: historyType[];
   logGroups?: { name: string; logs: historyType[] }[];
   selectedDay?: Date;
+  
 }
 export interface RecType {
   recSet: number;
